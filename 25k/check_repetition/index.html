@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <title>内部查重器</title>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+        <style>
+            .match {
+                background-color: orange;
+            }
+            .start {
+                background-color: yellowgreen;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>内部查重器</h1>
+        <hr />
+        <p>输入所有要内部查重的文本：</p>
+        <p><textarea id="text" cols="120" rows="25"></textarea></p>
+        <p>查重最小长度：<input type="number" min="1" max="1024" step="1" id="match-length" value="8"></p>
+        <p><button id="btn">点击查重</button></p>
+        <p><input id="ignore-whitespace" type="checkbox" checked>忽略空白字符</p>
+        <p>结果：</p>
+        <pre id="result"></pre>
+        <script>
+            function check_repeats_before(text, startfrom, minlength){
+                var repeats = [];
+                for (var i=0; i<startfrom; i++){
+                    if (text[i] == text[startfrom]){
+                        var replen = 0;
+                        while (i + replen < startfrom && text[i + replen] == text[startfrom + replen]){
+                            replen++;
+                        }
+                        if (replen >= minlength){
+                            repeats.push({
+                                "start": i,
+                                "length": replen
+                            });
+                        }
+                    }
+                }
+                return repeats
+            }
+            function check_all_repeats(text, minlength){
+                var all_repeats = [];
+                for (var i=0; i<text.length; i++){
+                    var repeats = check_repeats_before(text, i, minlength);
+                    var skip = 0;
+                    var skip_i = null;
+                    for (var r=0; r<repeats.length; r++){
+                        if (repeats[r].length > skip){
+                            skip = repeats[r].length;
+                            skip_i = r;
+                        }
+                    }
+                    if (skip_i != null){
+                        all_repeats.push({
+                            "match": i,
+                            "start": repeats[skip_i].start,
+                            "length": repeats[skip_i].length
+                        });
+                    }
+                    i += Math.max(0, skip - 1);
+                }
+                return all_repeats;
+            }
+
+            function main(){
+                var text = $("#text").val();
+                var minlen = parseInt($("#match-length").val());
+                text = text.replaceAll(/ |\t|\n|　/g, "");
+                if ($("#ignore-whitespace").prop("checked")){
+                    var all_repeats = check_all_repeats(text, minlen);
+                } else {
+                    var all_repeats = check_all_repeats(text, minlen);
+                }
+                var result_text = [];
+                for (var r=0; r<all_repeats.length; r++){
+                    var cr = all_repeats[r];
+                    result_text.push("字串　　　：");
+                    result_text.push("...");
+                    result_text.push(text.substr(cr.match - 5, 5));
+                    result_text.push($("<span class='match'>").text(text.substr(cr.match, cr.length)));
+                    result_text.push(text.substr(cr.match + cr.length, 5));
+                    result_text.push("...");
+                    result_text.push("\n之前出现在：");
+                    result_text.push("...");
+                    result_text.push(text.substr(cr.start - 5, 5));
+                    result_text.push($("<span class='start'>").text(text.substr(cr.start, cr.length)));
+                    result_text.push(text.substr(cr.start + cr.length, 5));
+                    result_text.push("...");
+                    result_text.push("\n\n");
+                }
+                $("#result").empty();
+                for (var t=0; t<result_text.length; t++){
+                    $("#result").append(result_text[t]);
+                }
+            }
+            $("#btn").on("click", main);
+
+        </script>
+    </body>
+</html>

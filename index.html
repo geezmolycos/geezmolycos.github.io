@@ -1,4 +1,428 @@
 <html>
-    <head></head>
-    <body>早安!</body>
+    <head>
+        <title>geezmolycos.top</title>
+        <meta charset="UTF-8">
+	    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+            <script>
+                var timeshift_offset_ms = 0;
+                function my_new_date(){
+                    return new Date(new Date().valueOf() + timeshift_offset_ms);
+                }
+            </script>
+            <script>
+                "use strict"
+
+                function mod(n, m) {
+                    return ((n % m) + m) % m;
+                }
+
+                function create_svg_elem(name){
+                    var xmlns = "http://www.w3.org/2000/svg";
+                    var $elem = $(document.createElementNS(xmlns, name));
+                    return $elem;
+                }
+
+                function Generalized_clock($container){
+                    this.$container = $container;
+                }
+
+                function get_utc_day_fraction(date){
+                    var h = date.getUTCHours();
+                    var i = date.getUTCMinutes();
+                    var s = date.getUTCSeconds() + date.getUTCMilliseconds() / 1000;
+                    var total_seconds = (h * 60 + i) * 60 + s;
+                    return total_seconds / 86400;
+                }
+
+                function get_day_fraction(date){
+                    var h = date.getHours();
+                    var i = date.getMinutes();
+                    var s = date.getSeconds() + date.getMilliseconds() / 1000;
+                    var total_seconds = (h * 60 + i) * 60 + s;
+                    return total_seconds / 86400;
+                }
+
+                Generalized_clock.prototype.make_base = function(size, face_margin){
+                    var $svg = $('<svg class="analog-clock">').attr("width", size).attr("height", size);
+                    this.$svg = $svg;
+                    this.$container.append($svg);
+                    this.size = size;
+                    this.middle = size / 2;
+                    var $face = create_svg_elem("circle").addClass("face").attr("cx", size/2).attr("cy", size/2).attr("r", size/2 - face_margin);
+                    $svg.append($face);
+                }
+
+                Generalized_clock.prototype.make_hands = function(hand_prop){
+                    var self = this;
+                    self.hand_prop = hand_prop;
+                    $.each(hand_prop, (name, hand_p) => {
+                        var $hand = create_svg_elem("line").addClass("hand").addClass(name);
+                        $hand.css("stroke-width", hand_p.thickness);
+                        $hand.attr("x1", self.middle).attr("y1", self.middle);
+                        $hand.attr("x2", self.middle).attr("y2", self.middle - hand_p.length);
+                        self.$svg.append($hand);
+                        hand_p.$hand = $hand;
+                    });
+                }
+
+                Generalized_clock.prototype.make_ticks = function(class_name, radius, interval_degree, starting_degree, template, template_appearance){
+                    var self = this;
+                    $.each(template.split(""), (i, v) => {
+                        var current_degree = starting_degree + i * interval_degree;
+                        var current_appearance = template_appearance[v];
+                        var $tick = create_svg_elem("line");
+                        $tick.attr("x1", self.middle).attr("y1", self.middle - radius).attr("x2", self.middle).attr("y2", self.middle - radius + current_appearance.length);
+                        $tick.addClass("tick").addClass(class_name);
+                        $tick.css("stroke-width", current_appearance.thickness);
+                        $tick.attr("transform", `rotate(${current_degree}, ${self.middle}, ${self.middle})`);
+                        self.$svg.append($tick);
+                    });
+                }
+
+                Generalized_clock.prototype.make_dials = function(class_name, radius, interval_degree, starting_degree, template){
+                    var self = this;
+                    $.each(template.split(","), (i, v) => {
+                        var current_degree = starting_degree + i * interval_degree;
+                        var $dial = create_svg_elem("text");
+                        $dial.text(v);
+                        $dial.attr("x", 0).attr("y", 0);
+                        $dial.addClass("dial").addClass(class_name);
+                        $dial.attr("transform",
+                            `translate(${self.middle}, ${self.middle}) rotate(${current_degree}) translate(0, ${-radius}) rotate(${-current_degree})`
+                        );
+                        self.$svg.append($dial);
+                    });
+                }
+
+                Generalized_clock.prototype.tick_hands = function(day_fraction){
+                    var self = this;
+                    $.each(self.hand_prop, (name, prop) => {
+                        prop.$hand.attr("transform", `rotate(${mod((prop.initial + day_fraction * prop.ratio) * 360, 360)}, ${self.middle}, ${self.middle})`);
+                    });
+                }
+
+            </script>
+        <style>
+
+            .analog-clock {
+                margin: 0;
+                padding: 0;
+                stroke-linecap: round;
+                font-family: monospace;
+                stroke: black;
+            }
+
+            .analog-clock .face {
+                stroke-width: 2px;
+                fill: white;
+            }
+
+            .analog-clock .dial {
+                text-anchor: middle;
+                dominant-baseline: middle;
+            }
+
+            .analog-clock text {
+                stroke: none;
+            }
+
+            .analog-clock .second {
+                stroke: red;
+            }
+
+            .wrapper {
+                max-width: 1080px;
+                min-width: 720px;
+                margin: auto;
+            }
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .subtitle {
+                color: slategray;
+            }
+
+            a {
+                color: #43B5C9;
+            }
+
+            a:visited{
+                color: #895784;
+            }
+
+            #clock-numeral{
+                font-family: monospace;
+
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header">
+                <div id="title-cont">
+                    <h1>这是 <span id="geezmo">geezmo</span><span id="lycos">lycos</span> (金毛)的个人站点</h1>
+                    <h2 class="subtitle" id="clock-numeral-cont">现在时间是：<span id="clock-numeral"></span></h2>
+                    <h2 class="subtitle">我的 <a href="https://space.bilibili.com/49868114">bilibili主页</a>、<a href="https://github.com/geezmolycos">github 主页</a></h2>
+                </div>
+                <div id="clocks-cont">
+                    <span style="display: inline-block; text-align: center;">
+                        <div id="test-cont"></div>
+                        <div>本地时间</div>
+                    </span>
+                    <span style="display: inline-block; text-align: center;">
+                        <div id="ant-cont"></div>
+                        <div>蚂蚁时间(UTC+7)</div>
+                    </span>
+                </div>
+            </div>
+            <hr />
+            <h2>金毛的<span id="miaomiao" style="color: blueviolet;">妙妙</span>工具箱：</h2>
+            <script>
+                // 奇妙咒语
+                // 开启「相对论效应」
+                var miaomiao_count = 6;
+                $("#miaomiao").on("click", ()=>{
+                    miaomiao_count--;
+                    if (miaomiao_count <= 0){
+                        $("#timeshift-cont").show();
+                    }
+                });
+            </script>
+            <ul>
+                <li><a href="./25k/tp_chinese/">toki pona 汉字假名正字法转换器</a></li>
+                <li><a href="./25k/福利/">金毛福利</a></li>
+                <li><a href="./25k/bailan_latex_svg/">LaTeX AE摆烂动画 svg版</a></li>
+                <li><a href="./25k/check_repetition/">内部查重器</a></li>
+                <li><a href="./25k/local_time_regkey/">Windows地方时注册表配置生成器</a></li>
+                <li><a href="./25k/文件格式可视化影片/">文件格式可视化</a></li>
+                <li><a href="./25k/geezmo_chat_stream/">自用视频串流及聊天服务</a></li>
+                <li><a href="./25k/height_calculator/">金毛身高计算器</a></li>
+            </ul>
+            <hr />
+            <img src="gwynzmo3.png" width="128" height="128">
+            <a href="https://zh.moegirl.org.cn/%E7%A7%8B%E7%83%A8(%E5%BD%A9%E8%99%B9%E5%B0%8F%E9%A9%AC)">
+                <img src="autumn_blaze_cringe.png" width="128" height="128">
+            </a>
+            <hr />
+            <div id="timeshift-cont" style="display: none;">
+                <button id="timeshift-clear">clear timeshift</button>
+                <script>
+                    $("#timeshift-clear").on('click', ()=>{
+                        timeshift_offset_ms = 0;
+                    });
+                </script>
+                <input type="text" id="timeshift-time">
+                <button onclick="timeshift_offset_ms = new Date($('#timeshift-time').val()).valueOf() - new Date().valueOf()">set time</button>
+                <button onclick="timeshift_offset_ms -= 1000">-1s</button>
+                <button onclick="timeshift_offset_ms += 1000">+1s</button>
+                <button onclick="timeshift_offset_ms -= 60*1000">-1min</button>
+                <button onclick="timeshift_offset_ms += 60*1000">+1min</button>
+                <button onclick="timeshift_offset_ms -= 60*60*1000">-1hour</button>
+                <button onclick="timeshift_offset_ms += 60*60*1000">+1hour</button>
+                <button onclick="timeshift_offset_ms -= 24*60*60*1000">-1day</button>
+                <button onclick="timeshift_offset_ms += 24*60*60*1000">+1day</button>
+                <button onclick="timeshift_offset_ms -= 30*24*60*60*1000">-30days</button>
+                <button onclick="timeshift_offset_ms += 30*24*60*60*1000">+30days</button>
+            </div>
+        </div>
+        <script>
+            var test_clock = new Generalized_clock($("#test-cont"));
+            test_clock.make_base(140, 5);
+            test_clock.make_ticks("main", 60, 6, 0, "lsssslsssslsssslsssslsssslsssslsssslsssslsssslsssslsssslssss", {
+                s: {
+                    thickness: 1,
+                    length: 3
+                },
+                l: {
+                    thickness: 2,
+                    length: 5
+                }
+            });
+            test_clock.make_dials("vice", 40, 30, 0, "12,1,2,3,4,5,6,7,8,9,10,11");
+            test_clock.make_hands({
+                hour: {
+                    thickness: 2,
+                    length: 30,
+                    ratio: 2,
+                    initial: 0
+                },
+                minute: {
+                    thickness: 1,
+                    length: 40,
+                    ratio: 24,
+                    initial: 0
+                },
+                second: {
+                    thickness: 1,
+                    length: 50,
+                    ratio: 24*60,
+                    initial: 0
+                }
+            });
+            var tick = () => {
+                test_clock.tick_hands(get_day_fraction(my_new_date()));
+            }
+            tick();
+            setInterval(tick, 1000/6);
+        </script>
+        <script>
+            var ant_clock = new Generalized_clock($("#ant-cont"));
+            ant_clock.make_base(145, 5);
+            ant_clock.make_ticks("段内刻度", 60, 360/12/4, 0, "looomooo".repeat(6), {
+                o: {
+                    thickness: 1,
+                    length: 2
+                },
+                m: {
+                    thickness: 2,
+                    length: 3
+                },
+                l: {
+                    thickness: 2,
+                    length: 8
+                }
+            });
+            ant_clock.make_ticks("时段刻度", 30, 360/16, 0, "ol".repeat(8), {
+                o: {
+                    thickness: 1,
+                    length: 1
+                },
+                m: {
+                    thickness: 1,
+                    length: 2
+                },
+                l: {
+                    thickness: 1,
+                    length: 5
+                }
+            });
+            ant_clock.make_dials("时段名", 20, 360/8, 180, "T,D,R,M,N,A,S,E,T");
+            ant_clock.make_hands({
+                时: {
+                    thickness: 3,
+                    length: 30,
+                    ratio: 1,
+                    initial: 0.5
+                },
+                刻: {
+                    thickness: 2,
+                    length: 40,
+                    ratio: 8,
+                    initial: 0
+                },
+                分: {
+                    thickness: 1,
+                    length: 50,
+                    ratio: 8*12,
+                    initial: 0.5
+                },
+                秒: {
+                    thickness: 1,
+                    length: 60,
+                    ratio: 8*12*48,
+                    initial: 0.5
+                }
+            });
+            $(".时段刻度").css("stroke", "blue");
+            $(".时").css("stroke", "blue");
+            $(".时段名").css("fill", "blue");
+            $(".秒").css("stroke", "red");
+            $(".时段名").attr("font-size", "10");
+            var tick = () => {
+                ant_clock.tick_hands(mod(get_utc_day_fraction(my_new_date()) + 7/24, 1));
+            }
+            tick();
+            setInterval(tick, 86400*1000/16/6/48/48/3);
+        </script>
+        <script>
+            function make_std_time_string(h, m, s, digits){
+                var deci = mod(s, 1);
+                s = Math.floor(s);
+                if (digits){
+                    deci = ("" + deci).slice(2, 2+digits); // if use toFixed, it will lead to carry mistakes
+                } else {
+                    deci = ("" + deci).slice(2);
+                }
+                return ("0" + h).slice(-2) + ":" + ("0" + m).slice(-2) + ":" + ("0" + s).slice(-2) + "." + deci;
+            }
+
+            function make_std_date_string(y, m, d){
+                return y + "-" + ("0" + m).slice(-2) + "-" + ("0" + d).slice(-2);
+            }
+
+            function tick_numeral(){
+                var d = my_new_date();
+                $('#clock-numeral').text(
+                    make_std_date_string(d.getFullYear(), d.getMonth()+1, d.getDate())
+                    + ' ' +
+                    make_std_time_string(d.getHours(), d.getMinutes(), d.getSeconds(), 0));
+            }
+
+            tick_numeral();
+            setInterval(tick_numeral, 1000/6);
+        </script>
+        <script>
+            // change name color
+            var color_table = [
+                ['#f85552', '#e4b649'], // monday
+                ['#f57d26', '#a4bb4a'],
+                ['#dfa000', '#6ec398'],
+                ['#8da101', '#6cb3c6'],
+                ['#35a77c', '#e092be'],
+                ['#C35929', '#C5C69D'],
+                ['#EF3C60', '#352833'], // sunday
+            ];
+            
+            // https://stackoverflow.com/a/5624139
+
+            function componentToHex(c) {
+                var hex = c.toString(16);
+                return hex.length == 1 ? "0" + hex : hex;
+            }
+
+            function rgbToHex(r, g, b) {
+                return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            }
+
+            function hexToRgb(hex) {
+                var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? [
+                    parseInt(result[1], 16),
+                    parseInt(result[2], 16),
+                    parseInt(result[3], 16)
+                ] : null;
+            }
+
+            function merge_color(c1, c2, ratio){
+                var [r1, g1, b1] = hexToRgb(c1);
+                var [r2, g2, b2] = hexToRgb(c2);
+                return rgbToHex(
+                    Math.floor(r1 * (1-ratio) + r2 * ratio),
+                    Math.floor(g1 * (1-ratio) + g2 * ratio),
+                    Math.floor(b1 * (1-ratio) + b2 * ratio),
+                );
+            }
+
+            function change_name_color(){
+                var d = my_new_date();
+                var weekday = mod(d.getDay() - 1, 7); // 0 for monday and 6 for sunday
+                var weekday_next = mod(d.getDay(), 7);
+                var d = my_new_date();
+                var df = get_day_fraction(my_new_date());
+                var [geezmo, lycos] = color_table[weekday];
+                var [geezmo_next, lycos_next] = color_table[weekday_next];
+                $('#geezmo').css('color', merge_color(geezmo, geezmo_next, df));
+                $('#lycos').css('color', merge_color(lycos, lycos_next, df));
+            }
+
+            change_name_color();
+            setInterval(change_name_color, 1000);
+        </script>
+    </body>
 </html>

@@ -1,0 +1,510 @@
+<html>
+<head>
+<title>金毛的眯时间系统！</title>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+
+function mod(n, m) {
+	return ((n % m) + m) % m;
+}
+
+var numeral = "0123456789ABCDEFGHJKLMNPQRTUVWXY".split("");
+var reversed_numeral = {};
+numeral.forEach(function(v, i){
+	reversed_numeral[v] = i;
+});
+
+function to_numerals(narr){
+	var sign = ""
+	if (narr[0] < 0){
+		sign = "-";
+		narr[0] = -narr[0];
+	}
+	for (var i in narr){
+		narr[i] = numeral[narr[i]];
+	}
+	return sign + narr.join("");
+}
+
+function parse_numerals(ns){
+	var sign = 1;
+	if (ns[0] == "-"){
+		sign = -1;
+		ns = ns.slice(1);
+	}
+	var na = [];
+	ns = ns.toUpperCase();
+	for (var ch of ns){
+		na.push(reversed_numeral[ch]);
+	}
+	na[0] = na[0] || 0;
+	na[0] *= sign;
+	return na;
+}
+
+function decimal_to_base(n, base, digits){
+	var c = false;
+	if (!digits){
+		c = true;
+	}
+	var a = [];
+	while ((c && n != 0) || (!c && digits-- != 0)){
+		n *= base;
+		a.push(Math.floor(n));
+		n = mod(n, 1);
+	}
+	return a;
+}
+
+function base_to_decimal(a, base){
+	var n = 0;
+	for (var v of a.reverse()){
+		n /= base;
+		n += v / base;
+	}
+	return n;
+}
+
+function parse_std_time_str(s){
+	var a = s.split(":");
+	if (a.length > 3){
+		throw "ValueError: too many separators in the time string";
+	}
+	a = a.map(function (v, i){
+		return parseFloat(v);
+	});
+	a[0] = a[0] || 0;
+	a[1] = a[1] || 0;
+	a[2] = a[2] || 0;
+	if (a[0] >= 24){
+		throw "ValueError: hour is greater than 24";
+	} else if (a[1] >= 60 || a[2] >= 60){
+		throw "ValueError: minute or second is greater than 60";
+	}
+	return a;
+}
+
+function parse_mi_time_str(s){
+	var ap = s.split(".");
+	if (ap.length > 2){
+		throw "ValueError: too many points";
+	}
+	var i = ap[0], d = ap[1] || "";
+	var a = [];
+	d = base_to_decimal(parse_numerals(d), 20);
+	a[0] = {"A": 0, "M": 1, "P": 2}[i[0]];
+	a = a.concat(parse_numerals(i.substring(1)));
+	a[a.length-1] += d;
+	for (var i=0;i<5;i++){
+		a[i] = a[i] || 0;
+	}
+	return a;
+}
+
+function parse_mi_date_str(s){
+	if (s.length < 3){
+		return [-32768,0,0];
+	}
+	var day_char = s[s.length - 1];
+	var month_char = s[s.length - 2];
+	var year_str = s.slice(0, -2);
+	return [mi_year_to_year(parse_numerals(year_str)), parse_numerals(month_char)[0], parse_numerals(day_char)[0]];
+}
+
+function std_time_to_mi_time(hour, minute, second){
+	var total_seconds = (hour * 60 + minute) * 60 + second;
+	var mi_s = total_seconds / 0.3; // 1 mis == 0.3 s
+	var mi_k, mi_m, mi_h, mi_n;
+	mi_m = Math.floor(mi_s / 20); // 1 mi_m == 20 mi_s
+	mi_k = Math.floor(mi_m / 20); // 1 mi_q == 20 mi_m
+	mi_h = Math.floor(mi_k / 12); // 1 mi_h == 12 mi_q
+	mi_n = Math.floor(mi_h / 20); // 1 mi_n == 20 mi_h
+	mi_s = mod(mi_s, 20);
+	mi_m = mod(mi_m, 20);
+	mi_k = mod(mi_k, 12);
+	mi_h = mod(mi_h, 20);
+	return [mi_n, mi_h, mi_k, mi_m, mi_s];
+}
+
+function mi_time_to_std_time(mi_n, mi_h, mi_k, mi_m, mi_s){
+	var total_mi_s = (((mi_n * 20 + mi_h) * 12 + mi_k) * 20 + mi_m) * 20 + mi_s;
+	var s = total_mi_s * 0.3;
+	var h, m;
+	m = Math.floor(s / 60);
+	h = Math.floor(m / 60);
+	s = mod(s, 60);
+	m = mod(m, 60);
+	return [h, m, s];
+}
+
+function year_to_mi_year(y){
+	y = y || 0;
+	y += 32768;
+	var sign = 1;
+	if (y < 0){
+		sign = -1;
+		y = -y;
+	}
+	var a = [];
+	while (y != 0){
+		a.unshift(mod(y, 32));
+		y = Math.floor(y / 32);
+	}
+	a[0] = a[0] || 0;
+	a[0] *= sign;
+	return a;
+}
+
+function mi_year_to_year(a){
+	var y = 0;
+	var sign = 1;
+	if (a[0] < 0){
+		sign = -1;
+		a[0] = -a[0];
+	}
+	for (var d of a){
+		y *= 32;
+		y += d;
+	}
+	y *= sign;
+	y -= 32768;
+	return y;
+}
+
+</script>
+<style>
+input {
+	font-family: monospace;
+	font-size: 16px;
+	width: 256px;
+}
+.label {
+	display: inline-block;
+	text-align: right;
+	width: 160px;
+}
+.framed {
+	border: 1px solid black;
+}
+
+.clock-container {
+	display: inline-block;
+	margin: 0px 20px;
+	width: 160px;
+}
+
+.clock-text {
+	font-family: monospace;
+	font-size: 20px;
+}
+
+.analog-clock {
+	width: 140px;
+	height: 140px;
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	font-size: 14px;
+}
+
+.clock-face {
+	stroke: black;
+	stroke-width: 2px;
+	fill: white;
+}
+
+.hand {
+	stroke: black;
+	stroke-linecap: round;
+}
+
+.tick {
+	stroke: black;
+	stroke-linecap: round;
+}
+
+</style>
+</head>
+<body>
+<h1 id="js-load">请稍等，js正在加载中</h1>
+<h1>金毛的眯时间系统</h1>
+<p>全新的人造时间表示系统，欲知详情请自己猜，或者问金毛。金毛懒得写个说明了。</p>
+<hr />
+<h1>金毛的眯时钟</h1>
+<p><span class="label">今天的日期是：</span><span id="date-std" class="clock-text"></span></p>
+<p><span class="label">今天的眯日期是：</span><span id="date-mi" class="clock-text"></span></p>
+<div>
+	<div class="clock-container">
+		<p>现在的时间是：</p>
+		<p><svg id="std-analog-clock" class="analog-clock" width="140" height="140">
+			<circle class="clock-face" cx="70" cy="70" r="65" />
+			<line class="hand h" style="stroke-width: 3px;" x1="70" y1="70" x2="70" y2="38" />
+			<line class="hand m" style="stroke-width: 2px;" x1="70" y1="70" x2="70" y2="20" />
+			<line class="hand s" style="stroke-width: 1px;" x1="70" y1="70" x2="70" y2="12" />
+		</svg></p>
+		<p><span id="clock-std" class="clock-text"></span></p>
+	</div>
+	<div class="clock-container">
+		<p>现在的眯时间是：</p>
+		<p><svg id="mi-analog-clock" class="analog-clock" width="140" height="140">
+			<circle class="clock-face" cx="70" cy="70" r="65" />
+			<line class="hand h" style="stroke-width: 4px;" x1="70" y1="70" x2="70" y2="38" />
+			<line class="hand k" style="stroke-width: 3px;" x1="70" y1="70" x2="70" y2="25" />
+			<line class="hand m" style="stroke-width: 2px;" x1="70" y1="70" x2="70" y2="18" />
+			<line class="hand s" style="stroke-width: 1px;" x1="70" y1="70" x2="70" y2="12" />
+		</svg></p>
+		<p><span id="clock-mi" class="clock-text"></p>
+	</div>
+</div>
+<hr />
+<hr />
+<h1>眯时间转换器</h1>
+<p>也许还有些奇奇怪怪的bug，希望你们可以看出什么是bug</p>
+<p>转换结果是实时更新的，如果没有出来那就是有bug了</p>
+<hr />
+<div>
+<h2>通用时间&lt;-&gt;眯时间</h2>
+<p><span class="label">通用时间：</span><input type="text" id="std-time-input"></input></p>
+<p><span class="label">眯时间：</span><input type="text" id="mi-time-input"></input></p>
+时间格式：hh:mm:ss[.xxxx]，如12:34:56、12:34:56.7890<br />
+眯时间没有时区信息。转换前通用时间和转换后眯时间的时区是一样的。
+</div>
+<hr />
+<div>
+<h2>通用日期&lt;-&gt;眯日期</h2>
+<p><span class="label">通用日期：</span><input type="text" id="std-date-input"></input></p>
+<p><span class="label">眯日期：</span><input type="text" id="mi-date-input"></input></p>
+日期格式[-]Y-MM-DD，如2020-01-01、1990-06-21、-432-12-31。<br />
+公元前的年份表示方法：0=公元前1年，-1=公元前2年，以此类推。
+</div>
+<hr />
+<div>
+<h2>通用日期时间&lt;-&gt;眯日期时间</h2>
+<p><span class="label">通用日期时间：</span><input type="text" id="std-datetime-input"></input></p>
+<p><span class="label">眯日期时间：</span><input type="text" id="mi-datetime-input"></input></p>
+日期和时间格式参考上方，日期和时间中间用"T"分隔，例如1234-01-01T12:34:56.7890
+</div>
+<script>
+/*
+目标：
+1.实时的眯时间显示
+2.眯时间和通用时间换算
+3.模拟时钟
+*/
+
+function make_std_time_string(h, m, s, digits){
+	var deci = mod(s, 1);
+	s = Math.floor(s);
+	if (digits){
+		deci = ("" + deci).slice(2, 2+digits); // if use toFixed, it will lead to carry mistakes
+	} else {
+		deci = ("" + deci).slice(2);
+	}
+	return ("0" + h).slice(-2) + ":" + ("0" + m).slice(-2) + ":" + ("0" + s).slice(-2) + "." + deci;
+}
+
+function make_mi_time_string(mi_t, digits){
+	var deci = mod(mi_t[4], 1);
+	mi_t[4] = Math.floor(mi_t[4]);
+	var mi_str = to_numerals(mi_t.slice(1));
+	return "AMP"[mi_t[0]] + mi_str + "." + to_numerals(decimal_to_base(deci, 20, digits));
+}
+
+function make_std_date_string(y, m, d){
+	return y + "-" + ("0" + m).slice(-2) + "-" + ("0" + d).slice(-2);
+}
+
+function make_mi_date_string(mi_d){
+	return year_to_mi_year_str(mi_d[0]) + to_numerals([mi_d[1]]) + to_numerals([mi_d[2]])
+}
+
+function std_time_str_to_mi_time_str(std, digits){
+	try {
+		var t = parse_std_time_str(std);
+	} catch (e) {return "";}
+	var mi_t = std_time_to_mi_time(t[0], t[1], t[2]);
+	//console.log(t, mi_t)
+	return make_mi_time_string(mi_t, digits);
+}
+
+function mi_time_str_to_std_time_str(mi, digits){
+	try {
+		var t = parse_mi_time_str(mi);
+	} catch (e) {return "";}
+	var std_t = mi_time_to_std_time(t[0], t[1], t[2], t[3], t[4]);
+	//console.log(t, std_t);
+	return make_std_time_string(std_t[0], std_t[1], std_t[2], digits);
+}
+
+function year_to_mi_year_str(y){
+	return to_numerals(year_to_mi_year(y));
+}
+
+function mi_year_str_to_year(m){
+	return mi_year_to_year(parse_numerals(m));
+}
+
+function mi_date_str_to_std_date_str(d){
+	var t = parse_mi_date_str(d);
+	var year = t[0];
+	var month = t[1];
+	var day = t[2];
+	return make_std_date_string(year, month, day);
+}
+
+function std_date_str_to_mi_date_str(d){
+	var ar = d.slice(1).split("-"); // make sure the sign of year is kept
+	ar[0] = d[0] + ar[0];
+	if (ar.length != 3){
+		return "";
+	}
+	ar = ar.map(function (v, i){return parseInt(v) || 0});
+	return make_mi_date_string(ar);
+}
+
+function std_dt_str_to_mi_dt_str(s){
+	var t = s.split("T");
+	var date = t[0];
+	var time = t[1];
+	return std_date_str_to_mi_date_str(date) + "." + std_time_str_to_mi_time_str(time, 3);
+}
+
+function mi_dt_str_to_std_dt_str(s){
+	var t = s.split(".");
+	var date = t[0];
+	var time = t.slice(1).join(".");
+	return mi_date_str_to_std_date_str(date) + "T" + mi_time_str_to_std_time_str(time, 4);
+}
+
+$("#std-time-input").on("input", function (){
+	$("#mi-time-input").val(std_time_str_to_mi_time_str(this.value, 3));
+});
+
+$("#mi-time-input").on("input", function (){
+	$("#std-time-input").val(mi_time_str_to_std_time_str(this.value, 4));
+});
+
+//$("#std-year-input").on("input", function (){
+//	$("#mi-year-input").val(year_to_mi_year_str(parseInt(this.value)));
+//});
+//
+//$("#mi-year-input").on("input", function (){
+//	$("#std-year-input").val(mi_year_str_to_year(this.value));
+//});
+
+$("#std-date-input").on("input", function (){
+	$("#mi-date-input").val(std_date_str_to_mi_date_str(this.value));
+});
+
+$("#mi-date-input").on("input", function (){
+	$("#std-date-input").val(mi_date_str_to_std_date_str(this.value));
+});
+
+$("#std-datetime-input").on("input", function (){
+	$("#mi-datetime-input").val(std_dt_str_to_mi_dt_str(this.value));
+});
+
+$("#mi-datetime-input").on("input", function (){
+	$("#std-datetime-input").val(mi_dt_str_to_std_dt_str(this.value));
+});
+
+$date_std = $("#date-std");
+$date_mi = $("#date-mi");
+$clock_std = $("#clock-std");
+$clock_mi = $("#clock-mi");
+
+var $std_ac = {
+	h: $('#std-analog-clock .h'),
+	m: $('#std-analog-clock .m'),
+	s: $('#std-analog-clock .s')
+}
+
+var $mi_ac = {
+	h: $('#mi-analog-clock .h'),
+	k: $('#mi-analog-clock .k'),
+	m: $('#mi-analog-clock .m'),
+	s: $('#mi-analog-clock .s')
+}
+
+function update_clocks(){
+	var myDate = new Date();
+	var y = myDate.getFullYear();
+	var m = myDate.getMonth()+1;
+	var d = myDate.getDate();
+	var h = myDate.getHours();
+	var i = myDate.getMinutes();
+	var s = myDate.getSeconds() + myDate.getMilliseconds() / 1000;
+	var total_seconds = (h * 60 + i) * 60 + s;
+	var total_mi_seconds = total_seconds / 0.3;
+	var std_date_string = make_std_date_string(y, m, d);
+	var std_time_string = make_std_time_string(h, i, s, 3);
+	var mi_date_string = make_mi_date_string([y, m, d]);
+	var mi_time_string = make_mi_time_string(std_time_to_mi_time(h, i, s), 3);
+	$date_std.text(std_date_string);
+	$date_mi.text(mi_date_string);
+	$clock_std.text(std_time_string);
+	$clock_mi.text(mi_time_string);
+	$std_ac.h.attr("transform", 'rotate(' + mod(total_seconds / 3600 * 30, 360) + ', 70, 70)');
+	$std_ac.m.attr("transform", 'rotate(' + mod(total_seconds / 60 * 6, 360) + ', 70, 70)');
+	$std_ac.s.attr("transform", 'rotate(' + mod(total_seconds * 6, 360) + ', 70, 70)');
+	$mi_ac.h.attr("transform", 'rotate(' + mod(total_mi_seconds / 4800 * 18, 360) + ', 70, 70)');
+	$mi_ac.k.attr("transform", 'rotate(' + mod(total_mi_seconds / 400 * 30, 360) + ', 70, 70)');
+	$mi_ac.m.attr("transform", 'rotate(' + mod(total_mi_seconds / 20 * 18, 360) + ', 70, 70)');
+	$mi_ac.s.attr("transform", 'rotate(' + mod(total_mi_seconds * 18, 360) + ', 70, 70)');
+	setTimeout(update_clocks, 63);
+}
+update_clocks();
+
+</script>
+<script>
+function svg_clock_draw_ticks($svg, tick_list, start_y, degree){
+	var xmlns = "http://www.w3.org/2000/svg";
+	$.each(tick_list, function(i, v){
+		if (v.len == 0 || v.width == 0){
+			return true;
+		}
+		var $tick = $(document.createElementNS(xmlns, "line"));
+		$tick.attr("x1", 70).attr("y1", start_y).attr("x2", 70).attr("y2", start_y + v.len);
+		$tick.addClass("tick");
+		$tick.css("stroke-width", v.width+"px");
+		$tick.attr("transform", "rotate(" + i*degree + ", 70, 70)");
+		$svg.append($tick);
+	});
+}
+
+var numeral = "0123456789ABCDEFGHJKLMNPQRTUVWXY".split("");
+var reversed_numeral = {};
+numeral.forEach(function(v, i){
+	reversed_numeral[v] = i;
+});
+
+function make_tick_list(lens, widths){
+	var ticks = [];
+	for (var i=0;i<lens.length;i++){
+		ticks.push({len: reversed_numeral[lens[i]], width:reversed_numeral[widths[i]]});
+	}
+	return ticks;
+}
+
+svg_clock_draw_ticks($("#std-analog-clock"), make_tick_list(
+	"A11115111151111A11115111151111A11115111151111A11115111151111",
+	"211112111121111211112111121111211112111121111211112111121111"
+), 10, 6);
+
+svg_clock_draw_ticks($("#mi-analog-clock"), make_tick_list(
+	"A141414141A141414141A141414141A141414141",
+	"2121212121212121212121212121212121212121"
+), 10, 9);
+
+svg_clock_draw_ticks($("#mi-analog-clock"), make_tick_list(
+	"311311311311",
+	"211211211211"
+), 25, 30);
+
+
+$("#js-load").hide();
+
+</script>
+</body>
+</html>
