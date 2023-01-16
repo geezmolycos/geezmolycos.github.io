@@ -1,10 +1,7 @@
----
-layout: default
-title: "金毛的妙妙网站"
----
-
 <html>
     <head>
+        <title>金毛的妙妙网站</title>
+        <meta charset="UTF-8">
 	    <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -215,11 +212,8 @@ title: "金毛的妙妙网站"
             </a>
             <img src="y2038.png" height="64">
             <hr />
-            <h2>金毛的奇妙文字</h2>
-            {% for post in site.posts %}   
-                <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-                <p><small><strong>{{ post.date | date: "%B %e, %Y" }}</strong> . {{ post.category }} . <a href="/{{ post.url }}"></a></small></p>
-            {% endfor %}
+            <h2>金毛的<span style="color: blueviolet;">妙妙</span>文字</h2>
+            <a href="/2023-01-16-sun-monitor.html">九日显示器</a>
             <hr />
             <div id="timeshift-cont" style="display: none;">
                 <button id="timeshift-clear">clear timeshift</button>
