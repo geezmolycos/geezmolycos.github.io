@@ -1,0 +1,19 @@
+---
+layout: page
+title: 关于金毛
+permalink: /about/
+---
+
+![Autumn Blaze](/25k/autumn_blaze_cringe.png){: width='128' align='right' }
+![gwynzmo](/25k/gwynzmo3.png){: width='128' align='right' }
+
+常见为「金毛」或「geezmolycos」，偶见为「djy0212」或「djy021204」。金毛萌。
+
+图片显示了金毛的吉祥物gwynzmo（左一）
+
+右一是[秋烨](https://zh.moegirl.org.cn/%E7%A7%8B%E7%83%A8(%E5%BD%A9%E8%99%B9%E5%B0%8F%E9%A9%AC))，与本页内容无关，只是好萌
+(;ﾞ°´ω°´)。
+
+{% for entry in site.minima.social_links -%}
+- [在<svg class="svg-icon grey"><use xlink:href="{{ '/assets/minima-social-icons.svg#' | append: entry.platform | relative_url }}"></use></svg>{{entry.platform}} 上找金毛]({{ entry.user_url }})
+{% endfor -%}
