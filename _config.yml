@@ -31,6 +31,7 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-postfiles
 
 # Theme-specific settings
 
@@ -49,13 +50,6 @@ minima:
     - { platform: github,         user_url: "https://github.com/geezmolycos" }
     - { platform: bilibili,       user_url: "https://space.bilibili.com/49868114" }
 
-
-# If you want to link only specific pages in your header, uncomment this and add the path to the pages in
-# order as they should show up.
-#
-header_pages:
-  - about.md
-  - my_repo.md
 
 # Set to `true` to show excerpts on the homepage.
 #

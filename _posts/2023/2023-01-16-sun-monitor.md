@@ -2,7 +2,6 @@
 layout: post
 title: "九日显示器"
 date: 2023-01-16 01:40:00 +0800
-categories: jekyll blogging
 ---
 
 > 比八日显示器更好的，当然是九日显示器！什么是九日显示器？你不会连k日显示器都不知道罢。
