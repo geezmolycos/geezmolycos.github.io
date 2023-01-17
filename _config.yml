@@ -26,7 +26,7 @@ description: >-
 
 # Build settings
 
-theme: minima
+remote_theme: jekyll/minima@32468f51758b0b37c2b1f423265d4f29db461b27
 
 plugins:
   - jekyll-feed
