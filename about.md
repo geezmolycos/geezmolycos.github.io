@@ -15,7 +15,7 @@ permalink: /about/
 (;ﾞ°´ω°´)。
 
 {% for entry in site.minima.social_links -%}
-- [在<svg class="svg-icon grey"><use xlink:href="{{ '/assets/minima-social-icons.svg#' | append: entry.platform | relative_url }}"></use></svg>{{entry.platform}} 上拔毛]({{ entry.user_url }})
+- 在 [<svg class="svg-icon grey"><use xlink:href="{{ '/assets/minima-social-icons.svg#' | append: entry.platform | relative_url }}"></use></svg>{{entry.platform}} 上拔毛]({{ entry.user_url }})
 {% endfor -%}
 
 - 本站 <https://geezmolycos.github.io/> 入口
