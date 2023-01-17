@@ -20,3 +20,16 @@ permalink: /about/
 
 - 本站 <https://geezmolycos.github.io/> 入口
 - 本站 <https://geezmolycos.top/> 入口
+
+
+<details markdown='1'> 
+  <summary><span class='miaomiao'>捐助金毛</span></summary>
+
+你对金毛的捐助，可以让金毛产出更优质的作品，还可以提高金毛的生活质量（比如一天吃十个蛋糕）。金毛会细致地花钱。
+
+<span style='filter: grayscale(0.7);'>{% comment %} 这个滤镜是为了让付款码不那么鲜艳，让人更舒适 {% endcomment %}
+![支付宝捐助](/assets/images/geezmo_alipay_payment_code.jpg){: height='256'}
+![微信捐助](/assets/images/geezmo_wechat_payment_code.png){: height='256'}
+</span>
+
+</details>
