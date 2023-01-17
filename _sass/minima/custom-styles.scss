@@ -4,3 +4,28 @@
     color: mediumpurple;
 }
 
+// Use KaiTi on Chinese emphasis
+blockquote:lang(zh), i:lang(zh), em:lang(zh) {
+    font-family: KaiTi, serif;
+    font-style: normal;
+}
+
+blockquote {
+    i:lang(zh), em:lang(zh) {
+        font-family: $base-font-family;
+        font-style: normal;
+    }
+}
+
+// Use italic on English emphasis
+
+blockquote:lang(en), i:lang(en), em:lang(en) {
+    font-style: italic;
+}
+
+blockquote {
+    i:lang(en), em:lang(en) {
+        font-style: normal;
+    }
+}
+

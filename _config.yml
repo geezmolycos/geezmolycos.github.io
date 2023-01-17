@@ -24,6 +24,8 @@ author:
 description: >-
   喵喵喵！里面有妙妙工具。
 
+lang: zh-cmn-hans-cn
+
 # Build settings
 
 remote_theme: jekyll/minima@32468f51758b0b37c2b1f423265d4f29db461b27
@@ -31,7 +33,12 @@ remote_theme: jekyll/minima@32468f51758b0b37c2b1f423265d4f29db461b27
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-postfiles
+
+markdown: kramdown
+ 
+kramdown:
+  input: GFM
+  hard_wrap: false
 
 # Theme-specific settings
 

@@ -3,6 +3,8 @@ layout: page
 title: My github repos
 ---
 
+{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+
 {% for repo in site.github.public_repositories %}
 
 {% if repo.fork == false %}
@@ -15,7 +17,7 @@ title: My github repos
 No
 {% else %}
 {{ repo.stargazers_count }}
-{% endif %} stargazer(s). Last updated: {{ repo.updated_at | date_to_string }}
+{% endif %} stargazer(s). Last updated: {{ repo.updated_at | date: date_format }}
 
 {% endif %}
 
