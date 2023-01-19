@@ -3,7 +3,10 @@ layout: page
 title: My github repos
 ---
 
+
 {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+
+Build time: {{ 'now' | date: date_format }}
 
 {% for repo in site.github.public_repositories %}
 

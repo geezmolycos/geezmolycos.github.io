@@ -4,8 +4,8 @@ title: 关于金毛
 permalink: /about/
 ---
 
-![Autumn Blaze](/25k/autumn_blaze_cringe.png){: width='128' align='right' }
-![gwynzmo](/25k/gwynzmo3.png){: width='128' align='right' }
+![Autumn Blaze](/assets/images/autumn_blaze_cringe_small.png){: width='128' align='right' }
+![gwynzmo](/assets/images/gwynzmo3_small.png){: width='128' align='right' }
 
 常见为「金毛」或「geezmolycos」，偶见为「djy0212」或「djy021204」。金毛萌。
 
@@ -28,8 +28,8 @@ permalink: /about/
 你对金毛的捐助，可以让金毛产出更优质的作品，还可以提高金毛的生活质量（比如一天吃十个蛋糕）。金毛会细致地花钱。
 
 <span style='filter: grayscale(0.7);'>{% comment %} 这个滤镜是为了让付款码不那么鲜艳，让人更舒适 {% endcomment %}
-![支付宝捐助](/assets/images/geezmo_alipay_payment_code.jpg){: height='256'}
-![微信捐助](/assets/images/geezmo_wechat_payment_code.png){: height='256'}
+![支付宝捐助](/assets/images/geezmo_alipay_payment_code_small.png){: height='256'}
+![微信捐助](/assets/images/geezmo_wechat_payment_code_small.png){: height='256'}
 </span>
 
 </details>
