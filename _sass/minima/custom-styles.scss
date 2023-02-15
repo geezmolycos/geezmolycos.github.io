@@ -12,13 +12,8 @@
 // 隶书
 .clerical:lang(zh) {
     font-family: LiSu, STLiti, SimHei, sans-serif;
-    // the font glyph is somewhat small, enlarge it with css
-    display: inline-block;
-    letter-spacing: -0.125em;
-    font-size: 1.125em;
     padding-left: 0.125em;
     padding-right: 0.125em;
-    height: 1em;
 }
 
 // 小篆
