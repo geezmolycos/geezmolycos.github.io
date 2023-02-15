@@ -1,7 +1,42 @@
 @charset "utf-8";
 
+@font-face {
+    font-family: ChongXiSmallSeal;
+    src: url(/assets/fonts/chongxi_seal.otf);
+}
+
 .miaomiao {
     color: mediumpurple;
+}
+
+// 隶书
+.clerical:lang(zh) {
+    font-family: LiSu, STLiti, SimHei, sans-serif;
+    // the font glyph is somewhat small, enlarge it with css
+    display: inline-block;
+    letter-spacing: -0.125em;
+    font-size: 1.125em;
+    padding-left: 0.125em;
+    padding-right: 0.125em;
+    height: 1em;
+}
+
+// 小篆
+.smallseal:lang(zh) {
+    font-family: ChongXiSmallSeal, sans-serif;
+    // the font glyph is somewhat small, enlarge it with css
+    display: inline-block;
+    letter-spacing: -0.125em;
+    font-size: 1.125em;
+    padding-left: 0.125em;
+    padding-right: 0.125em;
+    height: 1em;
+}
+
+// add very thin spaces to improve readability
+i, em {
+    margin-left: 0.125em;
+    margin-right: 0.125em;
 }
 
 // Use KaiTi on Chinese emphasis

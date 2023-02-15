@@ -22,9 +22,12 @@ title: 金毛的妙妙网站
 author:
   name: geezmolycos
 description: >-
-  喵喵喵！里面有妙妙工具。
+  喵喵喵！里面有妙妙工具
 
 lang: zh-cmn-hans-cn
+
+collections:
+  qq-zone:
 
 # Build settings
 
