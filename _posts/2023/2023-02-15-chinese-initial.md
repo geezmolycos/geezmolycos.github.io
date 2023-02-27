@@ -2,7 +2,7 @@
 layout: post
 title: "中文大写汉字"
 date: 2023-02-15 13:10:08 +0800
-excerpt: '我想到，繁体可以是汉字的大写'
+excerpt: '我想到，繁体可以是汉字的大写(字体文件约22MB)'
 ---
 
 <style>
@@ -29,7 +29,7 @@ excerpt: '我想到，繁体可以是汉字的大写'
 - {: .self}想找个小篆字体，然而国内两个，一个方正一个汉仪都收费。发现一个台湾的，感觉很好的样子，而且免费的\
   <https://xiaoxue.iis.sinica.edu.tw/chongxi/>
 
-以上就是事情经过，那么我们安排一下[崇羲篆体](https://xiaoxue.iis.sinica.edu.tw/chongxi/)试一下吧。因为我使用小鹤音形输入方案，因此平时不使用繁体字。
+以上就是事情经过，那么我们安排一下[崇羲篆体](https://xiaoxue.iis.sinica.edu.tw/chongxi/)试一下吧。因为我使用小鹤音形输入方案，因此平时不使用繁体字。(字体加载需要时间，请耐心等待)
 
 测试一下和正常的文本混排：
 
@@ -53,7 +53,7 @@ excerpt: '我想到，繁体可以是汉字的大写'
 
 「<span class="smallseal">吹</span>面不寒楊柳風」，不錯的，像母親的手撫摸着你。<span class="smallseal">風</span>裏帶來些新翻的泥土的氣息，混着青草味，還有各種花的香，都在微微潤溼的空氣裏醞釀。<span class="smallseal">鳥</span>兒將窠巢安在繁花嫩葉當中，高興起來了，呼朋引伴地賣弄清脆的喉嚨，唱出宛轉的曲子，與輕風流水應和着。<span class="smallseal">牛</span>背上牧童的短笛，這時候也成天在嘹亮地響。
 
-<span class="smallseal">雨</span>是最尋常的，一下就是三兩天。<span class="smallseal">可</span>別惱。看，像牛毛，像花針，像細絲，密密地斜織着，人家屋頂上全籠着一層薄煙。<span class="smallseal">樹</span>葉子却綠得發亮，小草也青得逼你的眼。<span class="smallseal">傍</span>晚時候，上燈了，一點點黃暈的光，烘托出一片安靜而和平的夜。<span class="smallseal">鄉</span>下去，小路上，石橋邊，撑起傘慢慢走着的人；還有地裏工作的農夫，披着蓑戴着笠的。<span class="smallseal">他</span>們的草屋，稀稀疏疏的在雨裏靜默着。
+<span class="smallseal">雨</span>是最尋常的，一下就是三兩天。<span class="smallseal">可</span>別惱。<span class="smallseal">看</span>，像牛毛，像花針，像細絲，密密地斜織着，人家屋頂上全籠着一層薄煙。<span class="smallseal">樹</span>葉子却綠得發亮，小草也青得逼你的眼。<span class="smallseal">傍</span>晚時候，上燈了，一點點黃暈的光，烘托出一片安靜而和平的夜。<span class="smallseal">鄉</span>下去，小路上，石橋邊，撑起傘慢慢走着的人；還有地裏工作的農夫，披着蓑戴着笠的。<span class="smallseal">他</span>們的草屋，稀稀疏疏的在雨裏靜默着。
 
 <span class="smallseal">天</span>上風箏漸漸多了，地上孩子也多了。<span class="smallseal">城</span>裏鄉下，家家戶戶，老老小小，他們也趕䠀兒似的，一個個都出來了。<span class="smallseal">舒</span>活舒活筋骨，抖擻抖擻精神，各做各的一份兒事去。「<span class="smallseal">一</span>年之計在于春」，剛起頭兒，有的是工夫，有的是希望。
 
