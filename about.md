@@ -18,6 +18,7 @@ permalink: /about/
 - 在 [<svg class="svg-icon grey"><use xlink:href="{{ '/assets/minima-social-icons.svg#' | append: entry.platform | relative_url }}"></use></svg>{{entry.platform}} 上拔毛]({{ entry.user_url }})
 {% endfor -%}
 
+- 给我发电子邮件：把"djy"和"0212"，还有(圈a/艾特/猴头)符号，还有"foxmail"，还有".com"连起来
 - 本站 <https://geezmolycos.github.io/> 入口
 - 本站 <https://geezmolycos.top/> 入口
 
