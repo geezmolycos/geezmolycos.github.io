@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: base
 title: QQ空间归档
 permalink: /qq-zone/
 ---

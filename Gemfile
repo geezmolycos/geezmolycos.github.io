@@ -11,7 +11,7 @@ source "https://rubygems.org"
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 
 # use newer version
-gem "minima", :github => 'jekyll/minima', :ref => '32468f51758b0b37c2b1f423265d4f29db461b27'
+gem "minima", :github => 'jekyll/minima', :ref => 'da43ba27a5d643f3ead1e1aad6764a28ef5a92c1'
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
 gem "github-pages", "~> 227", group: :jekyll_plugins

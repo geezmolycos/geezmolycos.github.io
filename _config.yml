@@ -33,7 +33,7 @@ collections:
 
 timezone: 'Asia/Shanghai'
 
-remote_theme: jekyll/minima@32468f51758b0b37c2b1f423265d4f29db461b27
+remote_theme: jekyll/minima@da43ba27a5d643f3ead1e1aad6764a28ef5a92c1
 
 plugins:
   - jekyll-feed
@@ -55,6 +55,7 @@ minima:
   # Refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this.
   #
   date_format: "%Y-%m-%d %H:%M"
+  short_date_format: "%Y-%m-%d"
 
   # Generate social links in footer.
   #
