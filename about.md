@@ -4,15 +4,14 @@ title: 关于金毛
 permalink: /about/
 ---
 
-![Autumn Blaze](/assets/images/autumn_blaze_cringe_small.png){: width='128' align='right' }
+
 ![gwynzmo](/assets/images/gwynzmo3_small.png){: width='128' align='right' }
 
 常见为「金毛」或「geezmolycos」，偶见为「djy0212」或「djy021204」。金毛萌。
 
-图片显示了金毛的吉祥物gwynzmo（左一）
+金毛，打印机师、贴画师、国产天雁计算器爆机师、廉价 USB DAC 师、中性笔芯师、自动铅笔师、钟表师、中国农历师、UDP 内网打洞师、标点符号师、排版师。
 
-右一是[秋烨](https://zh.moegirl.org.cn/%E7%A7%8B%E7%83%A8(%E5%BD%A9%E8%99%B9%E5%B0%8F%E9%A9%AC))，与本页内容无关，只是好萌
-(;ﾞ°´ω°´)。
+图片显示了金毛的吉祥物gwynzmo（左一）
 
 {% for entry in site.minima.social_links -%}
 - 在 [<svg class="svg-icon grey"><use xlink:href="{{ '/assets/minima-social-icons.svg#' | append: entry.platform | relative_url }}"></use></svg>{{entry.platform}} 上拔毛]({{ entry.user_url }})
@@ -21,7 +20,6 @@ permalink: /about/
 - 给我发电子邮件：把"djy"和"0212"，还有(圈a/艾特/猴头)符号，还有"foxmail"，还有".com"连起来
 - 本站 <https://geezmolycos.github.io/> 入口
 - 本站 <https://geezmolycos.top/> 入口
-
 
 <details markdown='1'> 
   <summary><span class='miaomiao'>捐助金毛</span></summary>
@@ -34,3 +32,9 @@ permalink: /about/
 </span>
 
 </details>
+
+---
+
+![Autumn Blaze](/assets/images/autumn_blaze_cringe_small.png){: width='128' align='right' }
+[秋烨](https://zh.moegirl.org.cn/%E7%A7%8B%E7%83%A8(%E5%BD%A9%E8%99%B9%E5%B0%8F%E9%A9%AC))，与本页内容无关，只是好萌
+(;ﾞ°´ω°´)。
