@@ -3,7 +3,7 @@ author: geezmolycos
 date: 2019-10-29 22:22:00 +0800
 ---
 
-![](/assets/images/qq-zone/2019-10-29-australia.jpg)
+![](/assets/images/qq-zone/2019-10-29-australia.jpg){: loading='lazy'}
 
 ---
 
