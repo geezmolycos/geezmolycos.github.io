@@ -12,6 +12,7 @@
     "version": "6.3.0"
   },
   "dependencies": {
+    "@vscode/markdown-it-katex": "^1.0.0",
     "hexo": "^6.3.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
@@ -25,6 +26,7 @@
     "hexo-theme-next": "^8.15.1",
     "markdown-it-bracketed-spans": "^1.0.1",
     "markdown-it-imsize": "^2.0.1",
+    "markdown-it-multimd-table": "^4.2.1",
     "markdown-it-task-lists": "^2.1.1"
   }
 }

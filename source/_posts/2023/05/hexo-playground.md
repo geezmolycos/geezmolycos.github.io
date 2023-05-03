@@ -13,6 +13,7 @@ tags:
 后面玩耍一下 Hexo 的各种特性，以便于实现斜体和楷体等功能。
 
 ![](example.png)
+*what*
 
 <!-- more -->
 
@@ -95,3 +96,43 @@ Hello, thank you. Thank you very much.
 
 :)
 :no_mouth: :frog:
+
+|   Markdown   | Rendered HTML |
+|--------------|---------------|
+|    *Italic*  | *Italic*      | \
+|              |               |
+|    - Item 1  | - Item 1      | \
+|    - Item 2  | - Item 2      |
+|    ```python | ```python       \
+|    .1 + .2   | .1 + .2         \
+|    ```       | ```           |
+
+
+Stage | Direct Products | ATP Yields
+----: | --------------: | ---------:
+Glycolysis | 2 ATP ||
+^^ | 2 NADH | 3--5 ATP |
+Pyruvaye oxidation | 2 NADH | 5 ATP |
+Citric acid cycle | 2 ATP ||
+^^ | 6 NADH | 15 ATP |
+^^ | 2 FADH2 | 3 ATP |
+**30--32** ATP |||
+[Net ATP yields per hexose]
+
+|--|--|--|--|--|--|--|--|
+|♜|  |♝|♛|♚|♝|♞|♜|
+|  |♟|♟|♟|  |♟|♟|♟|
+|♟|  |♞|  |  |  |  |  |
+|  |♗|  |  |♟|  |  |  |
+|  |  |  |  |♙|  |  |  |
+|  |  |  |  |  |♘|  |  |
+|♙|♙|♙|♙|  |♙|♙|♙|
+|♖|♘|♗|♕|♔|  |  |♖|
+
+33^22^22~11~22
+
+$\alpha$
+
+$$
+\sum_{i=0}^{+\infty} \alpha x_i
+$$

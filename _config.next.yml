@@ -12,6 +12,10 @@ motion:
 # image viewer
 fancybox: true
 
+math:
+  katex:
+    enable: true
+
 note:
   style: simple
 

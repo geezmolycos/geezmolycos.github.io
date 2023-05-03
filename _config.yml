@@ -86,6 +86,14 @@ markdown:
     - markdown-it-sub
     - markdown-it-sup
     - markdown-it-task-lists
+    - name: markdown-it-multimd-table
+      options:
+        multiline:  true
+        rowspan:    true
+        headerless: true
+        multibody:  true
+        autolabel:  true
+    - '@vscode/markdown-it-katex'
   anchors:
     level: 2
     collisionSuffix: ''
