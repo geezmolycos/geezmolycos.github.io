@@ -1,11 +1,14 @@
 ---
 title: 现在使用 Hexo 试一下，我发现比 Jekyll 好用
-date: 2023-05-01 16:25:27
 categories:
-  - virtual
+  - virt
   - site
 tags:
+  - author:geezmolycos
   - lit
+lang: zh-cn
+date: 2023-05-01 16:25:27
+updated: 2023-05-01 16:25:27
 ---
 
 把各个静态网站生成器都用一下试试，反正又不会出问题。

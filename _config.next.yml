@@ -2,22 +2,8 @@
 scheme: Pisces
 darkmode: true
 theme_color:
-  light: "#c60"
-  dark: "#c60"
-
-# Disable animation
-motion:
-  enable: false
-
-# image viewer
-fancybox: true
-
-math:
-  katex:
-    enable: true
-
-note:
-  style: simple
+  light: 'mediumpurple' 
+  dark: 'mediumpurple' 
 
 favicon:
   small: /images/favicon-16x16.png
@@ -41,12 +27,48 @@ custom_file_path:
   # mixin: source/_data/mixins.styl
   style: source/_data/styles.styl
 
+# sidebar
 menu:
   home: / || fa fa-home
-  #about: /about/ || fa fa-user
+  分类:
+    default: /categories/ || fa fa-th
+    real: /categories/real/ || fa fa-user
+    virt: /categories/virt/ || fa fa-mouse-pointer
+    fict: /categories/fict/ || fa fa-pencil
   tags: /tags/ || fa fa-tags
-  categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
+  about: /about/ || fa fa-solid fa-feather-pointed
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat
+
+social:
+  GitHub: https://github.com/geezmolycos || fab fa-github
+  Bilibili: https://space.bilibili.com/49868114 || fa-brands fa-bilibili
+  E-Mail: mailto:djy0212@foxmail.com || fa fa-envelope
+
+# footer
+footer:
+  since: 2023
+  icon:
+    name: fa fa-solid fa-feather-pointed
+    color: '#c60'
+
+# Disable animation
+motion:
+  enable: false
+
+# image viewer
+fancybox: true
+
+math:
+  katex:
+    enable: true
+
+note:
+  style: simple
+  icons: true
+
+vendors:
+  internal: cdnjs
+

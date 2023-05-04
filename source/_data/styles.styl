@@ -1,3 +1,4 @@
+// change link underline animation to fade in/out instead of expanding
 .posts-expand .post-title-link:hover::before {
     opacity: 1;
 }
@@ -6,3 +7,50 @@
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
 }
+
+// add very thin space to enhance readability
+em {
+    margin-left: 0.125em;
+    margin-right: 0.125em;
+}
+
+// Use KaiTi on Chinese emphasis
+blockquote:lang(zh), blockquote *:lang(zh),
+em:lang(zh), em *:lang(zh) {
+    font-family: KaiTi, serif;
+    font-style: normal;
+}
+
+blockquote {
+    em:lang(zh), em *:lang(zh) {
+        font-family: unset;
+        font-style: normal;
+    }
+}
+
+blockquote:lang(zh-hant), blockquote *:lang(zh-hant),
+em:lang(zh-hant), em *:lang(zh-hant) {
+    font-family: DFKai-SB, serif;
+    font-style: normal;
+}
+
+blockquote {
+    em:lang(zh-hant), em *:lang(zh-hant) {
+        font-family: unset;
+        font-style: normal;
+    }
+}
+
+// Use italic on emphasis of other languages
+
+blockquote, blockquote *,
+em, em * {
+    font-style: italic;
+}
+
+blockquote {
+    em, em * {
+        font-style: normal;
+    }
+}
+
