@@ -44,6 +44,8 @@ Every interaction is both precious and an opportunity to delight.
 
 ###### 它好吗
 
+####### 它好吗
+
 - Unordered List 测试
 - 你好吗
   - 我好吗
@@ -201,3 +203,9 @@ The data must contain the `content` attribute. If not, Hexo will try to read the
 - Execute `after_post_render` filters
 
 [Nunjucks]: https://mozilla.github.io/nunjucks/
+
+金毛attr测试
+
+{% attr lang=en %}
+<div>for examplea</div>
+{% endattr %}
