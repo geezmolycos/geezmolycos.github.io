@@ -8,7 +8,7 @@ tags:
   - tech
 lang: zh-cn
 date: 2023-05-02 21:39:38
-updated: 2023-05-03 17:11:32
+updated: 2023-05-04 23:32:21
 ---
 
 刚学习 Hexo，以为 EJS 是模板语言。后来发现 Markdown 和 EJS 是同级的关系，而 Nunjucks 是模板语言。
@@ -195,6 +195,7 @@ Argument | Description
 `source` | Full path of a file (Optional)
 `data` | Data
 
+
 The data must contain the `content` attribute. If not, Hexo will try to read the original file. The execution steps of this function are as follows:
 
 - Execute `before_post_render` filters
@@ -207,5 +208,7 @@ The data must contain the `content` attribute. If not, Hexo will try to read the
 金毛attr测试
 
 {% attr lang=en %}
-<div>for examplea</div>
+{% blockquote Seth Godin http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html Welcome to Island Marketing %}
+Every interaction is both precious and an opportunity to delight.
+{% endblockquote %}
 {% endattr %}

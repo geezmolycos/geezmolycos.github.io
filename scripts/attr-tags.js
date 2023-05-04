@@ -4,7 +4,7 @@ var utils = require('markdown-it-attrs/utils');
 hexo.extend.tag.register('attr', function(args, content){
     var tagStartMatch = content.match(/^\s*<[^\s>]+/);
     if (!tagStartMatch){
-        throw new Error("html tag match failed");
+        throw new Error('html tag match failed (' + content.substring(0, 10) + ')');
     }
     var joinedArgs = args.join(' ');
     var attrList = utils.getAttrs('\ufdd0' + joinedArgs + '\ufdd1', 0, {leftDelimiter: '\ufdd0', rightDelimiter: '\ufdd1'});
