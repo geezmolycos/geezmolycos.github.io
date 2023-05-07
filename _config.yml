@@ -17,7 +17,7 @@ timezone: 'Asia/Shanghai'
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: http://geezmolycos.github.io
-permalink: blog/:category/:year-:month-:name/
+permalink: "blog/:category/:year-:month-\ufdd0:name/" # See permalink-strip-date.js
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -155,3 +155,11 @@ theme: next
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# Search
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: striptags
+

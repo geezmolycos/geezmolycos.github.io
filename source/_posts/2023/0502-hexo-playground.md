@@ -15,10 +15,14 @@ updated: 2023-05-04 23:32:21
 
 后面玩耍一下 Hexo 的各种特性，以便于实现斜体和楷体等功能。
 
-![](example.png){width=64px height=64px}
-*what*{lang=en}
-
 <!-- more -->
+
+![](example.png){width=64px height=64px}
+
+This is an example {.image-caption}
+
+{% asset_img example.png This is an example image %}
+
 
 ## 引用测试
 
@@ -78,7 +82,7 @@ array.map(callback[, thisArg])
 content
 {% endpullquote %}
 
-{% post_link 2023/05/hexo-first %}
+{% post_link 2023/0501-hexo-first %}
 
 *[HTML]: Hyper Text Markup Language
 *[W3C]:  World Wide Web Consortium

@@ -45,7 +45,7 @@ menu:
 social:
   GitHub: https://github.com/geezmolycos || fab fa-github
   Bilibili: https://space.bilibili.com/49868114 || fa-brands fa-bilibili
-  E-Mail: mailto:djy0212@foxmail.com || fa fa-envelope
+  E-Mail: 'javascript:alert("请看「关于」页面") || fa fa-envelope'
 
 # footer
 footer:
@@ -77,3 +77,17 @@ text_align:
   # Available values: start | end | left | right | center | justify | justify-all | match-parent
   desktop: start
   mobile: start
+
+# Local search
+# Dependencies: https://github.com/next-theme/hexo-generator-searchdb
+local_search:
+  enable: true
+  # If auto, trigger search by changing input.
+  # If manual, trigger search by pressing enter key or search button.
+  trigger: auto
+  # Show top n results per article, show all results by setting to -1
+  top_n_per_article: 1
+  # Unescape html strings to the readable one.
+  unescape: false
+  # Preload the search data when the page loads.
+  preload: false
