@@ -32,9 +32,9 @@ menu:
   home: / || fa fa-home
   分类:
     default: /categories/ || fa fa-th
-    real: /categories/real/ || fa fa-user
-    virt: /categories/virt/ || fa fa-mouse-pointer
-    fict: /categories/fict/ || fa fa-pencil
+    real: real/ || fa fa-user
+    virt: virt/ || fa fa-mouse-pointer
+    fict: fict/ || fa fa-pencil
   tags: /tags/ || fa fa-tags
   archives: /archives/ || fa fa-archive
   about: /about/ || fa fa-solid fa-feather-pointed

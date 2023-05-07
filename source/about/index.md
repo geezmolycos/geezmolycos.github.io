@@ -1,8 +1,6 @@
 ---
 title: 关于金毛
 lang: zh-cn
-date: 2023-05-03 22:25:44
-updated: 2023-05-03 22:25:44
 ---
 
 
@@ -10,9 +8,9 @@ updated: 2023-05-03 22:25:44
 
 常见为「金毛」或「geezmolycos」，偶见为「djy0212」或「djy021204」。金毛萌。
 
-金毛，打印机师、贴画师、国产天雁计算器爆机师、廉价 USB DAC 师、中性笔芯师、自动铅笔师、钟表师、中国农历师、UDP 内网打洞师、标点符号师、排版师、CD/DVD/Bluray 光盘刻录师、VS Code 配色方案挑剔师。
+金毛，打印机师、贴画师、国产天雁计算器爆机师、廉价 USB DAC 师、中性笔芯师、自动铅笔师、钟表师、中国农历师、UDP 内网打洞师、标点符号师、排版师、CD/DVD/Bluray 光盘刻录师、VS Code 配色方案挑剔师、数字师、像素货币师。
 
-图片显示了金毛的吉祥物gwynzmo（左一）
+图片显示了金毛的吉祥物gwynzmo
 
 - {% btn https://github.com/geezmolycos, 在 GitHub 上拔毛, fa-fw fab fa-github %}
 - {% btn https://space.bilibili.com/49868114, 在 Bilibili 上拔毛, fa-fw fa-brands fa-bilibili %}
