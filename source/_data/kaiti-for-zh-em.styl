@@ -1,8 +1,34 @@
-// Use KaiTi on Chinese emphasis
+
+// Fake italic with regular KaiTi
+@font-face {
+    font-family: "KaiTi-as-italic-hans";
+    src: local("KaiTi"), local("Kaiti SC Regular"), local("STKaiti"), local("adobe-kaiti-std"), local("SimSun"), local("Songti SC Regular"), local("STSong");
+    font-style: italic;
+    unicode-range:
+        U+2E80-2EFF, U+2F00-2FDF, U+2FF0-2FFF, U+3000-303F, U+3040-309F,
+        U+30A0-30FF, U+3100-312F, U+3130-318F, U+3190-319F, U+31A0-31BF,
+        U+31C0-31EF, U+31F0-31FF, U+3200-32FF, U+3300-33FF, U+3400-4DBF,
+        U+4DC0-4DFF, U+4E00-9FFF, U+A960-A97F, U+D7B0-D7FF, U+F900-FAFF,
+        U+FE10-FE1F, U+FE30-FE4F, U+20000-2FFFF, U+30000-3FFFF;
+}
+
+@font-face {
+    font-family: "KaiTi-as-italic-hant";
+    src: local("DFKai-SB"), local("Kaiti TC Regular"), local("STKaiti"), local("adobe-kaiti-std"), local("Songti TC Regular"), local("STSong");
+    font-style: italic;
+    unicode-range:
+        U+2E80-2EFF, U+2F00-2FDF, U+2FF0-2FFF, U+3000-303F, U+3040-309F,
+        U+30A0-30FF, U+3100-312F, U+3130-318F, U+3190-319F, U+31A0-31BF,
+        U+31C0-31EF, U+31F0-31FF, U+3200-32FF, U+3300-33FF, U+3400-4DBF,
+        U+4DC0-4DFF, U+4E00-9FFF, U+A960-A97F, U+D7B0-D7FF, U+F900-FAFF,
+        U+FE10-FE1F, U+FE30-FE4F, U+20000-2FFFF, U+30000-3FFFF;
+}
+
+// Simplified Chinese
 blockquote:lang(zh), blockquote *:lang(zh),
 em:lang(zh), em *:lang(zh) {
-    font-family: KaiTi, serif;
-    font-style: normal;
+    font-family: KaiTi-as-italic-hans, serif;
+    font-style: italic;
 }
 
 blockquote {
@@ -12,10 +38,11 @@ blockquote {
     }
 }
 
+// Traditional Chinese
 blockquote:lang(zh-hant), blockquote *:lang(zh-hant),
 em:lang(zh-hant), em *:lang(zh-hant) {
-    font-family: DFKai-SB, serif;
-    font-style: normal;
+    font-family: KaiTi-as-italic-hant, serif;
+    font-style: italic;
 }
 
 blockquote {
@@ -25,8 +52,7 @@ blockquote {
     }
 }
 
-// Use italic on emphasis of other languages
-
+// Other languages
 blockquote, blockquote *,
 em, em * {
     font-style: italic;
@@ -37,3 +63,42 @@ blockquote {
         font-style: normal;
     }
 }
+
+/*
+The following unicode range are used for KaiTi:
+
+U+2E80-2EFF, U+2F00-2FDF, U+2FF0-2FFF, U+3000-303F, U+3040-309F,
+U+30A0-30FF, U+3100-312F, U+3130-318F, U+3190-319F, U+31A0-31BF,
+U+31C0-31EF, U+31F0-31FF, U+3200-32FF, U+3300-33FF, U+3400-4DBF,
+U+4DC0-4DFF, U+4E00-9FFF, U+A960-A97F, U+D7B0-D7FF, U+F900-FAFF,
+U+FE10-FE1F, U+FE30-FE4F, U+20000-2FFFF, U+30000-3FFFF;
+
+CJK scripts and symbols:
+CJK Radicals Supplement (2E80–2EFF)
+Kangxi Radicals (2F00–2FDF)
+Ideographic Description Characters (2FF0–2FFF)
+CJK Symbols and Punctuation (3000–303F)
+Hiragana (3040–309F)
+Katakana (30A0–30FF)
+Bopomofo (3100–312F)
+Hangul Compatibility Jamo (3130–318F)
+Kanbun (3190–319F)
+Bopomofo Extended (31A0–31BF)
+CJK Strokes (31C0–31EF)
+Katakana Phonetic Extensions (31F0–31FF)
+Enclosed CJK Letters and Months (3200–32FF)
+CJK Compatibility (3300–33FF)
+CJK Unified Ideographs Extension A (3400–4DBF)
+Yijing Hexagram Symbols (4DC0–4DFF)
+CJK Unified Ideographs (4E00–9FFF)
+
+Hangul Jamo Extended-A (A960–A97F)
+Hangul Jamo Extended-B (D7B0–D7FF)
+
+CJK Compatibility Ideographs (F900–FAFF)
+Vertical Forms (FE10–FE1F)
+CJK Compatibility Forms (FE30–FE4F)
+
+Supplementary Ideographic Plane (20000-2FFFF)
+Tertiary Ideographic Plane (30000-3FFFF)
+*/
