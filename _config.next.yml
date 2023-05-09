@@ -2,8 +2,8 @@
 scheme: Pisces
 darkmode: true
 theme_color:
-  light: 'mediumpurple' 
-  dark: 'mediumpurple' 
+  light: '#484050' 
+  dark: '#484050' 
 
 favicon:
   small: /images/favicon-16x16.png
@@ -30,14 +30,10 @@ custom_file_path:
 # sidebar
 menu:
   home: / || fa fa-home
-  分类:
-    default: /categories/ || fa fa-th
-    real: real/ || fa fa-user
-    virt: virt/ || fa fa-mouse-pointer
-    fict: fict/ || fa fa-pencil
+  about: /about/ || fa fa-solid fa-feather-pointed
+  categories: /categories/ || fa fa-th
   tags: /tags/ || fa fa-tags
   archives: /archives/ || fa fa-archive
-  about: /about/ || fa fa-solid fa-feather-pointed
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat

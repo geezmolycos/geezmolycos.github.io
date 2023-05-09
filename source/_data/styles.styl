@@ -53,6 +53,44 @@ mark {
     background-color: lightsalmon;
 }
 
+// change link color only in content
+
+@media (prefers-color-scheme: dark) {
+    .post-body p a{ 
+        color: lightsteelblue;
+        &:hover {
+            color: darkorange;
+        }
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .post-body p a{ 
+        color: steelblue;
+        &:hover {
+            color: darkorange;
+        }
+    }
+}
+
+// half-lengthed navigation
+// from https://sunderarmor.ink/2019/06/23/Hexo%E4%B8%BB%E9%A2%98%E7%9A%84%E4%B8%AA%E6%80%A7%E5%8C%96%E8%AE%BE%E7%BD%AE/
+
+.site-nav li {
+    width: 50%;
+}
+.menu .menu-item a, .menu .menu-item span.exturl {
+    padding-left: 10px;
+    padding-right: 15px;
+}
+.site-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    width: 100%;
+    margin: 0;
+}
+
 // add very thin space to enhance readability of em
 em {
     margin-left: 0.125em;
@@ -61,7 +99,7 @@ em {
 
 @import 'kaiti-for-zh-em';
 
-// Regard user's font choices for post content
+// Respect user's font choices for post content
 
 .post-body, .post-title {
     font-family: sans-serif;

@@ -6,7 +6,7 @@ categories:
 tags:
   - author:geezmolycos
   - tech
-lang: zh-cn
+lang: zh-cn-cmn-hans
 date: 2023-05-07 22:14:44
 updated: 2023-05-07 22:14:49
 ---
@@ -41,6 +41,26 @@ Setting | Result
 修改完以后，另外一个问题出现了，{% post_link 2023/0502-hexo-playground %} 前面的图片显示不出来了。我一看，发现它本来应该解析成`/blog/virt/site/2023-05-hexo-playground/example.png`，结果解析成 `/blog/virt/site/2023-05-0502-hexo-playground/example.png` 了，就是日期前缀没去掉。
 
 我想办法调试[^debug]了一下 [markdown-it] 的代码，发现没问题。这时候发现问题已经解决了。原来是我忘记 `hexo clean` 了。调试之前运行了一次 `hexo clean`，问题就修好了。
+
+脚本大概是这样：
+
+```js
+// Use date in filenames to better sort articles, but strip it for permalinks
+// U+FDD0 indicates the position of filename
+hexo.extend.filter.register('post_permalink', function(original_link){
+    var pivot = original_link.lastIndexOf("\ufdd0", original_link.length - 2);
+    var original_prefix = original_link.substring(0, pivot);
+    var original_title = original_link.substring(pivot + 1);
+
+    var changed_title = original_title.replace(/^\d+-/, ''); // remove date prefix
+
+    if (pivot === -1){ // no slash
+        return changed_title;
+    } else {
+        return original_prefix + changed_title;
+    }
+});
+```
 
 [markdown-it]: https://github.com/markdown-it/markdown-it
 
