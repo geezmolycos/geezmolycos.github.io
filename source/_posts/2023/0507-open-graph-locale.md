@@ -4,7 +4,6 @@ categories:
   - virt
   - site
 tags:
-  - author:geezmolycos
   - tech
   - web
 lang: zh-cn

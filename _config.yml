@@ -122,8 +122,13 @@ default_category: misc
 category_map:
   现实: real
   虚拟: virt
+  网站: site
   幻想: fict
 tag_map:
+  艺术: art
+  文学: lit
+  科技: tech
+  游戏: game
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta

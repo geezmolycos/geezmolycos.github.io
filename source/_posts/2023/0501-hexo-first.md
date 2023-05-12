@@ -1,10 +1,9 @@
 ---
 title: 现在使用 Hexo 试一下，我发现比 Jekyll 好用
 categories:
-  - [virt, site]
-  - [real]
+  - virt
+  - site
 tags:
-  - author:geezmolycos
   - lit
 lang: zh-cn
 date: 2023-05-01 16:25:27
