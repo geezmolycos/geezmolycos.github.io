@@ -9,6 +9,9 @@ description: >-
   喵喵喵！
 keywords:
 author: geezmolycos
+authors:
+  geezmolycos:
+    link: geez
 language:
   - zh-CN
   - en

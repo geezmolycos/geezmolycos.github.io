@@ -12,17 +12,18 @@ if (typeof Array.prototype.unique === 'undefined') {
 }
 
 function author_to_url(author) {
-    return ((this.theme.config.authors ?? {})[author] ?? {}).name ?? author;
+    return ((this.config.authors ?? {})[author] ?? {}).link ?? author;
 }
 
 hexo.extend.filter.register('template_locals', function(locals) {
     if (typeof locals.site.authors === 'undefined') {
-        locals.site.authors = locals.site.posts.map(post => post.author).unique();
+        locals.site.authors = locals.site.posts.map(post => post.author).flat().unique();
     }
 });
 
 hexo.extend.helper.register('list_authors', function() {
-    const count_posts = author => this.site.posts.filter(post => post.author === author).length;
+    const count_posts = author => this.site.posts.filter(post => (
+        post.author instanceof Array ? post.author.includes(author) : post.author === author)).length;
     const authors = this.site.authors.map(author => `
         <li class="author-list-item">
             <a class="author-list-link" href="${author_to_url.call(this, author)}">${author}</a>
@@ -38,12 +39,15 @@ hexo.extend.helper.register('author_to_url', function(author) {
 
 hexo.extend.generator.register('author', function(locals) {
     const posts = locals.posts;
-    const authors = posts.map(post => post.author).unique().map(author => ({name: author, posts: posts.find({author})}));
-    const generator_config = this.config.author_generator || {};
-    const per_page = generator_config.per_page || this.config.per_page || 10;
+    const authors = posts.map(post => post.author).flat().unique().map(author => (
+        {name: author, posts: posts.filter((post) => (
+            post.author instanceof Array ? post.author.includes(author) : post.author === author
+        ))}
+    ));
+    const per_page = this.config.authors_per_page || this.config.per_page || 10;
     return authors.reduce((result, author) => {
         const posts = author.posts.sort('-date');
-        const data = pagination('author/' + author_to_url.call(this, author.name), posts, {
+        const data = pagination('author/' + author_to_url.call(hexo, author.name), posts, {
             layout: ['author', 'archive', 'index'],
             perPage: per_page,
             data: {
@@ -54,8 +58,21 @@ hexo.extend.generator.register('author', function(locals) {
     }, []);
 });
 
+function createAuthorPostMeta(author) {
+    return `<a href="${this.url_for('/author/' + author_to_url.call(this, author))}">${author}</a>`;
+}
+
+hexo.extend.helper.register('author_post_meta', function(names) {
+    if (!Array.isArray(names)) {
+        return createAuthorPostMeta.call(this, names);
+    }
+    return names.map(name => createAuthorPostMeta.call(this, name)).join(
+        hexo.theme.i18n.get(hexo.config.language)['symbol.comma']
+    );
+});
+
 hexo.extend.filter.register('theme_inject', function(injects) {
-    let authors = hexo.theme.config.authors || {};
+    let authors = hexo.config.authors || {};
 
     injects.postMeta.raw('post-meta-author', `
     {%- if post.author %}
@@ -63,7 +80,7 @@ hexo.extend.filter.register('theme_inject', function(injects) {
         <span class="post-meta-item-icon">
             <i class="fa fa-copyright"></i>
         </span>
-        <span class="post-meta-item-text">{{ __('author') + __('symbol.colon') }}</span>
+        <span class="post-meta-item-text">{{ __('writer') + __('symbol.colon') }}</span>
         {{- author_post_meta(post.author) }}
     </span>
     {%- endif %}
