@@ -1,9 +1,9 @@
 
-scheme: Pisces
+scheme: Gemini
 darkmode: true
 theme_color:
-  light: '#484050' 
-  dark: '#484050' 
+  light: '#272e33' 
+  dark: '#272e33' 
 
 favicon:
   small: /images/favicon-16x16.png
@@ -38,10 +38,16 @@ menu:
   #sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat
 
+avatar:
+  url: /images/android-chrome-512x512.png
+  rounded: true
+
+site_state: false
+
 social:
   GitHub: https://github.com/geezmolycos || fab fa-github
   Bilibili: https://space.bilibili.com/49868114 || fa-brands fa-bilibili
-  E-Mail: 'javascript:alert("请看「关于」页面") || fa fa-envelope'
+  E-Mail: "/about/ || fa fa-envelope"
 
 # footer
 footer:

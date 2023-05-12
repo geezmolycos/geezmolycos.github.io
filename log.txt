@@ -1,0 +1,524 @@
+[90m13:00:58.483 [39m[90mDEBUG[39m Writing database to D:\app\geezmolycos.github.io\db.json
+[90m13:00:58.490 [39m[90mDEBUG[39m Hexo version: [35m6.3.0[39m
+[90m13:00:58.490 [39m[90mDEBUG[39m Working directory: [35mD:\app\geezmolycos.github.io\[39m
+[90m13:00:58.544 [39m[90mDEBUG[39m Config loaded: [35mD:\app\geezmolycos.github.io\_config.yml[39m
+[90m13:00:58.545 [39m[32mINFO [39m Validating config
+[90m13:00:58.549 [39m[90mDEBUG[39m Second Theme Config loaded: [35mD:\app\geezmolycos.github.io\_config.next.yml[39m
+[90m13:00:58.558 [39m[90mDEBUG[39m Plugin loaded: [35mhexo-generator-archive[39m
+[90m13:00:58.558 [39m[90mDEBUG[39m Plugin loaded: [35mhexo-generator-category[39m
+[90m13:00:58.558 [39m[90mDEBUG[39m Plugin loaded: [35mhexo-generator-searchdb[39m
+[90m13:00:58.751 [39m[90mDEBUG[39m Plugin loaded: [35mhexo-generator-index[39m
+[90m13:00:58.751 [39m[90mDEBUG[39m Plugin loaded: [35mhexo-generator-tag[39m
+[90m13:00:58.752 [39m[90mDEBUG[39m Plugin loaded: [35mhexo-renderer-ejs[39m
+[90m13:00:58.752 [39m[90mDEBUG[39m Plugin loaded: [35mhexo-renderer-markdown-it[39m
+[90m13:00:58.752 [39m[90mDEBUG[39m Plugin loaded: [35mhexo-server[39m
+[90m13:00:58.752 [39m[90mDEBUG[39m Plugin loaded: [35mhexo-renderer-stylus[39m
+[90m13:00:58.756 [39m[90mDEBUG[39m Script loaded: [35mscripts\attr-tags.js[39m
+[90m13:00:58.757 [39m[90mDEBUG[39m Script loaded: [35mscripts\markdown-it-container-next-spoiler.js[39m
+[90m13:00:58.757 [39m[90mDEBUG[39m Script loaded: [35mscripts\permalink-strip-date.js[39m
+[90m13:00:58.757 [39m[90mDEBUG[39m Script loaded: [35mscripts\friendly-category-tag-name.js[39m
+[90m13:00:58.770 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\helpers\navigation.js[39m
+[90m13:00:58.770 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\helpers\next-url.js[39m
+[90m13:00:58.770 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\helpers\engine.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\helpers\next-config.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\helpers\next-paginator.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\helpers\font.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\helpers\next-vendors.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\events\index.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\group-pictures.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\button.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\index.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\label.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\caniuse.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\link-grid.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\mermaid.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\center-quote.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\pdf.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\note.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\tabs.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\default-injects.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\tags\video.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\locals.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\minify.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\post.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\events\lib\highlight.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\events\lib\config.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\events\lib\navigation.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\events\lib\utils.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\events\lib\injects.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\comment\changyan.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\events\lib\vendors.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\comment\common.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\comment\default-config.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\comment\disqus.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\comment\disqusjs.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\comment\gitalk.js[39m
+[90m13:00:58.771 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\comment\isso.js[39m
+[90m13:00:58.772 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\comment\livere.js[39m
+[90m13:00:58.772 [39m[90mDEBUG[39m Script loaded: [35mnode_modules\hexo-theme-next\scripts\filters\comment\utterances.js[39m
+[90m13:00:58.772 [39m[32mINFO [39m ==================================
+  ███╗   ██╗███████╗██╗  ██╗████████╗
+  ████╗  ██║██╔════╝╚██╗██╔╝╚══██╔══╝
+  ██╔██╗ ██║█████╗   ╚███╔╝    ██║
+  ██║╚██╗██║██╔══╝   ██╔██╗    ██║
+  ██║ ╚████║███████╗██╔╝ ██╗   ██║
+  ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝   ╚═╝
+========================================
+NexT version 8.15.1
+Documentation: https://theme-next.js.org
+========================================
+[90m13:00:58.773 [39m[32mINFO [39m Start processing
+_File {
+  source: 'D:\\app\\geezmolycos.github.io\\source\\_posts\\2023\\0501-hexo-first.md',
+  path: '_posts/2023/0501-hexo-first.md',
+  params: {
+    published: true,
+    path: '2023/0501-hexo-first.md',
+    renderable: true
+  },
+  type: 'create'
+}
+Promise [Object] {
+  _bitField: 67108864,
+  _fulfillmentHandler0: undefined,
+  _rejectionHandler0: Promise [Object] {
+    _bitField: 1,
+    _fulfillmentHandler0: [Function (anonymous)],
+    _rejectionHandler0: undefined,
+    _promise0: Promise [Object] {
+      _bitField: 0,
+      _fulfillmentHandler0: undefined,
+      _rejectionHandler0: undefined,
+      _promise0: undefined,
+      _receiver0: undefined
+    },
+    _receiver0: undefined
+  },
+  _promise0: undefined,
+  _receiver0: undefined
+}
+_File {
+  source: 'D:\\app\\geezmolycos.github.io\\source\\_posts\\2023\\0502-hexo-playground.md',
+  path: '_posts/2023/0502-hexo-playground.md',
+  params: {
+    published: true,
+    path: '2023/0502-hexo-playground.md',
+    renderable: true
+  },
+  type: 'create'
+}
+Promise [Object] {
+  _bitField: 67108864,
+  _fulfillmentHandler0: undefined,
+  _rejectionHandler0: Promise [Object] {
+    _bitField: 1,
+    _fulfillmentHandler0: [Function (anonymous)],
+    _rejectionHandler0: undefined,
+    _promise0: Promise [Object] {
+      _bitField: 0,
+      _fulfillmentHandler0: undefined,
+      _rejectionHandler0: undefined,
+      _promise0: undefined,
+      _receiver0: undefined
+    },
+    _receiver0: undefined
+  },
+  _promise0: undefined,
+  _receiver0: undefined
+}
+_File {
+  source: 'D:\\app\\geezmolycos.github.io\\source\\_posts\\2023\\0507-basilisk-in-permalink.md',
+  path: '_posts/2023/0507-basilisk-in-permalink.md',
+  params: {
+    published: true,
+    path: '2023/0507-basilisk-in-permalink.md',
+    renderable: true
+  },
+  type: 'create'
+}
+Promise [Object] {
+  _bitField: 67108864,
+  _fulfillmentHandler0: undefined,
+  _rejectionHandler0: Promise [Object] {
+    _bitField: 1,
+    _fulfillmentHandler0: [Function (anonymous)],
+    _rejectionHandler0: undefined,
+    _promise0: Promise [Object] {
+      _bitField: 0,
+      _fulfillmentHandler0: undefined,
+      _rejectionHandler0: undefined,
+      _promise0: undefined,
+      _receiver0: undefined
+    },
+    _receiver0: undefined
+  },
+  _promise0: undefined,
+  _receiver0: undefined
+}
+_File {
+  source: 'D:\\app\\geezmolycos.github.io\\source\\_posts\\2023\\0507-new-kaiti-for-zh-em.md',
+  path: '_posts/2023/0507-new-kaiti-for-zh-em.md',
+  params: {
+    published: true,
+    path: '2023/0507-new-kaiti-for-zh-em.md',
+    renderable: true
+  },
+  type: 'create'
+}
+Promise [Object] {
+  _bitField: 67108864,
+  _fulfillmentHandler0: undefined,
+  _rejectionHandler0: Promise [Object] {
+    _bitField: 1,
+    _fulfillmentHandler0: [Function (anonymous)],
+    _rejectionHandler0: undefined,
+    _promise0: Promise [Object] {
+      _bitField: 0,
+      _fulfillmentHandler0: undefined,
+      _rejectionHandler0: undefined,
+      _promise0: undefined,
+      _receiver0: undefined
+    },
+    _receiver0: undefined
+  },
+  _promise0: undefined,
+  _receiver0: undefined
+}
+_File {
+  source: 'D:\\app\\geezmolycos.github.io\\source\\_posts\\2023\\0507-open-graph-locale.md',
+  path: '_posts/2023/0507-open-graph-locale.md',
+  params: {
+    published: true,
+    path: '2023/0507-open-graph-locale.md',
+    renderable: true
+  },
+  type: 'create'
+}
+Promise [Object] {
+  _bitField: 67108864,
+  _fulfillmentHandler0: undefined,
+  _rejectionHandler0: Promise [Object] {
+    _bitField: 1,
+    _fulfillmentHandler0: [Function (anonymous)],
+    _rejectionHandler0: undefined,
+    _promise0: Promise [Object] {
+      _bitField: 0,
+      _fulfillmentHandler0: undefined,
+      _rejectionHandler0: undefined,
+      _promise0: undefined,
+      _receiver0: undefined
+    },
+    _receiver0: undefined
+  },
+  _promise0: undefined,
+  _receiver0: undefined
+}
+_File {
+  source: 'D:\\app\\geezmolycos.github.io\\source\\_posts\\2023\\0502-hexo-playground\\example.png',
+  path: '_posts/2023/0502-hexo-playground/example.png',
+  params: {
+    published: true,
+    path: '2023/0502-hexo-playground/example.png',
+    renderable: false
+  },
+  type: 'create'
+}
+Promise [Object] {
+  _bitField: 33554432,
+  _fulfillmentHandler0: undefined,
+  _rejectionHandler0: undefined,
+  _promise0: undefined,
+  _receiver0: undefined
+}
+_posts/2023/0502-hexo-playground/example.png
+failed
+[90m13:00:58.829 [39m[90mDEBUG[39m Processed: [35m_posts/2023/0502-hexo-playground/example.png[39m
+[90m13:00:58.830 [39m[90mDEBUG[39m Processed: [35mimages/android-chrome-192x192.png[39m
+[90m13:00:58.830 [39m[90mDEBUG[39m Processed: [35mimages/apple-touch-icon.png[39m
+[90m13:00:58.830 [39m[90mDEBUG[39m Processed: [35mimages/android-chrome-512x512.png[39m
+[90m13:00:58.830 [39m[90mDEBUG[39m Processed: [35mimages/favicon-16x16.png[39m
+[90m13:00:58.830 [39m[90mDEBUG[39m Processed: [35mimages/favicon-32x32.png[39m
+[90m13:00:58.830 [39m[90mDEBUG[39m Processed: [35mimages/favicon.ico[39m
+[90m13:00:58.830 [39m[90mDEBUG[39m Processed: [35mimages/mstile-150x150.png[39m
+[90m13:00:58.831 [39m[90mDEBUG[39m Processed: [35mimages/safari-pinned-tab.svg[39m
+[90m13:00:58.831 [39m[90mDEBUG[39m Processed: [35mimages/about_geezmo/autumn_blaze_cringe.png[39m
+[90m13:00:58.831 [39m[90mDEBUG[39m Processed: [35mimages/about_geezmo/autumn_blaze_cringe_small.png[39m
+[90m13:00:58.831 [39m[90mDEBUG[39m Processed: [35mimages/about_geezmo/geezmo_alipay_payment_code.jpg[39m
+[90m13:00:58.831 [39m[90mDEBUG[39m Processed: [35mimages/about_geezmo/geezmo_alipay_payment_code_small.png[39m
+[90m13:00:58.831 [39m[90mDEBUG[39m Processed: [35mimages/about_geezmo/geezmo_wechat_payment_code.png[39m
+[90m13:00:58.831 [39m[90mDEBUG[39m Processed: [35mimages/about_geezmo/geezmo_wechat_payment_code_small.png[39m
+[90m13:00:58.832 [39m[90mDEBUG[39m Processed: [35mimages/about_geezmo/gwynzmo3.png[39m
+[90m13:00:58.832 [39m[90mDEBUG[39m Processed: [35mimages/about_geezmo/gwynzmo3_small.png[39m
+[90m13:00:58.856 [39m[90mDEBUG[39m Processed: [35msource/css/noscript.styl[39m
+[90m13:00:58.856 [39m[90mDEBUG[39m Processed: [35msource/css/main.styl[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/bookmark.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/comments-buttons.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/comments.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/config.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/motion.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/next-boot.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/pjax.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/schedule.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/utils.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/images/apple-touch-icon-next.png[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/images/avatar.gif[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/images/favicon-32x32-next.png[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/images/favicon-16x16-next.png[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/images/logo-algolia-nebula-blue-full.svg[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/images/logo.svg[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/schemes/muse.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/fancybox.js[39m
+[90m13:00:58.857 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/pace.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/quicklink.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/analytics/baidu-analytics.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/analytics/google-analytics.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/analytics/growingio.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/analytics/matomo.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/chat/chatra.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/chat/gitter.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/chat/tidio.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/comments/changyan.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/comments/disqus.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/comments/disqusjs.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/comments/gitalk.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/comments/isso.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/comments/livere.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/comments/utterances.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/math/katex.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/math/mathjax.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/search/algolia-search.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/search/local-search.js[39m
+[90m13:00:58.858 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/statistics/firestore.js[39m
+[90m13:00:58.859 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/statistics/lean-analytics.js[39m
+[90m13:00:58.859 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/tags/mermaid.js[39m
+[90m13:00:58.859 [39m[90mDEBUG[39m Processed: [35msource/js/third-party/tags/pdf.js[39m
+[90m13:00:58.911 [39m[90mDEBUG[39m Processed: [35mtags/index.md[39m
+[90m13:00:58.912 [39m[90mDEBUG[39m Processed: [35m_data/kaiti-for-zh-em.styl[39m
+[90m13:00:58.912 [39m[90mDEBUG[39m Processed: [35mcategories/index.md[39m
+[90m13:00:58.913 [39m[90mDEBUG[39m Processed: [35m_data/variables.styl[39m
+[90m13:00:58.913 [39m[90mDEBUG[39m Processed: [35mabout/index.md[39m
+[90m13:00:58.915 [39m[90mDEBUG[39m Processed: [35m_data/styles.styl[39m
+_posts/2023/0501-hexo-first.md
+_posts/2023/0507-basilisk-in-permalink.md
+_posts/2023/0507-new-kaiti-for-zh-em.md
+_posts/2023/0507-open-graph-locale.md
+[90m13:00:58.922 [39m[90mDEBUG[39m Processed: [35m_posts/2023/0501-hexo-first.md[39m
+[90m13:00:58.923 [39m[90mDEBUG[39m Processed: [35m_posts/2023/0507-basilisk-in-permalink.md[39m
+[90m13:00:58.923 [39m[90mDEBUG[39m Processed: [35m_posts/2023/0507-new-kaiti-for-zh-em.md[39m
+[90m13:00:58.923 [39m[90mDEBUG[39m Processed: [35m_posts/2023/0507-open-graph-locale.md[39m
+[90m13:00:58.971 [39m[90mDEBUG[39m Theme config loaded.
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_layout.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/category.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/index.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/page.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/archive.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/post.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/tag.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_macro/post-collapse.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_macro/sidebar.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_macro/post.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/footer.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/comments.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/pagination.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_scripts/index.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/languages.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/widgets.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/fancybox.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/index.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/pace.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_scripts/vendors.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/quicklink.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/head/head-unique.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/head/head.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/header/index.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/header/brand.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/header/menu.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/header/menu-item.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/page/breadcrumb.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/page/categories.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/page/page-header.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/page/schedule.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/header/sub-menu.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/page/tags.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/post/post-copyright.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/post/post-followme.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/post/post-related.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/post/post-meta.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/post/post-share.njk[39m
+[90m13:00:58.973 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/sidebar/site-overview.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/search/algolia-search.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/post/post-reward.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/search/index.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_partials/search/localsearch.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/analytics/baidu-analytics.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/analytics/cloudflare.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/analytics/growingio.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/analytics/google-analytics.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/analytics/index.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/analytics/matomo.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/analytics/microsoft-clarity.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/analytics/plausible.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/analytics/umami.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/chat/chatra.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/chat/gitter.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/comments/changyan.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/chat/tidio.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/comments/disqus.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/comments/disqusjs.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/comments/gitalk.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/comments/isso.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/comments/livere.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/comments/utterances.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/math/index.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/math/katex.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/math/mathjax.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/statistics/busuanzi-counter.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/statistics/firestore.njk[39m
+[90m13:00:58.974 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/statistics/index.njk[39m
+[90m13:00:58.975 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/statistics/lean-analytics.njk[39m
+[90m13:00:58.975 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/search/localsearch.njk[39m
+[90m13:00:58.975 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/tags/mermaid.njk[39m
+[90m13:00:58.975 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/tags/pdf.njk[39m
+[90m13:00:58.975 [39m[90mDEBUG[39m Processed: [35mlayout/_third-party/search/algolia-search.njk[39m
+_posts/2023/0502-hexo-playground.md
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35m_posts/2023/0502-hexo-playground.md[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/README.md[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/en.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/ar.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/es.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/bn.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/de.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/fa.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/fr.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/id.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/it.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/ja.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/ko.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/nl.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/pt-BR.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/pt.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/ru.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/si.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/th.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/tk.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/tr.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/vi.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/zh-CN.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/uk.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/zh-HK.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35mlanguages/zh-TW.yml[39m
+[90m13:00:58.976 [39m[90mDEBUG[39m Processed: [35m_config.yml[39m
+[90m13:00:59.004 [39m[90mDEBUG[39m Rendering post: [35mD:\app\geezmolycos.github.io\source\_posts\2023\0501-hexo-first.md[39m
+[90m13:00:59.004 [39m[90mDEBUG[39m Rendering post: [35mD:\app\geezmolycos.github.io\source\_posts\2023\0502-hexo-playground.md[39m
+[90m13:00:59.004 [39m[90mDEBUG[39m Rendering post: [35mD:\app\geezmolycos.github.io\source\_posts\2023\0507-basilisk-in-permalink.md[39m
+[90m13:00:59.004 [39m[90mDEBUG[39m Rendering post: [35mD:\app\geezmolycos.github.io\source\_posts\2023\0507-new-kaiti-for-zh-em.md[39m
+[90m13:00:59.004 [39m[90mDEBUG[39m Rendering post: [35mD:\app\geezmolycos.github.io\source\_posts\2023\0507-open-graph-locale.md[39m
+[90m13:00:59.004 [39m[90mDEBUG[39m Rendering post: [35mD:\app\geezmolycos.github.io\source\tags\index.md[39m
+[90m13:00:59.004 [39m[90mDEBUG[39m Rendering post: [35mD:\app\geezmolycos.github.io\source\categories\index.md[39m
+[90m13:00:59.004 [39m[90mDEBUG[39m Rendering post: [35mD:\app\geezmolycos.github.io\source\about\index.md[39m
+[90m13:00:59.060 [39m[90mDEBUG[39m Generator: [35masset[39m
+[90m13:00:59.060 [39m[90mDEBUG[39m Generator: [35mpage[39m
+[90m13:00:59.060 [39m[90mDEBUG[39m Generator: [35mpost[39m
+[90m13:00:59.061 [39m[90mDEBUG[39m Generator: [35marchive[39m
+[90m13:00:59.061 [39m[90mDEBUG[39m Generator: [35mcategory[39m
+[90m13:00:59.062 [39m[90mDEBUG[39m Generator: [35mxml[39m
+[90m13:00:59.066 [39m[90mDEBUG[39m Generator: [35mindex[39m
+[90m13:00:59.066 [39m[90mDEBUG[39m Generator: [35mtag[39m
+[90m13:00:59.076 [39m[32mINFO [39m Files loaded in [36m303 ms[39m
+[90m13:00:59.081 [39m[90mDEBUG[39m Rendering HTML page: [35mtags/index.html[39m
+[90m13:00:59.141 [39m[90mDEBUG[39m Rendering HTML page: [35mcategories/index.html[39m
+[90m13:00:59.159 [39m[90mDEBUG[39m Rendering HTML page: [35mabout/index.html[39m
+[90m13:00:59.172 [39m[90mDEBUG[39m Rendering HTML post: [35mblog/okay/2023-05-open-graph-locale/index.html[39m
+[90m13:00:59.191 [39m[90mDEBUG[39m Rendering HTML post: [35mblog/okay/2023-05-basilisk-in-permalink/index.html[39m
+[90m13:00:59.208 [39m[90mDEBUG[39m Rendering HTML post: [35mblog/okay/2023-05-new-kaiti-for-zh-em/index.html[39m
+[90m13:00:59.220 [39m[90mDEBUG[39m Rendering HTML post: [35mblog/okay/2023-05-hexo-playground/index.html[39m
+[90m13:00:59.234 [39m[90mDEBUG[39m Rendering HTML post: [35mblog/okay/2023-05-hexo-first/index.html[39m
+[90m13:00:59.245 [39m[90mDEBUG[39m Rendering HTML archive: [35marchives/index.html[39m
+[90m13:00:59.256 [39m[90mDEBUG[39m Rendering HTML archive: [35marchives/2023/index.html[39m
+[90m13:00:59.266 [39m[90mDEBUG[39m Rendering HTML archive: [35marchives/2023/05/index.html[39m
+[90m13:00:59.275 [39m[90mDEBUG[39m Rendering HTML category: [35mcategories/okay/index.html[39m
+[90m13:00:59.285 [39m[90mDEBUG[39m Rendering HTML index: [35mindex.html[39m
+[90m13:00:59.312 [39m[90mDEBUG[39m Rendering HTML tag: [35mtags/author-geezmolycos/index.html[39m
+[90m13:00:59.320 [39m[90mDEBUG[39m Rendering HTML tag: [35mtags/lit/index.html[39m
+[90m13:00:59.329 [39m[90mDEBUG[39m Rendering HTML tag: [35mtags/tech/index.html[39m
+[90m13:00:59.342 [39m[90mDEBUG[39m Rendering HTML tag: [35mtags/web/index.html[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35msearch.xml[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35mtags/index.html[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35mcategories/index.html[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35mabout/index.html[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35marchives/index.html[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35mcategories/okay/index.html[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35marchives/2023/05/index.html[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35marchives/2023/index.html[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35mtags/author-geezmolycos/index.html[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35mtags/lit/index.html[39m
+[90m13:00:59.566 [39m[32mINFO [39m Generated: [35mtags/tech/index.html[39m
+[90m13:00:59.568 [39m[32mINFO [39m Generated: [35mindex.html[39m
+[90m13:00:59.568 [39m[32mINFO [39m Generated: [35mimages/android-chrome-192x192.png[39m
+[90m13:00:59.568 [39m[32mINFO [39m Generated: [35mtags/web/index.html[39m
+[90m13:00:59.569 [39m[32mINFO [39m Generated: [35mimages/about_geezmo/geezmo_alipay_payment_code_small.png[39m
+[90m13:00:59.569 [39m[32mINFO [39m Generated: [35mimages/favicon-16x16.png[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/apple-touch-icon.png[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/android-chrome-512x512.png[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/about_geezmo/geezmo_wechat_payment_code_small.png[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/favicon-32x32.png[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/favicon.ico[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/safari-pinned-tab.svg[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/about_geezmo/gwynzmo3_small.png[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/apple-touch-icon-next.png[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/mstile-150x150.png[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/about_geezmo/autumn_blaze_cringe_small.png[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/logo-algolia-nebula-blue-full.svg[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/avatar.gif[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/logo.svg[39m
+[90m13:00:59.570 [39m[32mINFO [39m Generated: [35mimages/favicon-32x32-next.png[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mimages/favicon-16x16-next.png[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mblog/okay/2023-05-hexo-playground/example.png[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mimages/about_geezmo/geezmo_alipay_payment_code.jpg[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mimages/about_geezmo/geezmo_wechat_payment_code.png[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mimages/about_geezmo/gwynzmo3.png[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mcss/noscript.css[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/comments-buttons.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/third-party/fancybox.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/schemes/muse.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/third-party/analytics/baidu-analytics.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/third-party/chat/chatra.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/third-party/comments/changyan.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/third-party/search/algolia-search.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/third-party/math/katex.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/third-party/tags/mermaid.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/third-party/statistics/firestore.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/comments.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/config.js[39m
+[90m13:00:59.571 [39m[32mINFO [39m Generated: [35mjs/bookmark.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/next-boot.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/pace.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/motion.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/schedule.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/pjax.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/analytics/google-analytics.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/quicklink.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/analytics/growingio.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/analytics/matomo.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/chat/gitter.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/chat/tidio.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/comments/disqusjs.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/comments/disqus.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/comments/gitalk.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/comments/livere.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/math/mathjax.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/search/local-search.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/statistics/lean-analytics.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/comments/isso.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/comments/utterances.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/third-party/tags/pdf.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mcss/main.css[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mjs/utils.js[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mblog/okay/2023-05-open-graph-locale/index.html[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mimages/about_geezmo/autumn_blaze_cringe.png[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mblog/okay/2023-05-hexo-first/index.html[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mblog/okay/2023-05-new-kaiti-for-zh-em/index.html[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mblog/okay/2023-05-basilisk-in-permalink/index.html[39m
+[90m13:00:59.572 [39m[32mINFO [39m Generated: [35mblog/okay/2023-05-hexo-playground/index.html[39m
+[90m13:00:59.573 [39m[32mINFO [39m 78 files generated in [36m497 ms[39m
+[90m13:00:59.578 [39m[90mDEBUG[39m Database saved

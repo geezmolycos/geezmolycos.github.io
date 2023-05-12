@@ -91,6 +91,29 @@ mark {
     margin: 0;
 }
 
+// stylize heading
+
+.site-title {
+    font-size: 36px;
+    color: #7fbbb3;
+}
+.site-title:hover {
+    color: #d699b6;
+    transition-duration: 0.5s;
+}
+.site-subtitle {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #e69875;
+}
+
+// Don't use large font size for desktop
+.post-body {
+    +desktop-large() {
+        font-size: $font-size-medium;
+    }
+}
+
 // add very thin space to enhance readability of em
 em {
     margin-left: 0.125em;

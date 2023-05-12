@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 金毛妙妙站
-subtitle: omilia korakiou
+title: 金毛雅言
+subtitle: koraki geezmolycou
 description: >-
   喵喵喵！
 keywords:
@@ -120,6 +120,9 @@ index_generator:
 # Category & Tag
 default_category: misc
 category_map:
+  现实: real
+  虚拟: virt
+  幻想: fict
 tag_map:
 
 # Metadata elements

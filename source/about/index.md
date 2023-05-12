@@ -14,7 +14,7 @@ lang: zh-cn
 
 - {% btn https://github.com/geezmolycos, 在 GitHub 上拔毛, fa-fw fab fa-github %}
 - {% btn https://space.bilibili.com/49868114, 在 Bilibili 上拔毛, fa-fw fa-brands fa-bilibili %}
-- {% btn mailto:djy0212@foxmail.com, 给金毛发电子邮件, fa-fw fa fa-envelope %}
+- <a class="btn" onclick="this.innerText = '地址：' + 'A\u0040B'.replace('A', 'djy0212').replace('B', 'foxmail.com')"><i class="fa-fw fa fa-envelope"></i>给金毛发电子邮件</a>
 
 <!-- -->
 
