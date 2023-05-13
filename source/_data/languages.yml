@@ -1,7 +1,31 @@
 
 en:
-  writer: Author
+  title:
+    author: Author
+  post:
+    author: Author
+  counter:
+    authors:
+      zero: No authors
+      one: 1 author in total
+      other: "%d authors in total"
 zh-CN:
-  writer: 作者
+  title:
+    author: 作者
+  post:
+    author: 作者
+  counter:
+    authors:
+      zero: 暂无作者
+      one: 目前共计 1 名作者
+      other: "目前共计 %d 名作者"
 zh-TW:
-  writer: 作者
+  title:
+    author: 作者
+  post:
+    author: 作者
+  counter:
+    authors:
+      zero: 沒有作者
+      one: 目前共有 1 名作者
+      other: "目前共有 %d 名作者"

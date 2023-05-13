@@ -48,14 +48,14 @@ hexo.locals.set('authors', ()=>{
 });
 
 hexo.extend.helper.register('list_authors', function() {
-    const count_posts = author => this.locals.get('author').get(author).length;
-    const authors = Array.from(this.site.authors.keys())(author => `
-        <li class="author-list-item">
-            <a class="author-list-link" href="${this.url_for('/' + ((this.config.author_generator || {}).authors_dir || "authors/") + authorToLink.call(this, author))}">${author}</a>
-            <span class="author-list-count">${count_posts(author)}</span>
+    const count_posts = author => this.site.authors.get(author).length;
+    const authors = Array.from(this.site.authors.keys()).map(author => `
+        <li class="author-list-item category-list-item">
+            <a class="author-list-link category-list-link" href="${this.url_for('/' + ((this.config.author_generator || {}).authors_dir || "authors/") + authorToLink.call(this, author))}">${author}</a>
+            <span class="author-list-count category-list-count">${count_posts(author)}</span>
         </li>`).join('');
 
-    return `<ul class="author-list">${authors}</ul>`;
+    return `<ul class="author-list category-list">${authors}</ul>`;
 });
 
 hexo.extend.helper.register('author_to_link', function(author) {
@@ -75,7 +75,7 @@ hexo.extend.generator.register('author', function(locals) {
             format: paginationDir + '/%d/',
             perPage: per_page,
             data: {
-                author: author.name
+                author: author[0]
             }
         });
         return result.concat(data);
@@ -83,7 +83,8 @@ hexo.extend.generator.register('author', function(locals) {
 });
 
 function createAuthorPostMeta(author) {
-    return `<a href="${this.url_for('/author/' + authorToLink.call(this, author))}">${author}</a>`;
+    const authorsDir = (this.config.author_generator || {}).authors_dir || "authors/";
+    return `<a href="${this.url_for(authorsDir + authorToLink.call(this, author))}">${author}</a>`;
 }
 
 hexo.extend.helper.register('author_post_meta', function(names) {
@@ -102,9 +103,9 @@ hexo.extend.filter.register('theme_inject', function(injects) {
     {%- if post.authors.length > 0 %}
     <span class="post-meta-item">
         <span class="post-meta-item-icon">
-            <i class="fa fa-copyright"></i>
+            <i class="fa-regular fa-copyright"></i>
         </span>
-        <span class="post-meta-item-text">{{ __('writer') + __('symbol.colon') }}</span>
+        <span class="post-meta-item-text">{{ __('post.author') }}</span>
         {{- author_post_meta(post.authors) }}
     </span>
     {%- endif %}
