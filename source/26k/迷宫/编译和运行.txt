@@ -1,0 +1,23 @@
+这个程序使用了直接将C++通过WAjic库(<https://github.com/schellingb/wajic>)编译为WebAssembly，以在浏览器前端直接运行的方式。以下是编译和运行教程：
+
+运行教程：
+
+想要直接运行，可以不编译，因为已经编译好了。首先将终端或cmd的工作目录设在该文件夹下（包含Makefile和viewer.html），然后打开一个简单的静态http服务器。如果你的电脑上有python，可以输入 python -m http.server 命令打开一个静态http服务器，随后会显示端口，一般是8000，类似下面：
+Serving HTTP on :: port 8000 (http://[::]:8000/) ...
+这时，就在浏览器，最好是chromium内核的浏览器中打开127.0.0.1:8000，然后进到一个网页，会显示目录中的文件，其中有viewer.html，点击viewer.html，程序输出中会显示：
+Loading...
+working
+
+working
+Finished main
+而且会出现Wasm内存占用，说明你运行成功了。
+
+要是直接打开viewer.html，就会出现Error during startup. Your browser might not support WebAssembly. Please update it to the latest version.等提示，说明wasm文件没有加载成功。应该照上面的流程通过http服务器打开。
+
+编译教程：
+
+编译这个程序需要gnu make、clang编译器，还需要wajic库。wajic库已经附带了，需要修改makefile中的system_path，指向wajic目录。
+
+编译就运行make clean && make
+
+windows下建议装msys2环境，采用mingw64-clang编译

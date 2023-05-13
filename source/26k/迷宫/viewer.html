@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>C++ BFS 迷宫寻路</title>
+<style type="text/css">
+html, body { background-color: #cec6b3; font-family: sans-serif; font-size:15pt; margin:0; padding:1px 0 0; height:100%; box-sizing:border-box; }
+h2 { font-size: 160%; text-align: center; margin: 20px 20px; padding-bottom: 20px; border-bottom: 1px dotted black; }
+#start, #reset { filter: brightness(95%) sepia(40%) hue-rotate(180deg) }
+</style>
+<script src="./jquery.min.js"></script>
+</head>
+<body>
+<h2>C++ BFS 迷宫寻路</h2>
+<div>手持物块：</div>
+<div id="select-land" class="maze-tile land tile-selector"></div>
+<div id="select-wall" class="maze-tile wall tile-selector"></div>
+<div id="select-start" class="maze-tile start tile-selector"></div>
+<div id="select-end" class="maze-tile end tile-selector"></div>
+<div id="select-mouse" class="maze-tile mouse tile-selector"></div>
+<div>迷宫地图：</div>
+<div id="maze-container">
+	<div id="maze-tiles"></div>
+	<div id="maze-anchor"></div>
+	<div id="maze-start" class="start maze-entity"></div>
+	<div id="maze-end" class="end maze-entity"></div>
+	<div id="maze-mouse" class="mouse maze-entity"></div>
+</div>
+<br><br>
+<button id="randomize">随机生成地图</button>
+<input type="range" id="randomize-threshold" name="randomize-threshold" min="0" max="100">
+<style>
+	#maze-container{
+		position: relative;
+		display: inline-block;
+	}
+	#maze-tiles {
+		line-height: 0;
+		border-left: 4px solid black;
+		border-top: 4px solid black;
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+	}
+	.maze-tile {
+		position: relative;
+		display: inline-block;
+		width: 64px;
+		height: 64px;
+		border-right: 4px solid black;
+		border-bottom: 4px solid black;
+	}
+	.maze-tile.land {
+		background-image: url("./land.png");
+	}
+	.maze-tile.wall {
+		background-image: url("./wall.png");
+	}
+	#maze-anchor {
+		display: inline-block;
+		width: 64px;
+		height: 64px;
+		background-image: url("./anchor.png");
+		position: absolute;
+		right: -32px;
+		bottom: -32px;
+		z-index: 0;
+	}
+	.tile-selector{
+		border: 4px solid black;
+	}
+	.tile-selector.selected{
+		border: 4px solid orange;
+	}
+
+	.maze-entity{
+		position: absolute;
+		display: inline-block;
+		width: 64px;
+		height: 64px;
+		z-index: 2;
+	}
+
+	.mouse{
+		background-image: url("mouse.png");
+	}
+	
+	.start{
+		background-image: url("start.png");
+	}
+	
+	.end{
+		background-image: url("end.png");
+	}
+
+	.arrow{
+		background-image: url("arrow.png");
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width: 64px;
+		height: 64px;
+	}
+
+	.path {
+		background-color: lightblue;
+	}
+
+	.count {
+		background-color: plum;
+	}
+
+	.depth {
+		background-color: lightgreen;
+	}
+
+</style>
+<script>
+"use strict"
+let maze_tile_size = 64;
+let maze_line_size = 4;
+
+let maze_tile_data = new Map();
+
+function get_tile_data(x, y){
+	return !!(maze_tile_data.get(`${x},${y}`));
+}
+
+function apply_tile_data($tile, value){
+	$tile.removeClass("land").removeClass("wall");
+	if (value){
+		$tile.addClass("wall");
+	} else {
+		$tile.addClass("land");
+	}
+	return $tile;
+}
+
+function set_tile_data(x, y, value){
+	maze_tile_data.set(`${x},${y}`, value);
+	let $tile = $(`.maze-tile[data-x="${x}"][data-y="${y}"]`);
+	apply_tile_data($tile, value);
+}
+
+let selected = "wall"; // 现在选定的物块，即用鼠标放置在地图上的物块
+
+for (let name of ["land", "wall", "mouse", "start", "end"]){
+	// 选择按钮的click handler
+	$("#select-"+name).on("click", (e)=>{
+		$(".tile-selector").removeClass("selected");
+		$("#select-"+name).addClass("selected");
+		selected = name;
+	});
+}
+
+
+let mouse_x = -100;
+let mouse_y = -100;
+
+let start_x = -100;
+let start_y = -100;
+let end_x = -88;
+let end_y = -88;
+
+function update_entity(){
+	$("#maze-mouse").css("left", mouse_x * (maze_tile_size + maze_line_size));
+	$("#maze-mouse").css("top", mouse_y * (maze_tile_size + maze_line_size));
+	$("#maze-start").css("left", start_x * (maze_tile_size + maze_line_size));
+	$("#maze-start").css("top", start_y * (maze_tile_size + maze_line_size));
+	$("#maze-end").css("left", end_x * (maze_tile_size + maze_line_size));
+	$("#maze-end").css("top", end_y * (maze_tile_size + maze_line_size));
+}
+update_entity();
+
+function click_handler(x, y){
+	clear_solution_animation();
+	if (selected === "land"){
+		set_tile_data(x, y, false);
+	} else if (selected === "wall"){
+		set_tile_data(x, y, true);
+	} else if (selected === "mouse"){
+		//clear_solution_animation();
+		solve_maze();
+	} else if (selected === "start"){
+		start_x = x;
+		start_y = y;
+		set_tile_data(x, y, false);
+		update_entity();
+	} else if (selected === "end"){
+		end_x = x;
+		end_y = y;
+		set_tile_data(x, y, false);
+		update_entity();
+	}
+}
+
+let maze_width = 0;
+let maze_height = 0;
+
+function generate_maze_tiles(width, height){
+	maze_width = width;
+	maze_height = height;
+	$("#maze-tiles").empty();
+	for (let y=0; y<height; y++){
+		for (let x=0; x<width; x++){
+			$("#maze-tiles").append(
+				apply_tile_data(
+					$("<div>")
+						.addClass("maze-tile")
+						.attr("data-x", x).attr("data-y", y),
+					get_tile_data(x, y)
+				).on("click", (e)=>{
+					click_handler(x, y)
+				})
+			);
+		}
+		$("#maze-tiles").append($("<br>"));
+	}
+}
+let resizing = false;
+
+$("#maze-anchor").on("mousedown", (e)=>{
+	resizing = true;
+});
+$("body").on("mousemove", (e)=>{
+	if (!resizing){return;}
+	let offset = $("#maze-container").offset();
+	let target_width = Math.floor((e.pageX - offset.left) / (maze_tile_size + maze_line_size));
+	let target_height = Math.floor((e.pageY - offset.top) / (maze_tile_size + maze_line_size));
+	if (target_width < 1){target_width = 1;}
+	if (target_height < 1){target_height = 1;}
+	if (target_width != maze_width || target_height != maze_height){
+		generate_maze_tiles(target_width, target_height);
+	}
+	e.preventDefault();
+});
+$("body").on("mouseup", (e)=>{
+	resizing = false;
+});
+
+function clear_solution_animation(){
+	$(".maze-tile").removeClass("path").removeClass("count").removeClass("depth");
+	$(".maze-tile[data-x]").empty();
+}
+
+let animation_id = -1;
+
+function play_bfs_group_animation(group, callback){
+	if (animation_id !== -1){
+		clearTimeout(animation_id);
+	}
+	if (group.length === 0){
+		return;
+	}
+	let [head, tail] = [group[0], group.slice(1)];
+	let [x, y] = head;
+	$(`.maze-tile[data-x="${x}"][data-y="${y}"]`).addClass("count");
+	if (tail.length !== 0){
+		animation_id = setTimeout(()=>{play_bfs_group_animation(tail, callback);}, 50);
+	} else {
+		if (callback){callback();}
+	}
+}
+
+function play_bfs_animation(groups_by_depth, callback){
+	if (animation_id !== -1){
+		clearTimeout(animation_id);
+	}
+	if (groups_by_depth.length === 0){
+		return;
+	}
+	let [head, tail] = [groups_by_depth[0], groups_by_depth.slice(1)];
+	play_bfs_group_animation(head, ()=>{
+		animation_id = setTimeout(()=>{
+			for (let [x, y] of head){
+				$(`.maze-tile[data-x="${x}"][data-y="${y}"]`).removeClass("count").addClass("depth");
+			}
+			if (tail.length !== 0){
+				animation_id = setTimeout(()=>{play_bfs_animation(tail, callback);}, 50);
+			} else {
+				if (callback){callback();}
+			}
+		}, 50);
+	});
+}
+
+function play_solution_animation(path, callback){
+	if (animation_id !== -1){
+		clearTimeout(animation_id);
+	}
+	if (path.length === 0){
+		return;
+	}
+	let [head, tail] = [path[0], path.slice(1)];
+	[mouse_x, mouse_y] = head;
+	update_entity();
+	$(`.maze-tile[data-x="${mouse_x}"][data-y="${mouse_y}"]`).addClass("path");
+	if (tail.length !== 0){
+		let $tile = $(`.maze-tile[data-x="${mouse_x}"][data-y="${mouse_y}"]`);
+		let [next_x, next_y] = tail[0];
+		let rotation = 0;
+		let d = `${next_x - mouse_x},${next_y - mouse_y}`;
+		if (d === "-1,0"){rotation = 180;}
+		else if (d === "1,0"){rotation = 0;}
+		else if (d === "0,1"){rotation = 90;}
+		else if (d === "0,-1"){rotation = 270;}
+		$tile.append($("<div>").addClass("arrow").css("transform", `rotate(${rotation}deg)`));
+		animation_id = setTimeout(()=>{play_solution_animation(tail, callback)}, 200);
+	} else {
+		if (callback){callback();}
+	}
+}
+
+function solve_maze(){
+	WA.asm.wrapped_set_dim(maze_width, maze_height);
+	for (let y=0; y<maze_height; y++){
+		for (let x=0; x<maze_width; x++){
+			WA.asm.wrapped_set_tile(x, y, get_tile_data(x, y));
+			//console.log(x, y, get_tile_data(x, y));
+		}
+	}
+	WA.asm.solve_maze_wrapped(start_x, start_y, end_x, end_y);
+	let path = [];
+	let i = 0;
+	while (true){
+		let x = WA.asm.get_result_path_x(i);
+		let y = WA.asm.get_result_path_y(i);
+		if (x == -1 || y == -1){
+			break;
+		}
+		//$(`.maze-tile[data-x="${x}"][data-y="${y}"]`).css("background-color", "orange");
+		i++;
+		path.push([x, y]);
+	}
+	path.reverse();
+	let groups = [];
+	let j = 0;
+	while (true){
+		let x = WA.asm.get_result_visit_order_x(j);
+		let y = WA.asm.get_result_visit_order_y(j);
+		if (x == -1 || y == -1){
+			break;
+		}
+		let distance = WA.asm.get_result_visit_order_distance(j);
+		groups[distance] ||= [];
+		groups[distance].push([x, y]);
+		j++;
+	}
+	play_bfs_animation(groups, ()=>{
+		if (path.length === 0){
+			if (animation_id !== 0){
+				clearTimeout(animation_id);
+			}
+			$("#wa_log").empty();
+			WA.print("没有路径")
+			animation_id = setTimeout(()=>{$("#wa_log").empty();}, 3000);
+		} else {
+			play_solution_animation(path);
+		}
+	});
+	
+}
+$("#solve").on("click", solve_maze);
+
+generate_maze_tiles(5, 3);
+
+$("#randomize").on("click", (e)=>{
+	let threshold = $("#randomize-threshold").val() / 100;
+	for (let y=0; y<maze_height; y++){
+		for (let x=0; x<maze_width; x++){
+			if (x === start_x || x === end_x || y === start_y || y === end_y){
+				// 防止随机生成把起点终点堵住
+				continue;
+			}
+			set_tile_data(x, y, Math.random() < threshold);
+		}
+	}
+});
+
+</script>
+<div id="wa_log"></div>
+<script type="text/javascript">
+var WA =
+{
+	print: function(text)
+	{
+		document.getElementById('wa_log').innerHTML += text.replace(/\n/g, '<br>');
+	},
+	error: function(code, msg)
+	{
+		document.getElementById('wa_log').innerHTML += '<div style="text-align:center;background-color:#FFF;color:#000;padding:1.5em;width:540px;margin:2em auto">' + {
+				BOOT: 'Error during startup. Your browser might not support WebAssembly. Please update it to the latest version.',
+				CRASH: 'The program crashed.',
+				MEM: 'The program ran out of memory.',
+			}[code] + '<br><br>(' + msg + ')</div>';
+	},
+	started: function()
+	{
+		WA.print('Finished main\n');
+	},
+};
+
+(function()
+{
+	function doLoad(file)
+	{
+		if (!WA.scripttag) 
+		{
+			function trackEventListeners(elem)
+			{
+				var list = new Array(), orgAdd = elem.addEventListener, orgRemove = elem.removeEventListener;
+				elem.addEventListener = function (type, listener, opts)
+				{
+					listener.trkType = type;
+					listener.trkOpts = opts;
+					list.push(listener);
+					orgAdd.call(elem, type, listener, opts);
+				};
+				elem.removeEventListener = function (type, listener, opts)
+				{
+					list.splice(list.indexOf(listener), 1);
+					orgRemove.call(elem, type, listener, opts);
+				};
+				elem.clearEventListeners = function()
+				{
+					list.forEach(function(l) { orgRemove(l.trkType, l, l.trkOpts) });
+					list.length = 0;
+				};
+			}
+			trackEventListeners(window);
+			trackEventListeners(document);
+		}
+		else
+		{
+			if (WA.abort) { try { WA.abort(); } catch (e) {} }
+			document.clearEventListeners();
+			window.clearEventListeners();
+			document.body.removeChild(WA.scripttag);
+		}
+		document.getElementById('wa_log').innerHTML = 'Loading...<br>';
+		if (file) WA.module = new Uint8Array(file);
+		WA.scripttag = document.createElement('script');
+		WA.scripttag.type = 'text/javascript';
+		WA.scripttag.src = 'wajic.minified.js';
+		document.body.appendChild(WA.scripttag);
+	}
+	var xhr = new XMLHttpRequest();
+	xhr.responseType = "arraybuffer";
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			doLoad(xhr.response);
+		}
+	}
+	xhr.open('GET', './main.wasm', true);
+	xhr.send(null);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>金毛身高计算器</title>
+<meta charset="UTF-8">
+</head>
+<body>
+<div>这是金毛身高计算器，请输入你当前的身高：</div>
+<div>
+	<input type="text" name="number" id="input-number" value="0">
+	<input type="radio" name="unit" value="cm" id="unit-cm" checked><label for="unit-cm">cm</label>
+	<input type="radio" name="unit" value="m" id="unit-m"><label for="unit-m">m</label>
+	<input type="radio" name="unit" value="inch/inches" id="unit-inch"><label for="unit-inch">inch/inches</label>
+	<input type="radio" name="unit" value="foot/feet" id="unit-foot"><label for="unit-foot">foot/feet</label>
+	<input type="radio" name="unit" value="尺" id="unit-尺"><label for="unit-尺">尺</label>
+	<input type="radio" name="unit" value="寸" id="unit-寸"><label for="unit-寸">寸</label>
+	<button id="calc">计算身高</button>
+</div>
+<script>
+	document.getElementById("calc").addEventListener("click", (e)=>{
+		alert("你的身高是：" + document.getElementById("input-number").value + document.querySelector('input[name="unit"]:checked').value);
+	});
+</script>
+</body>
+</html>

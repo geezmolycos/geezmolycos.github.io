@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>C++ 二叉搜索树和AVL树</title>
+<style type="text/css">
+html, body {    white-space: nowrap; background-color: #cec6b3; font-family: sans-serif; font-size:15pt; margin:0; padding:1px 0 0; height:100%; box-sizing:border-box; max-width: 1080px; margin: auto;}
+h2 { font-size: 160%; text-align: center; margin: 20px 20px; padding-bottom: 20px; border-bottom: 1px dotted black; }
+#start, #reset { filter: brightness(95%) sepia(40%) hue-rotate(180deg) }
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text { font: 22px sans-serif; }
+
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+input[type=text]{
+    border:2px solid #aaa;
+    border-radius:4px;
+    margin:8px 0;
+    outline:none;
+    padding:8px;
+    box-sizing:border-box;
+    transition:.3s;
+  }
+  
+  input[type=text]:focus{
+    border-color:dodgerBlue;
+    box-shadow:0 0 8px 0 dodgerBlue;
+  }
+button.blue {
+    border-radius:4px;
+    margin:8px 0;
+    outline:none;
+    padding:8px;
+    box-sizing:border-box;
+  border-color: #3498db;
+  background-color: #69bef7;
+  color: #fff;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  transition: all 150ms ease-in-out;
+}
+button.blue:hover {
+    box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+  }
+
+  button.red {
+    border-radius:4px;
+    margin:8px 0;
+    outline:none;
+    padding:8px;
+    box-sizing:border-box;
+  border-color: #d75d25;
+  background-color:  #f49062;
+  color: #fff;
+  box-shadow: 0 0 40px 40px #d75d25 inset, 0 0 0 0 #d75d25;
+  transition: all 150ms ease-in-out;
+}
+button.red:hover {
+    box-shadow: 0 0 10px 0 #d75d25 inset, 0 0 10px 4px #d75d25;
+  }
+
+  #left, #right{
+	display: inline-block;
+	vertical-align: top;
+	margin: 20px;
+}
+#left{
+	border-right: 1px dotted black;
+	padding-right: 20px;
+}
+#wa_log{
+	max-width: 72ch;
+	font-family: monospace;
+	overflow: visible;
+	white-space: pre-wrap;
+}
+</style>
+<script src="./jquery.min.js"></script>
+<script src="./d3.v7.min.js"></script>
+</head>
+<body>
+<h2>C++ 二叉搜索树和AVL树</h2>
+<div id="left">
+	<h3>选择搜索树类型：</h3>
+	<input type="radio" id="链式AVL树" name="tree-type" value="1" checked>
+	<label for="链式AVL树">链式AVL树</label><br>
+	<input type="radio" id="链式二叉搜索树" name="tree-type" value="2">
+	<label for="链式二叉搜索树">链式二叉搜索树</label><br>
+	<input type="radio" id="顺序表二叉搜索树" name="tree-type" value="3">
+	<label for="顺序表二叉搜索树">顺序表二叉搜索树</label>
+	<h3>元素操作：</h3>
+	<div>可以用空格分隔，输入多个元素</div>
+	<input type="text" id="insertion"> 
+	<br><button id="insert" class="blue">　插入　</button> <button id="remove" class="red">　删除　</button>
+	<button id="insert-random" class="blue">随机插入</button>
+	<br>
+	<button id="has" class="blue">　查找　</button>
+	<button id="iterate" class="blue">中序遍历</button>
+	<div>Wasm内存占用：<br><span id="memory"></span></div>
+</div>
+<div id="right">
+	<h3>程序输出：</h3>
+	<div id="wa_log"></div>
+</div>
+<script type="text/javascript">
+setInterval(()=>{
+	$('#memory').text(WA.asm.memory.buffer.byteLength / 1024 + 'KiB');
+}, 1000);
+$('input[type=radio][name=tree-type]').change(function() {
+    WA.asm.demo_change_state(parseInt($("input[type='radio'][name='tree-type']:checked").val()));
+	WA.asm.demo_clear();
+	WA.print('cls@');
+});
+
+function eat_number(){
+	let s = $('#insertion').val();
+	let [_, eat, rest] = s.match('^(.*?)(?: (.*))?$');
+	$('#insertion').val(rest);
+	return parseInt(eat);
+}
+
+$('#insert').on('click', (e)=>{
+	if (isNaN(parseInt($('#insertion').val()))){
+		WA.print('未输入要插入的元素\n');
+		return;
+	}
+	WA.asm.demo_insert(eat_number());
+	WA.print('cls@');
+	WA.asm.demo_print();
+});
+
+$('#insert-random').on('click', (e)=>{
+	WA.asm.demo_insert(Math.floor(Math.random()*100));
+	WA.print('cls@');
+	WA.asm.demo_print();
+});
+$('#iterate').on('click', (e)=>{
+	WA.asm.demo_iterate();
+});
+
+$('#remove').on('click', (e)=>{
+	if (isNaN(parseInt($('#insertion').val()))){
+		WA.print('未输入要删除的元素\n');
+		return;
+	}
+	let res = WA.asm.demo_remove(eat_number());
+	WA.print('cls@');
+	WA.asm.demo_print();
+	if (res){
+		WA.print('删除成功\n');
+	} else {
+		WA.print('元素不存在\n');
+	}
+});
+
+$('#has').on('click', (e)=>{
+	if (isNaN(parseInt($('#insertion').val()))){
+		WA.print('未输入要查找的元素\n');
+		return;
+	}
+	let kk = eat_number();
+	if (WA.asm.demo_has(kk)){
+		WA.print(`元素${kk}存在\n`);
+	} else {
+		WA.print(`元素${kk}不存在\n`);
+	}
+});
+
+
+var WA =
+{
+	print: function(text)
+	{
+		console.log(text);
+		let res = text.match('^(.*)@(.*)\n?$');
+		if (res === null){
+			document.getElementById('wa_log').innerHTML += text.replace(/\n/g, '<br>');
+		} else {
+			let [_, command, content] = res;
+			if (command === 'cls'){
+				document.getElementById('wa_log').innerHTML = '';
+			} else if (command === 'tree' || command === 'avl'){
+				let search_length = 0;
+				let node_count = 0;
+				let tree = {value: '', children: []};
+				let parents = [];
+				let current = tree;
+				while (content.length > 0){
+					let inst;
+					[_, inst, content] = content.match('^(\{|\}|[^{},]+|,[^{},]+)(.*)$');
+					if (inst === '{'){
+						parents.push(current);
+						current.children = current.children || [];
+						let cc = {value: '', children: []}
+						current.children.push(cc);
+						current = cc;
+					} else if (inst == '}'){
+						current = parents.pop();
+					} else if (inst[0] == ',') {
+						current.bf = parseInt(inst.slice(1));
+					} else {
+						current.value = parseInt(inst);
+						node_count += 1;
+						search_length += parents.length + 1;
+					}
+				}
+				// set the dimensions and margins of the diagram
+				const margin = {top: 50, right: 30, bottom: 30, left: 30},
+					width  = 512 - margin.left - margin.right,
+					height = 384 - margin.top - margin.bottom;
+
+				// declares a tree layout and assigns the size
+				const treemap = d3.tree().size([width, height]);
+
+				//  assigns the data to a hierarchy using parent-child relationships
+				let nodes = d3.hierarchy(tree, d => d.children);
+
+				// maps the node data to the tree layout
+				nodes = treemap(nodes);
+
+				// append the svg object to the body of the page
+				// appends a 'group' element to 'svg'
+				// moves the 'group' element to the top left margin
+				const svg = d3.select("#wa_log").append("svg")
+						.attr("width", width + margin.left + margin.right)
+						.attr("height", height + margin.top + margin.bottom),
+					g = svg.append("g")
+						.attr("transform",
+							"translate(" + margin.left + "," + margin.top + ")");
+				d3.select("#wa_log").append('br');
+				// adds the links between the nodes
+				const link = g.selectAll(".link")
+					.data( nodes.descendants().slice(1))
+				.enter().append("path")
+					.attr("class", "link")
+					.style("stroke-width", d => d.data.value === '' ? 0 : 3)
+					.attr("d", d => {
+					return "M" + d.x + "," + d.y
+						+ "C" + (d.x + d.parent.x) / 2 + "," + (d.y + d.parent.y) / 2
+						+ " " + (d.x + d.parent.x) / 2 + "," + (d.y + d.parent.y) / 2
+						+ " " + d.parent.x + "," + d.parent.y;
+					});
+
+				// adds each node as a group
+				const node = g.selectAll(".node")
+					.data(nodes.descendants())
+					.enter().append("g")
+					.attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
+					.attr("transform", d => "translate(" + d.x + "," + d.y + ")");
+
+				// adds the circle to the node
+				node.append("circle")
+				.attr("r", d => d.data.value === '' ? 0 : 20)
+				.style("fill", d => d.data.level);
+				
+				// adds the text to the node
+				// node.append("text")
+				//   .attr("dy", ".35em")
+				//   .attr("y", d => d.children ? (d.data.value + 5) * -1 : d.data.value + 5)
+				//   .attr("x", d => d.children && d.depth !== 0 ? -(d.data.value + 5) : d)
+				//   .style("text-anchor", d => d.children ? "end" : "start")
+				//   .text(d => d.data.name);
+				node.append("text")
+				.attr("y", d => 5)
+				.attr("x", d => 0)
+				.style("text-anchor", "middle")
+				.text(d => d.data.value === '' ? "" : d.data.value);
+				if (command === "avl"){
+					node.append("text")
+					.attr("y", d => -30)
+					.attr("x", d => 0)
+					.style("text-anchor", "middle")
+					.style("stroke", "steelblue")
+					.text(d => d.data.bf === undefined ? "" : d.data.bf);
+				}
+				WA.print('平均查找长度：'+ (search_length / node_count).toFixed(2) + '\n');
+			}
+		}
+	},
+	error: function(code, msg)
+	{
+		document.getElementById('wa_log').innerHTML += '<div style="text-align:center;background-color:#FFF;color:#000;padding:1.5em;width:540px;margin:2em auto">' + {
+				BOOT: 'Error during startup. Your browser might not support WebAssembly. Please update it to the latest version.',
+				CRASH: 'The program crashed.',
+				MEM: 'The program ran out of memory.',
+			}[code] + '<br><br>(' + msg + ')</div>';
+	},
+	started: function()
+	{
+		WA.print('Finished main\n');
+	},
+};
+
+(function()
+{
+	function doLoad(file)
+	{
+		if (!WA.scripttag) 
+		{
+			function trackEventListeners(elem)
+			{
+				var list = new Array(), orgAdd = elem.addEventListener, orgRemove = elem.removeEventListener;
+				elem.addEventListener = function (type, listener, opts)
+				{
+					listener.trkType = type;
+					listener.trkOpts = opts;
+					list.push(listener);
+					orgAdd.call(elem, type, listener, opts);
+				};
+				elem.removeEventListener = function (type, listener, opts)
+				{
+					list.splice(list.indexOf(listener), 1);
+					orgRemove.call(elem, type, listener, opts);
+				};
+				elem.clearEventListeners = function()
+				{
+					list.forEach(function(l) { orgRemove(l.trkType, l, l.trkOpts) });
+					list.length = 0;
+				};
+			}
+			trackEventListeners(window);
+			trackEventListeners(document);
+		}
+		else
+		{
+			if (WA.abort) { try { WA.abort(); } catch (e) {} }
+			document.clearEventListeners();
+			window.clearEventListeners();
+			document.body.removeChild(WA.scripttag);
+		}
+		document.getElementById('wa_log').innerHTML = 'Loading...<br>';
+		if (file) WA.module = new Uint8Array(file);
+		WA.scripttag = document.createElement('script');
+		WA.scripttag.type = 'text/javascript';
+		WA.scripttag.src = 'wajic.minified.js';
+		document.body.appendChild(WA.scripttag);
+	}
+	var xhr = new XMLHttpRequest();
+	xhr.responseType = "arraybuffer";
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			doLoad(xhr.response);
+		}
+	}
+	xhr.open('GET', './main.wasm', true);
+	xhr.send(null);
+})();
+</script>
+</body>
+</html>
