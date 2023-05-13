@@ -1,5 +1,6 @@
 ---
 title: 关于 og:locale 我想多了
+author: geezmolycos
 categories:
   - virt
   - site

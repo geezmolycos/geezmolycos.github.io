@@ -1,5 +1,6 @@
 ---
 title: 玩耍 Hexo 各种特性
+author: geezmolycos
 categories:
   - virt
   - site

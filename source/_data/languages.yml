@@ -2,8 +2,19 @@
 en:
   title:
     author: Author
+  menu:
+    authors: Authors
   post:
-    author: Author
+    author: ' '
+    posted: ' '
+    # edited: ' '
+    in: ' '
+    views: ' '
+  symbol:
+    comma: '/'
+  symbols_count_time:
+    count: ' '
+    time: ' '
   counter:
     authors:
       zero: No authors
@@ -12,8 +23,19 @@ en:
 zh-CN:
   title:
     author: 作者
+  menu:
+    authors: 作者
   post:
-    author: 作者
+    author: ' '
+    posted: ' '
+    # edited: ' '
+    in: ' '
+    views: ' '
+  symbol:
+    comma: '/'
+  symbols_count_time:
+    count: ' '
+    time: ' '
   counter:
     authors:
       zero: 暂无作者
@@ -22,8 +44,19 @@ zh-CN:
 zh-TW:
   title:
     author: 作者
+  menu:
+    authors: 作者
   post:
-    author: 作者
+    author: ' '
+    posted: ' '
+    # edited: ' '
+    in: ' '
+    views: ' '
+  symbol:
+    comma: '/'
+  symbols_count_time:
+    count: ' '
+    time: ' '
   counter:
     authors:
       zero: 沒有作者

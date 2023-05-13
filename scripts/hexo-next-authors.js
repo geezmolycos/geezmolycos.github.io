@@ -103,10 +103,10 @@ hexo.extend.filter.register('theme_inject', function(injects) {
     {%- if post.authors.length > 0 %}
     <span class="post-meta-item">
         <span class="post-meta-item-icon">
-            <i class="fa-regular fa-copyright"></i>
+            <i class="fa-solid fa-at"></i>
         </span>
         <span class="post-meta-item-text">{{ __('post.author') }}</span>
-        {{- author_post_meta(post.authors) }}
+        {{ author_post_meta(post.authors) }}
     </span>
     {%- endif %}
     `, {}, {}, authors.post_meta_order);

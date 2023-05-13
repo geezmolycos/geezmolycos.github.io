@@ -30,6 +30,8 @@ custom_file_path:
 # sidebar
 menu:
   home: / || fa fa-home
+  工具: /26k/ || fa fa-solid fa-wand-magic-sparkles
+  authors: /authors/ || fa fa-solid fa-user
   about: /about/ || fa fa-solid fa-feather-pointed
   categories: /categories/ || fa fa-th
   tags: /tags/ || fa fa-tags
