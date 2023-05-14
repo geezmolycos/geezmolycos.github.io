@@ -13,4 +13,3 @@ for (let [name, file] of Object.entries(customLayouts)){
     hexo.theme.setView(name, content);
     hexo.log.debug(`Loaded custom layout ${name}`);
 }
-
