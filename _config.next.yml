@@ -24,7 +24,7 @@ custom_file_path:
   # footer: source/_data/footer.njk
   # bodyEnd: source/_data/body-end.njk
   variable: source/_data/variables.styl
-  # mixin: source/_data/mixins.styl
+  mixin: source/_data/mixins.styl
   style: source/_data/styles.styl
 
 # sidebar

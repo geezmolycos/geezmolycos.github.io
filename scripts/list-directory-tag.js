@@ -27,7 +27,3 @@ hexo.extend.tag.register('list_files', function(args) {
     html += '</tbody></table>';
     return html;
 });
-
-hexo.extend.filter.register('after_generate', function(){
-    // ...
-  });

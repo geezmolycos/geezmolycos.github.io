@@ -56,21 +56,38 @@ mark {
 // change link color only in content
 
 @media (prefers-color-scheme: dark) {
-    .post-body a{ 
+    .post-body a {
         color: lightsteelblue;
+        border-bottom: 1px solid lightsteelblue;
         &:hover {
             color: darkorange;
+            border-bottom: 1px solid darkorange;
         }
     }
 }
 
 @media (prefers-color-scheme: light) {
-    .post-body a{ 
+    .post-body a {
         color: steelblue;
+        border-bottom: 1px solid steelblue;
         &:hover {
             color: darkorange;
+            border-bottom: 1px solid darkorange;
         }
     }
+}
+
+// fix btn in post-body
+
+.post-body .btn {
+  border: 2px solid var(--btn-default-border-color);
+  border-radius: $btn-default-radius;
+  color: var(--btn-default-color);
+
+  &:hover {
+    border-color: var(--btn-default-hover-border-color);
+    color: var(--btn-default-hover-color);
+  }
 }
 
 // half-lengthed navigation
