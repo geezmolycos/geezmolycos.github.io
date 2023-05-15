@@ -7,21 +7,13 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "hexo generate",
-            "program": "${workspaceFolder}/node_modules/hexo-cli/bin/hexo",
-            "cwd": "${workspaceFolder}",
-            "args": [
-                "generate"
-            ]
-        }
-        {
-            "type": "node",
-            "request": "launch",
             "name": "hexo server",
+            "outputCapture": "std",
             "program": "${workspaceFolder}/node_modules/hexo-cli/bin/hexo",
             "cwd": "${workspaceFolder}",
             "args": [
-                "server"
+                "server",
+                "--debug"
             ]
         }
     ]

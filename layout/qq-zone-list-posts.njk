@@ -1,0 +1,52 @@
+{% extends '_layout.njk' %}
+{% import '_macro/sidebar.njk' as sidebar_template with context %}
+
+{% block title %}
+  {%- set page_title_suffix = ' | ' + title %}
+
+  {%- if not page.title %}
+    {{- QQ空间归档 + page_title_suffix }}
+  {%- else %}
+    {{- page.title + page_title_suffix }}
+  {%- endif %}
+{% endblock %}
+
+{% block content %}
+
+    {##################}
+    {### PAGE BLOCK ###}
+    {##################}
+    <div class="post-block" lang="{{ page.lang }}">
+    <ul class="post-list">
+      {%- include '_partials/page/page-header.njk' -%}
+      {#################}
+      {### PAGE BODY ###}
+      {#################}
+      <div class="post-body{% if page.direction and page.direction.toLowerCase() === 'rtl' %} rtl{% endif %}">
+      {% set posts = site.pages.sort('-date') %}
+      {% for p in posts.data %}
+        {% if p.path.startsWith('qq-zone/') %}
+          <li class="shuoshuo">
+            <div class="avatar"><a href="{{ url_for(p.path) }}"><img src="/images/qq-zone/avatars/{{ p.author }}.png" alt="" class="avatar-image"></a></div>
+            <div class="shuoshuo-body"><p><a href="{{ url_for(p.path) }}"><b>{{ p.author }}</b> {{ date(p.date, 'YYYY/MM/DD') }}</a></p>
+            {{ p.content }}
+            </div>
+          </li>
+        {% endif %}
+      {%- endfor %}
+      </div>
+      {#####################}
+      {### END PAGE BODY ###}
+      {#####################}
+    </ul>
+    </div>
+    {%- include '_partials/page/breadcrumb.njk' -%}
+    {######################}
+    {### END PAGE BLOCK ###}
+    {######################}
+
+{% endblock %}
+
+{% block sidebar %}
+  {{ sidebar_template.render(page.toc.enable) }}
+{% endblock %}

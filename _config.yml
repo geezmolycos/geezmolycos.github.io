@@ -174,8 +174,3 @@ search:
   field: post
   content: true
   format: striptags
-
-# Custom layouts
-custom_layouts:
-  author.njk: layout/author.njk
-  authors.njk: layout/authors.njk

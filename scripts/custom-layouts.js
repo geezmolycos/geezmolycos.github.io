@@ -6,10 +6,13 @@
 const fs = require('hexo-fs');
 const path = require('path');
 
-const customLayouts = hexo.config.custom_layouts || {};
+const layoutDir = (hexo.config.layout_dir || 'layout').replace(/\\/g, '/').replace(/\/$/, '');
+const files = fs.listDirSync(layoutDir);
 
-for (let [name, file] of Object.entries(customLayouts)){
-    let content = fs.readFileSync(path.resolve(hexo.base_dir, file));
-    hexo.theme.setView(name, content);
-    hexo.log.debug(`Loaded custom layout ${name}`);
-}
+files.forEach(function(file) {
+    file = file.replace(/\\/g, '/');
+    let filePath = layoutDir + '/' + file;
+    let content = fs.readFileSync(filePath);
+    hexo.theme.setView(file, content);
+    hexo.log.debug(`Loaded custom layout ${file}`);
+});
