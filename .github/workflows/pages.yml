@@ -48,11 +48,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        name: List the state of node modules
-        continue-on-error: true
-        run: npm list
-
       - name: Install dependencies
         run: npm install
 

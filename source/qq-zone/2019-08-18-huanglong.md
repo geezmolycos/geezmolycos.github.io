@@ -4,7 +4,7 @@ date: 2019-08-18 21:18:00 +0800
 ---
 營業tn餅豆生青大富
 
-![](/images/qq-zone/2019-08-18-huanglong.png){: loading='lazy'}
+![](/images/qq-zone/2019-08-18-huanglong.png){loading=lazy}
 
 ---
 

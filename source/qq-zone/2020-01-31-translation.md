@@ -5,7 +5,7 @@ date: 2020-01-25 21:28:00 +0800
 
 乱乱翻译
 
-![](/images/qq-zone/2020-01-31-translation.png){: loading='lazy'}
+![](/images/qq-zone/2020-01-31-translation.png){loading=lazy}
 
 ---
 👍 10人觉得很赞
