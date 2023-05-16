@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#272e33" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#272e33" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#272e33">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"geezmolycos.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.15.1/config.min.js"></script>
+
+    <meta name="description" content="刚学习 Hexo，以为 EJS 是模板语言。后来发现 Markdown 和 EJS 是同级的关系，而 Nunjucks 是模板语言。 后面玩耍一下 Hexo 的各种特性，以便于实现斜体和楷体等功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="玩耍 Hexo 各种特性">
+<meta property="og:url" content="http://geezmolycos.github.io/blog/virt/site/2023-05-hexo-playground/index.html">
+<meta property="og:site_name" content="金毛雅言">
+<meta property="og:description" content="刚学习 Hexo，以为 EJS 是模板语言。后来发现 Markdown 和 EJS 是同级的关系，而 Nunjucks 是模板语言。 后面玩耍一下 Hexo 的各种特性，以便于实现斜体和楷体等功能。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://geezmolycos.github.io/blog/virt/site/2023-05-hexo-playground/example.png">
+<meta property="og:image" content="http://geezmolycos.github.io/blog/virt/site/2023-05-hexo-playground/example.png">
+<meta property="article:published_time" content="2023-05-02T13:39:38.000Z">
+<meta property="article:modified_time" content="2023-05-04T15:32:21.000Z">
+<meta property="article:author" content="geezmolycos">
+<meta property="article:tag" content="科技">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://geezmolycos.github.io/blog/virt/site/2023-05-hexo-playground/example.png">
+
+
+<link rel="canonical" href="http://geezmolycos.github.io/blog/virt/site/2023-05-hexo-playground/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-cn","comments":true,"permalink":"http://geezmolycos.github.io/blog/virt/site/2023-05-hexo-playground/","path":"blog/virt/site/2023-05-hexo-playground/","title":"玩耍 Hexo 各种特性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>玩耍 Hexo 各种特性 | 金毛雅言</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">金毛雅言</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">koraki geezmolycou</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-工具"><a href="/26k/" rel="section"><i class="fa fa-solid fa-wand-magic-sparkles fa-fw"></i>工具</a></li><li class="menu-item menu-item-authors"><a href="/authors/" rel="section"><i class="fa fa-solid fa-user fa-fw"></i>作者</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-solid fa-feather-pointed fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">引用测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E9%A2%98%E6%B5%8B%E8%AF%95"><span class="nav-number">2.</span> <span class="nav-text">标题测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%A0%E5%A5%BD%E5%90%97"><span class="nav-number">2.1.</span> <span class="nav-text">你好吗</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%91%E5%A5%BD%E5%90%97"><span class="nav-number">2.1.1.</span> <span class="nav-text">我好吗</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%96%E5%A5%BD%E5%90%97"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">他好吗</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%83%E5%A5%BD%E5%90%97"><span class="nav-number">2.1.1.1.1.</span> <span class="nav-text">它好吗</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%A0%E5%90%83%E4%BA%86%E5%90%97%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">你吃了吗？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Render"><span class="nav-number">3.</span> <span class="nav-text">Render</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="geezmolycos"
+      src="/images/android-chrome-512x512.png">
+  <p class="site-author-name" itemprop="name">geezmolycos</p>
+  <div class="site-description" itemprop="description">喵喵喵！</div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/geezmolycos" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;geezmolycos" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/49868114" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;49868114" rel="noopener me" target="_blank"><i class="fa-brands fa-bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="E-Mail → &#x2F;about&#x2F;" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://geezmolycos.github.io/blog/virt/site/2023-05-hexo-playground/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-512x512.png">
+      <meta itemprop="name" content="geezmolycos">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="金毛雅言">
+      <meta itemprop="description" content="喵喵喵！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="玩耍 Hexo 各种特性 | 金毛雅言">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          玩耍 Hexo 各种特性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text"> </span>
+
+      <time title="创建时间：2023-05-02 21:39:38" itemprop="dateCreated datePublished" datetime="2023-05-02T21:39:38+08:00">2023-05-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-05-04 23:32:21" itemprop="dateModified" datetime="2023-05-04T23:32:21+08:00">2023-05-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text"> </span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virt/" itemprop="url" rel="index"><span itemprop="name">虚拟</span></a>
+        </span>
+          /
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/virt/site/" itemprop="url" rel="index"><span itemprop="name">网站</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+            <i class="fa-solid fa-at"></i>
+        </span>
+        <span class="post-meta-item-text"> </span>
+        <a href="/authors/geezmolycos/">geezmolycos</a>
+    </span>
+    
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>刚学习 Hexo，以为 EJS 是模板语言。后来发现 Markdown 和 EJS 是同级的关系，而 Nunjucks 是模板语言。</p>
+<p>后面玩耍一下 Hexo 的各种特性，以便于实现斜体和楷体等功能。</p>
+<span id="more"></span>
+<p><img src="/blog/virt/site/2023-05-hexo-playground/example.png" alt="" width="64px" height="64px"></p>
+<p class="image-caption">This is an example</p>
+<img src="/blog/virt/site/2023-05-hexo-playground/example.png" class="" title="This is an example image">
+<h2 id="引用测试">引用测试<a class="header-anchor" href="#引用测试"></a></h2>
+
+<blockquote lang='en'><p>Every interaction is both precious and an opportunity to delight.</p>
+<footer><strong>Seth Godin</strong><cite><a target="_blank" rel="noopener" href="http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html">Welcome to Island Marketing</a></cite></footer></blockquote>
+
+<h2 id="标题测试">标题测试<a class="header-anchor" href="#标题测试"></a></h2>
+<p>你好呀，这是标题测试。</p>
+<h3 id="你好吗">你好吗<a class="header-anchor" href="#你好吗"></a></h3>
+<p>你吃了吗？</p>
+<h4 id="我好吗">我好吗<a class="header-anchor" href="#我好吗"></a></h4>
+<h5 id="他好吗">他好吗<a class="header-anchor" href="#他好吗"></a></h5>
+<h6 id="它好吗">它好吗<a class="header-anchor" href="#它好吗"></a></h6>
+<p>####### 它好吗</p>
+<ul>
+<li>Unordered List 测试</li>
+<li>你好吗
+<ul>
+<li>我好吗
+<ul>
+<li>他好吗
+<ul>
+<li>它好吗
+<ul>
+<li>你吃了吗
+<ul>
+<li>我吃了吗
+<ul>
+<li>他吃了吗
+<ul>
+<li>它吃了吗</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>你吃了吗</li>
+</ul>
+</li>
+</ul>
+<h3 id="你吃了吗？">你吃了吗？<a class="header-anchor" href="#你吃了吗？"></a></h3>
+<p>两种代码块</p>
+<figure class="highlight javascript"><figcaption><span>Array.map</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.<span class="title function_">map</span>(callback[, thisArg])</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>Array.map</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.<span class="title function_">map</span>(callback[, thisArg])</span><br></pre></td></tr></table></figure>
+<p>超长代码块</p>
+<figure class="highlight javascript"><figcaption><span>Array.map</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="property">map</span>.<span class="title function_">map</span>(callback[, thisArg])</span><br><span class="line">array.<span class="title function_">map</span>(callback[, thisArg])</span><br></pre></td></tr></table></figure>
+<blockquote class="pullquote what"><p>content</p>
+</blockquote>
+<a href="/blog/virt/site/2023-05-hexo-first/" title="现在使用 Hexo 试一下，我发现比 Jekyll 好用">现在使用 Hexo 试一下，我发现比 Jekyll 好用</a>
+<p>The <abbr title="Hyper Text Markup Language">HTML</abbr> specification
+is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.</p>
+<p>我哭，<span lang="zh">喵喵喵</span></p>
+<div class="note no-icon warning">
+<p><em>here be dragons</em>
+local</p>
+</div>
+<div class="note info"><p><strong>Welcome</strong> to <a target="_blank" rel="noopener" href="https://hexo.io">Hexo!</a></p>
+</div>
+<details><summary>Are you OK?</summary>
+<p>Hello, thank you. Thank you very much.</p>
+</details>
+<p>:)
+😶 🐸</p>
+<table>
+<thead>
+<tr>
+<th>Markdown</th>
+<th>Rendered <abbr title="Hyper Text Markup Language">HTML</abbr></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pre><code>*Italic*
+</code></pre>
+</td>
+<td>
+<p><em>Italic</em></p>
+</td>
+</tr>
+<tr>
+<td>
+<pre><code>- Item 1
+- Item 2
+</code></pre>
+</td>
+<td>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<pre><code>```python
+.1 + .2
+```
+</code></pre>
+</td>
+<td>
+<pre><code class="language-python">.1 + .2
+</code></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption id="netatpyieldsperhexose">Net ATP yields per hexose</caption>
+<thead>
+<tr>
+<th style="text-align:right">Stage</th>
+<th style="text-align:right">Direct Products</th>
+<th style="text-align:right">ATP Yields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right" rowspan="2">Glycolysis</td>
+<td style="text-align:right" colspan="2">2 ATP</td>
+</tr>
+<tr>
+<td style="text-align:right">2 NADH</td>
+<td style="text-align:right">3--5 ATP</td>
+</tr>
+<tr>
+<td style="text-align:right">Pyruvaye oxidation</td>
+<td style="text-align:right">2 NADH</td>
+<td style="text-align:right">5 ATP</td>
+</tr>
+<tr>
+<td style="text-align:right" rowspan="3">Citric acid cycle</td>
+<td style="text-align:right" colspan="2">2 ATP</td>
+</tr>
+<tr>
+<td style="text-align:right">6 NADH</td>
+<td style="text-align:right">15 ATP</td>
+</tr>
+<tr>
+<td style="text-align:right">2 FADH2</td>
+<td style="text-align:right">3 ATP</td>
+</tr>
+<tr>
+<td style="text-align:right" colspan="3"><strong>30--32</strong> ATP</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<td>♜</td>
+<td></td>
+<td>♝</td>
+<td>♛</td>
+<td>♚</td>
+<td>♝</td>
+<td>♞</td>
+<td>♜</td>
+</tr>
+<tr>
+<td></td>
+<td>♟</td>
+<td>♟</td>
+<td>♟</td>
+<td></td>
+<td>♟</td>
+<td>♟</td>
+<td>♟</td>
+</tr>
+<tr>
+<td>♟</td>
+<td></td>
+<td>♞</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>♗</td>
+<td></td>
+<td></td>
+<td>♟</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>♙</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>♘</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>♙</td>
+<td>♙</td>
+<td>♙</td>
+<td>♙</td>
+<td></td>
+<td>♙</td>
+<td>♙</td>
+<td>♙</td>
+</tr>
+<tr>
+<td>♖</td>
+<td>♘</td>
+<td>♗</td>
+<td>♕</td>
+<td>♔</td>
+<td></td>
+<td></td>
+<td>♖</td>
+</tr>
+</tbody>
+</table>
+<p>33<sup>22</sup>22<sub>11</sub>22</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munderover><mi>α</mi><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{i=0}^{+\infty} \alpha x_i
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.036em;vertical-align:-1.2777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7583em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<div class="note info"><p><strong>Welcome</strong> to <a target="_blank" rel="noopener" href="https://hexo.io">Hexo!</a></p>
+<div class="note info"><p><strong>Welcome</strong> to <a target="_blank" rel="noopener" href="https://hexo.io">Hexo!</a></p>
+</div></div>
+<div class="note warning ">
+<p>There are bears!</p>
+</div>
+<div class="note no-icon warning">
+<p>There are bears, wow!</p>
+</div>
+<p>Here is a footnote reference,<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> and another.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<p>markdown-it 还有它的各种插件真是好用呀<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，太好玩了。就是太多插件了，语法上可能有不一致的地方，但是我现在还没发现呢，用起来感觉挺不错的。</p>
+<div class="note no-icon warning">
+<p lang="en">There are <em>bears</em></p>
+<p lang="en">There are <em>bears</em></p>
+<p>There are <em>bears</em></p>
+</div>
+<p lang="en">There are <em>bears</em></p>
+<p><em>汉语</em></p>
+<h2 id="Render">Render<a class="header-anchor" href="#Render"></a></h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo.<span class="property">post</span>.<span class="title function_">render</span>(source, data);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>source</code></td>
+<td>Full path of a file (Optional)</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>Data</td>
+</tr>
+</tbody>
+</table>
+<p>The data must contain the <code>content</code> attribute. If not, Hexo will try to read the original file. The execution steps of this function are as follows:</p>
+<ul>
+<li>Execute <code>before_post_render</code> filters</li>
+<li>Render with Markdown or other renderers (depending on the extension name)</li>
+<li>Render with <a target="_blank" rel="noopener" href="https://mozilla.github.io/nunjucks/">Nunjucks</a></li>
+<li>Execute <code>after_post_render</code> filters</li>
+</ul>
+<p>金毛attr测试</p>
+<blockquote lang="en"><p>Every interaction is both precious and an opportunity to delight.</p>
+<footer><strong>Seth Godin</strong><cite><a target="_blank" rel="noopener" href="http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html">Welcome to Island Marketing</a></cite></footer></blockquote>
+<blockquote>
+<p>北七</p>
+</blockquote>
+<p>北七</p>
+<div style="font-size: 0.4em">
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</div>
+<div style="font-size: 0.4em">
+<p>滚滚长江东逝水，浪花淘尽英雄。是非成败转头空，青山依旧在，几度夕阳红。白发渔樵江渚上，惯看秋月春风。一壶浊酒喜相逢，古今多少事，都付笑谈中。</p>
+<p>滚滚长江东逝水，浪花淘尽英雄。是非成败转头空，青山依旧在，几度夕阳红。白发渔樵江渚上，惯看秋月春风。一壶浊酒喜相逢，古今多少事，都付笑谈中。滚滚长江东逝水，浪花淘尽英雄。是非成败转头空，青山依旧在，几度夕阳红。白发渔樵江渚上，惯看秋月春风。一壶浊酒喜相逢，古今多少事，都付笑谈中。</p>
+</div>
+<p lang="zh-tw">滚滚长江东逝水，浪花淘尽英雄</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Here is the footnote. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Here's one with multiple blocks.</p>
+<p>Subsequent paragraphs are indented to show that they
+belong to the previous footnote. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>个人观点 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/tech/" rel="tag"># 科技</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/virt/site/2023-05-hexo-first/" rel="prev" title="现在使用 Hexo 试一下，我发现比 Jekyll 好用">
+                  <i class="fa fa-chevron-left"></i> 现在使用 Hexo 试一下，我发现比 Jekyll 好用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/fict/2023-05-low-script/" rel="next" title="渡鸦文明及低文">
+                  渡鸦文明及低文 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-solid fa-feather-pointed"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">geezmolycos</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.15.1/comments.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.15.1/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.15.1/next-boot.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.15.1/third-party/search/local-search.min.js"></script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.15.1/third-party/fancybox.min.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css" integrity="sha256-gMRN4/6qeELzO1wbFa8qQLU8kfuF2dnAPiUoI0ATjx8=" crossorigin="anonymous">
+
+
+
+</body>
+</html>

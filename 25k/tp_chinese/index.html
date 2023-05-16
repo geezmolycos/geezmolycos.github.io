@@ -1,0 +1,294 @@
+<html>
+<head>
+	<title>toki pona hanzi orthography</title>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.4/brython.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.4/brython_stdlib.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+	<style type="text/css">
+		.config-row-label {
+			width: 240px;
+			text-align: right;
+			display: inline-block;
+		}
+		.textarea-container {
+			display: inline-block;
+    		vertical-align: top;
+		}
+		#translate {
+			font-size: 24px;
+			width: 320px;
+		}
+		.textarea-title{
+			height: 30px;
+			margin: 0px;
+		}
+	</style>
+</head>
+<body onload="brython()">
+	<div>
+		<div class="textarea-container">
+			<h2 class="textarea-title">Source</h2>
+			<textarea class="text" id="source" cols="60" rows="40"></textarea>
+		</div>
+		<div class="textarea-container">
+			<h2 class="textarea-title">Translated</h2>
+			<textarea class="text" id="translated" cols="60" rows="40"></textarea>
+		</div>
+		<div class="textarea-container dict-container">
+			<p class="textarea-title">Word dict</p>
+			<textarea class="dict" id="word-dict" cols="20" rows="40"></textarea>
+		</div>
+		<div class="textarea-container dict-container">
+			<p class="textarea-title">Punct dict</p>
+			<textarea class="dict" id="punct-dict" cols="15" rows="40"></textarea>
+		</div>
+		<div class="textarea-container dict-container">
+			<p class="textarea-title">Phonetic dict</p>
+			<textarea class="dict" id="phonetic-dict" cols="15" rows="40"></textarea>
+		</div>
+	</div>
+	<div><button id="translate">translate</button></div>
+	<div id="options"></div>
+	<div><button id="restore_default">restore default settings</button></div>
+	<script type="text/javascript">
+
+		//build the options area
+
+		for (var name of [
+				"phonetic_set_handling",
+				"unofficial_words_handling",
+				"unrecognized_words_handling",
+				]){
+			var row = $("<div>");
+			var label = $("<span class='config-row-label'>").text(name+": ");
+			row.append(label);
+			for (var value of [
+					"none",
+					"bopomofo",
+					"hiragana",
+					"katakana",
+					]){
+				var col = $("<input class='phonetic-option' type='radio'>");
+				col.attr("name", name);
+				col.attr("value", value);
+				col.on("change", function(){
+					save_options(get_options());
+				});
+				row.append(col);
+				var label = $("<span>").text(value);
+				row.append(label);
+			}
+			$("#options").append(row);
+		}
+		var row = $("<div>");
+		for (var name of [
+				"do_replace_words",
+				"do_replace_puncts",
+				"do_remove_spaces",
+				"use_wi_we_kana",
+				"use_je_kana",
+				]){
+			var col = $("<input class='do-option' type='checkbox'>");
+			col.attr("name", name);
+			col.on("change", function(){
+				save_options(get_options());
+			});
+			row.append(col);
+			var label = $("<span>").text(name);
+			row.append(label);
+		}
+		$("#options").append(row);
+
+		// dict enable switch
+		for (var cnt of $(".dict-container")){
+			$cnt = $(cnt);
+			$div = $("<div>");
+			$inp = $("<input type='checkbox' name='enable-dict'>");
+			$inp.on("change", function(){
+				save_options(get_options());
+			});
+			$div.append($inp);
+			$div.append($("<span>Enabled</span>"));
+			$cnt.append($div);
+		}
+
+		set_options(load_options());
+		set_dict_texts(load_dict_texts());
+
+		// dict saving event
+		$(".dict").on("blur", function(){
+			save_dict_texts(get_dict_texts());
+		});
+
+		function toki_pona_replace_init(toki_pona_replace){
+			function translate(){
+				var replaced = toki_pona_replace($("#source").val(), parse_dicts(get_dict_texts()), get_options());
+				$("#translated").val(replaced);
+			}
+			$("#translate").click(translate);
+		}
+
+		function save_options(options){
+			localStorage.setItem("tokipona_chinese_options", JSON.stringify(options));
+		}
+
+		function save_default_options(){
+			save_options({
+			    "phonetic_set_handling": "hiragana",
+			    "unofficial_words_handling": "katakana",
+			    "unrecognized_words_handling": "none",
+			    "do_replace_words": true,
+			    "do_replace_puncts": true,
+			    "do_remove_spaces": true,
+			    "enable_word_dict": true,
+			    "enable_punct_dict": true,
+			    "enable_phonetic_dict": false,
+			    "use_wi_we_kana": false,
+			    "use_je_kana": false,
+			});
+		}
+
+		function load_options(){
+			var options_text = localStorage.getItem("tokipona_chinese_options");
+			if (!options_text){
+				save_default_options();
+				return load_options();
+			}
+			return JSON.parse(options_text);
+		}
+
+		function set_options(options){
+			for (var name of [
+					"phonetic_set_handling",
+					"unofficial_words_handling",
+					"unrecognized_words_handling",
+					]){
+				$("input[name='"+name+"'][value='"+options[name]+"']").prop("checked", true);
+			}
+			for (var name of [
+					"do_replace_words",
+					"do_replace_puncts",
+					"do_remove_spaces",
+					"use_wi_we_kana",
+					"use_je_kana",
+					]){
+				$("input[name='"+name+"']").prop("checked", options[name]);
+			}
+			var dict_name = [
+				"word-dict",
+				"punct-dict",
+				"phonetic-dict",
+			];
+			var dict_option_name = [
+				"enable_word_dict",
+				"enable_punct_dict",
+				"enable_phonetic_dict",
+			];
+			for (var i in dict_name){
+				$("#"+dict_name[i]+" + div input").prop("checked", options[dict_option_name[i]]);
+			}
+		}
+
+		function get_options(){
+			var options = {};
+			for (var name of [
+					"phonetic_set_handling",
+					"unofficial_words_handling",
+					"unrecognized_words_handling",
+					]){
+				options[name] = $("input[name='"+name+"']:checked").val();
+			}
+			for (var name of [
+					"do_replace_words",
+					"do_replace_puncts",
+					"do_remove_spaces",
+					"use_wi_we_kana",
+					"use_je_kana",
+					]){
+				options[name] = $("input[name='"+name+"']").prop("checked");
+			}
+			var dict_name = [
+				"word-dict",
+				"punct-dict",
+				"phonetic-dict",
+			];
+			var dict_option_name = [
+				"enable_word_dict",
+				"enable_punct_dict",
+				"enable_phonetic_dict",
+			];
+			for (var i in dict_name){
+				options[dict_option_name[i]] = $("#"+dict_name[i]+" + div input").prop("checked");
+			}
+			//console.log(options)
+			return options;
+		}
+
+		function parse_dictionary(text, pair){
+			var lines = text.split("\n");
+			var dict = {};
+			for (var l of lines){
+				l = l.split("#")[0].trim(); // # is comment
+				if (l.length == 0){
+					continue;
+				}
+				if (pair){
+					var [k, v] = l.split(",");
+					k = k.trim();
+					v = v.trim();
+					dict[k] = v;
+				} else {
+					dict[l] = true;
+				}
+			}
+			return dict;
+		}
+
+		function parse_dicts(dict_texts){
+			var word_dict = parse_dictionary(dict_texts[0], true);
+			var punct_dict = JSON.parse(dict_texts[1]);
+			var phonetic_dict = parse_dictionary(dict_texts[2], false);
+			return [word_dict, punct_dict, phonetic_dict];
+		}
+
+		function get_dict_texts(){
+			return [$("#word-dict").val(), $("#punct-dict").val(), $("#phonetic-dict").val()];
+		}
+
+		function set_dict_texts(dict_texts){
+			$("#word-dict").val(dict_texts[0]);
+			$("#punct-dict").val(dict_texts[1]);
+			$("#phonetic-dict").val(dict_texts[2]);
+		}
+
+		function save_dict_texts(dict_texts){
+			localStorage.setItem("tokipona_chinese_dict_texts", JSON.stringify(dict_texts));
+		}
+		function load_dict_texts(){
+			var dict_texts = localStorage.getItem("tokipona_chinese_dict_texts");
+			if (!dict_texts){
+				save_default_dict();
+				return load_dict_texts();
+			}
+			return JSON.parse(dict_texts);
+		}
+		function save_default_dict(){
+			save_dict_texts([
+				"a,矣\nakesi,蜥\nala,非\nalasa,獵\nale,百\nali,皆\nanpa,下\nante,異\nanu,或\nawen,待\ne,乎\nen,與\nesun,市\nijo,物\nike,惡\nilo,器\ninsa,中\njaki,穢\njan,人\njelo,黃\njo,有\nkala,魚\nkalama,聲\nkama,至\nkasi,植\nken,可\nkepeken,以\nkili,果\nkin,也\nkipisi,切\nkiwen,石\nko,塵\nkon,空\nkule,色\nkulupu,群\nkute,聞\nla,而\nlape,眠\nlaso,青\nlawa,首\nlen,衣\nlete,寒\nli,者\nlili,小\nlinja,索\nlipu,頁\nloje,紅\nlon,在\nluka,手\nlukin,視\nlupa,穴\nma,地\nmama,祖\nmani,財\nmeli,女\nmi,我\nmije,男\nmoku,食\nmoli,亡\nmonsi,背\nmonsuta,魔\nmu,鳴\nmun,月\nmusi,悅\nmute,衆\nnamako,辛\nnanpa,數\nnasa,迷\nnasin,道\nnena,丘\nni,此\nnimi,名\nnoka,足\no,兮\noko,目\nolin,愛\nona,其\nopen,始\npakala,損\npali,作\npalisa,枝\npan,穀\npana,予\npi,之\npilin,感\npimeja,黑\npini,終\npipi,蟲\npoka,鄰\npoki,納\npona,善\npu,經\nsama,似\nseli,火\nselo,膚\nseme,何\nsewi,上\nsijelo,形\nsike,圓\nsin,新\nsina,君\nsinpin,前\nsitelen,文\nsona,知\nsoweli,獸\nsuli,大\nsuno,日\nsupa,案\nsuwi,甘\ntan,自\ntaso,獨\ntawa,往\ntelo,水\ntenpo,時\ntoki,言\ntomo,屋\ntu,二\nunpa,交\nuta,口\nutala,鬥\nwalo,白\nwan,一\nwaso,鳥\nwawa,威\nweka,遠\nwile,欲\n",
+				'{\n    ",": "，",\n    ".": "。",\n    ":": "：",\n    "?": "？",\n    "!": "！",\n    "\\"": ["〔","〕"],\n    "\'": ["「","」"],\n    "“": "「",\n    "”": "」"\n}\n',
+				"a\nala\nanu\ne\nen\nla\nli\no\npi\n"
+			]);
+		}
+		function restore_default_settings(){
+			save_default_options();
+			save_default_dict();
+			set_options(load_options());
+			set_dict_texts(load_dict_texts());
+		}
+		$("#restore_default").click(restore_default_settings);
+
+	</script>
+	<script type="text/python" src="./tokipona_chinese_js_front.py"></script>
+</body>
+</html>
