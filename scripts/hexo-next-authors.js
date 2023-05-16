@@ -31,7 +31,7 @@ hexo.extend.filter.register('template_locals', function(locals){
     if (locals.page.layout !== 'post'){
         return locals;
     }
-    regulateAuthors(locals.page)
+    regulateAuthors(locals.page);
     return locals;
 });
 

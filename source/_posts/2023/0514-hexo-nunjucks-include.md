@@ -1,5 +1,5 @@
 ---
-title: Hexo 在任何页面 include 的方法
+title: Hexo 的渲染流程和 include
 author: geezmolycos
 categories:
   - virt
