@@ -1,14 +1,20 @@
 ---
 layout_asset: 'test'
 ---
-asd
-asl
-{{path}}a 
-
+This is a post
+path is {{path}}
 ---
 
-{% layout %}
+## Layout
+
+{% layout test asset %}
+
+{% layoutwith %}
 layout_asset: 'test'
 page:
   content: 'lol'
-{% endlayout %}
+{% endlayoutwith %}
+
+## Post
+
+{% render ./fb.md %}
