@@ -11,6 +11,7 @@
 const fs = require('hexo-fs');
 const path = require('path');
 const micromatch = require('micromatch');
+const { parse: yfm } = require('hexo-front-matter');
 
 const source_prefix = 'source/';
 
@@ -102,15 +103,34 @@ hexo.extend.tag.register('layoutwith', function(args, content){
     });
 }, {ends: true, async: true});
 
+// Disable rendering for snippet
+hexo.extend.processor.register(/\.snippet\.[^./\\]*$/, function(file){
+    // do nothing
+    return;
+});
+
+// render text with engine
+hexo.extend.tag.register('render', function(args, content) {
+    let engine = args[0];
+    return hexo.render.render({text: content, engine: engine});
+}, {ends: true, async: true});
+
+// render text with front matter
+hexo.extend.tag.register('renderwith', function(args, content) {
+    let engine = args[0];
+    let data = yfm(content);
+    return hexo.render.render({text: data._content, engine: engine}, data);
+}, {ends: true, async: true});
+
 // render snippet file
-hexo.extend.tag.register('include', function(args) {
+hexo.extend.tag.register('snippet', function(args) {
 	let sourcePath = args[0];
     let pathType = args[1];
     sourcePath = getActualLayoutPathFromArgs(sourcePath, pathType, this.source, hexo.source_dir);
-    return hexo.render.render(renderInput);
+    return hexo.render.render({path: sourcePath});
 }, {async: true});
 
-hexo.extend.tag.register('includewith', function(args) {
+hexo.extend.tag.register('snippetwith', function(args, content) {
 	let yamlRenderer = hexo.extend.renderer.get('yml', false);
     return yamlRenderer({text: content}).then(contentObject => {
         let sourcePath = args[0];
@@ -120,8 +140,8 @@ hexo.extend.tag.register('includewith', function(args) {
         } else {
             // get sourcePath from content
             contentObject.source ??= this.source;
-            sourcePath = {path: path.join(hexo.source_dir, contentObject.source)};
+            sourcePath = path.join(hexo.source_dir, contentObject.source);
         }
-        return hexo.render.render(renderInput, contentObject);
+        return hexo.render.render({path: sourcePath}, contentObject);
     });
 }, {ends: true, async: true});
