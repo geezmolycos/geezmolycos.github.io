@@ -31,6 +31,12 @@ files.forEach(function(file) {
     hexo.log.debug(`Loaded custom layout ${file}`);
 });
 
+// Exclude layout files
+hexo.config.exclude ??= new Array();
+hexo.config.skip_render ??= new Array();
+hexo.config.exclude.push('(**).layout.+([^./\\\\])');
+hexo.config.skip_render.push('(**).layout.+([^./\\\\])');
+
 // Match files like "main.layout.njk" "example.layout.ejs"
 hexo.extend.processor.register(/\.layout\.[^./\\]*$/, function(file){
     // remove ".layout" part
@@ -104,10 +110,10 @@ hexo.extend.tag.register('layoutwith', function(args, content){
 }, {ends: true, async: true});
 
 // Disable rendering for snippet
-hexo.extend.processor.register(/\.snippet\.[^./\\]*$/, function(file){
-    // do nothing
-    return;
-});
+hexo.config.exclude ??= new Array();
+hexo.config.skip_render ??= new Array();
+hexo.config.exclude.push('(**).snippet.+([^./\\\\])');
+hexo.config.skip_render.push('(**).snippet.+([^./\\\\])');
 
 // render text with engine
 hexo.extend.tag.register('render', function(args, content) {
@@ -127,6 +133,7 @@ hexo.extend.tag.register('snippet', function(args) {
 	let sourcePath = args[0];
     let pathType = args[1];
     sourcePath = getActualLayoutPathFromArgs(sourcePath, pathType, this.source, hexo.source_dir);
+    sourcePath = sourcePath.replace(/.([^./\\]*)$/, '.snippet.$1');
     return hexo.render.render({path: sourcePath});
 }, {async: true});
 
@@ -142,6 +149,7 @@ hexo.extend.tag.register('snippetwith', function(args, content) {
             contentObject.source ??= this.source;
             sourcePath = path.join(hexo.source_dir, contentObject.source);
         }
+        sourcePath = sourcePath.replace(/.([^./\\]*)$/, '.snippet.$1');
         return hexo.render.render({path: sourcePath}, contentObject);
     });
 }, {ends: true, async: true});
