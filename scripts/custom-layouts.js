@@ -155,31 +155,32 @@ hexo.extend.tag.register('snippetwith', function(args, content) {
     });
 }, {ends: true, async: true});
 
-// makes renderable files under post asset folder to be pages
+// makes renderable files with '.page' under post asset folder to be pages
 
-// find the processor responsible for pages
+// find the processor responsible for pages (for later use)
 const originalExclude = hexo.config.exclude;
 hexo.config.exclude = []; // temporarily remove exclude rules
 const pageProcessor = hexo.extend.processor.list().find(processor => processor.pattern.test('dummy'));
 hexo.config.exclude = originalExclude;
 
-const File = hexo.source.File;
+// Disable rendering for page asset
+hexo.config.exclude ??= new Array();
+hexo.config.skip_render ??= new Array();
+hexo.config.exclude.push('(**).page.+([^./\\\\])');
+hexo.config.skip_render.push('(**).page.+([^./\\\\])');
 
-hexo.extend.filter.register('before_generate', function(){
-    const PostAsset = this.model('PostAsset');
-    return Promise.map(PostAsset.toArray(), asset => {
-        const { source, path } = asset;
-        if (asset.renderable && this.render.isRenderable(path)) {
-            // remove this post asset and load it as a page
-            asset.remove();
-            const dummyFile = new File({
-                source: source,
-                path: path,
-                params: {renderable: true},
-                type: File.TYPE_CREATE
-            });
-            return pageProcessor.process(dummyFile);
+hexo.extend.processor.register(/.page.[^./\\]+?/, function(file){
+    const Post = hexo.model('Post');
+    const relativeRoot = path.join(hexo.source_dir, '_posts');
+    let relativeToPost = path.relative(relativeRoot, path.dirname(file.source));
+    let pathSegments = relativeToPost.replace('\\', '/').split('/');
+    let post;
+    while (pathSegments.length > 0){
+        post = Post.find({asset_dir: path.join(relativeRoot, ...pathSegments)});
+        if (post){
+            break;
         }
-        return;
-    });
-}, 9); // make it earlier than page rendering
+        pathSegments.pop();
+    }
+
+});
