@@ -40,3 +40,5 @@ mytime: {{date}}
 以下是 asset folder 中的 `example.snippet.md`，将其插入
 
 {% snippet example.md asset %}
+
+

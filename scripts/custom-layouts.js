@@ -10,6 +10,7 @@
 
 const fs = require('hexo-fs');
 const path = require('path');
+const Promise = require('bluebird');
 const micromatch = require('micromatch');
 const { parse: yfm } = require('hexo-front-matter');
 
@@ -153,3 +154,32 @@ hexo.extend.tag.register('snippetwith', function(args, content) {
         return hexo.render.render({path: sourcePath}, contentObject);
     });
 }, {ends: true, async: true});
+
+// makes renderable files under post asset folder to be pages
+
+// find the processor responsible for pages
+const originalExclude = hexo.config.exclude;
+hexo.config.exclude = []; // temporarily remove exclude rules
+const pageProcessor = hexo.extend.processor.list().find(processor => processor.pattern.test('dummy'));
+hexo.config.exclude = originalExclude;
+
+const File = hexo.source.File;
+
+hexo.extend.filter.register('before_generate', function(){
+    const PostAsset = this.model('PostAsset');
+    return Promise.map(PostAsset.toArray(), asset => {
+        const { source, path } = asset;
+        if (asset.renderable && this.render.isRenderable(path)) {
+            // remove this post asset and load it as a page
+            asset.remove();
+            const dummyFile = new File({
+                source: source,
+                path: path,
+                params: {renderable: true},
+                type: File.TYPE_CREATE
+            });
+            return pageProcessor.process(dummyFile);
+        }
+        return;
+    });
+}, 9); // make it earlier than page rendering
