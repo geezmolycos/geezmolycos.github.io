@@ -21,6 +21,8 @@ name: 宋冬
 mytime: {{date}}
 {% endlayoutwith %}
 
+<!-- more -->
+
 ## 插入 ejs 片段
 
 {% render ejs %}
@@ -41,4 +43,6 @@ mytime: {{date}}
 
 {% snippet example.md asset %}
 
+## 在 post asset folder 中建立子页面
 
+[子页面](render.html)
