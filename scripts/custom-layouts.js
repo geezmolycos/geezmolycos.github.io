@@ -169,17 +169,28 @@ hexo.config.skip_render ??= new Array();
 hexo.config.exclude.push('(**).page.*([^./\\\\])');
 hexo.config.skip_render.push('(**).page.*([^./\\\\])');
 
+let pendingFiles = [];
+
 hexo.extend.processor.register(/.page.[^./\\]+?/, function(file){
-    const Post = hexo.model('Post');
-    // TODO: Better post searching
-    let dir = path.posix.dirname(file.path);
-    const post = Post.toArray().find(post => file.source.startsWith(post.asset_dir));
-    if (post){
-        dir = post.path;
-    }
-    let basename = path.posix.basename(file.path).replace(/.page.([^./\\]*)$/, '.$1');
-    let fullpath = path.posix.join(dir, basename);
-    file.params.renderable = hexo.render.isRenderable(fullpath);
-    file.path = fullpath;
-    return pageProcessor.process(file);
+    pendingFiles.push(file);
 });
+
+// as all posts required are loaded, generate pages
+hexo.extend.filter.register('before_generate', function(){
+    const Post = hexo.model('Post');
+    return Promise.all(pendingFiles.map(file => {
+        // TODO: Better post searching
+        let dir = path.posix.dirname(file.path);
+        const post = Post.toArray().find(post => file.source.startsWith(post.asset_dir));
+        if (post){
+            dir = post.path;
+        }
+        let basename = path.posix.basename(file.path).replace(/.page.([^./\\]*)$/, '.$1');
+        let fullpath = path.posix.join(dir, basename);
+        file.params.renderable = hexo.render.isRenderable(fullpath);
+        file.path = fullpath;
+        return pageProcessor.process(file);
+    })).then(() => {
+        pendingFiles = [];
+    });
+}, 9);
