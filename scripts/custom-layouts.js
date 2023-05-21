@@ -35,8 +35,8 @@ files.forEach(function(file) {
 // Exclude layout files
 hexo.config.exclude ??= new Array();
 hexo.config.skip_render ??= new Array();
-hexo.config.exclude.push('(**).layout.+([^./\\\\])');
-hexo.config.skip_render.push('(**).layout.+([^./\\\\])');
+hexo.config.exclude.push('(**).layout.*([^./\\\\])');
+hexo.config.skip_render.push('(**).layout.*([^./\\\\])');
 
 // Match files like "main.layout.njk" "example.layout.ejs"
 hexo.extend.processor.register(/\.layout\.[^./\\]*$/, function(file){
@@ -113,8 +113,8 @@ hexo.extend.tag.register('layoutwith', function(args, content){
 // Disable rendering for snippet
 hexo.config.exclude ??= new Array();
 hexo.config.skip_render ??= new Array();
-hexo.config.exclude.push('(**).snippet.+([^./\\\\])');
-hexo.config.skip_render.push('(**).snippet.+([^./\\\\])');
+hexo.config.exclude.push('(**).snippet.*([^./\\\\])');
+hexo.config.skip_render.push('(**).snippet.*([^./\\\\])');
 
 // render text with engine
 hexo.extend.tag.register('render', function(args, content) {
@@ -166,21 +166,20 @@ hexo.config.exclude = originalExclude;
 // Disable rendering for page asset
 hexo.config.exclude ??= new Array();
 hexo.config.skip_render ??= new Array();
-hexo.config.exclude.push('(**).page.+([^./\\\\])');
-hexo.config.skip_render.push('(**).page.+([^./\\\\])');
+hexo.config.exclude.push('(**).page.*([^./\\\\])');
+hexo.config.skip_render.push('(**).page.*([^./\\\\])');
 
 hexo.extend.processor.register(/.page.[^./\\]+?/, function(file){
     const Post = hexo.model('Post');
-    const relativeRoot = path.join(hexo.source_dir, '_posts');
-    let relativeToPost = path.relative(relativeRoot, path.dirname(file.source));
-    let pathSegments = relativeToPost.replace('\\', '/').split('/');
-    let post;
-    while (pathSegments.length > 0){
-        post = Post.find({asset_dir: path.join(relativeRoot, ...pathSegments)});
-        if (post){
-            break;
-        }
-        pathSegments.pop();
+    // TODO: Better post searching
+    let dir = path.posix.dirname(file.path);
+    const post = Post.toArray().find(post => file.source.startsWith(post.asset_dir));
+    if (post){
+        dir = post.path;
     }
-
+    let basename = path.posix.basename(file.path).replace(/.page.([^./\\]*)$/, '.$1');
+    let fullpath = path.posix.join(dir, basename);
+    file.params.renderable = hexo.render.isRenderable(fullpath);
+    file.path = fullpath;
+    return pageProcessor.process(file);
 });
