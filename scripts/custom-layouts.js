@@ -10,7 +10,9 @@
 
 const fs = require('hexo-fs');
 const path = require('path');
+const Promise = require('bluebird');
 const micromatch = require('micromatch');
+const { parse: yfm } = require('hexo-front-matter');
 
 const source_prefix = 'source/';
 
@@ -19,16 +21,24 @@ function load_layout_file(path, virtualPath){
     hexo.theme.setView(virtualPath, content);
 }
 
-// load global layouts from "layout" directory
-const layoutDir = (hexo.config.layout_dir || 'layout').replace(/\\/g, '/').replace(/\/$/, '');
-const files = fs.listDirSync(layoutDir);
+hexo.extend.filter.register('after_init', function(){
+    // load global layouts from "layout" directory
+    const layoutDir = (hexo.config.layout_dir || 'layout').replace(/\\/g, '/').replace(/\/$/, '');
+    const files = fs.listDirSync(layoutDir);
 
-files.forEach(function(file) {
-    file = file.replace(/\\/g, '/');
-    let filePath = layoutDir + '/' + file;
-    load_layout_file(filePath, file);
-    hexo.log.debug(`Loaded custom layout ${file}`);
+    files.forEach(function(file) {
+        file = file.replace(/\\/g, '/');
+        let filePath = layoutDir + '/' + file;
+        load_layout_file(filePath, file);
+        hexo.log.debug(`Loaded custom layout ${file}`);
+    });
 });
+
+// Exclude layout files
+hexo.config.exclude ??= new Array();
+hexo.config.skip_render ??= new Array();
+hexo.config.exclude.push('(**).layout.*([^./\\\\])');
+hexo.config.skip_render.push('(**).layout.*([^./\\\\])');
 
 // Match files like "main.layout.njk" "example.layout.ejs"
 hexo.extend.processor.register(/\.layout\.[^./\\]*$/, function(file){
@@ -83,7 +93,7 @@ hexo.extend.tag.register('layout', function(args){
     let layoutPath = args[0];
     let pathType = args[1];
     layoutPath = getActualLayoutPathFromArgs(layoutPath, pathType, this.source);
-    return hexo.theme.getView(layoutPath).render();
+    return hexo.theme.getView(layoutPath).render(this);
 }, {async: true});
 
 hexo.extend.tag.register('layoutwith', function(args, content){
@@ -98,19 +108,41 @@ hexo.extend.tag.register('layoutwith', function(args, content){
             contentObject.source ??= this.source;
             layoutPath = getActualLayoutPath(contentObject);
         }
+        contentObject._parent ??= this; // make parent variables available to layout
         return hexo.theme.getView(layoutPath).render(contentObject);
     });
 }, {ends: true, async: true});
 
+// Disable rendering for snippet
+hexo.config.exclude ??= new Array();
+hexo.config.skip_render ??= new Array();
+hexo.config.exclude.push('(**).snippet.*([^./\\\\])');
+hexo.config.skip_render.push('(**).snippet.*([^./\\\\])');
+
+// render text with engine
+hexo.extend.tag.register('render', function(args, content) {
+    let engine = args[0];
+    return hexo.render.render({text: content, engine: engine});
+}, {ends: true, async: true});
+
+// render text with front matter
+hexo.extend.tag.register('renderwith', function(args, content) {
+    let engine = args[0];
+    let data = yfm(content);
+    data._parent ??= this; // make parent variables available to layout
+    return hexo.render.render({text: data._content, engine: engine}, data);
+}, {ends: true, async: true});
+
 // render snippet file
-hexo.extend.tag.register('include', function(args) {
+hexo.extend.tag.register('snippet', function(args) {
 	let sourcePath = args[0];
     let pathType = args[1];
     sourcePath = getActualLayoutPathFromArgs(sourcePath, pathType, this.source, hexo.source_dir);
-    return hexo.render.render(renderInput);
+    sourcePath = sourcePath.replace(/.([^./\\]*)$/, '.snippet.$1');
+    return hexo.render.render({path: sourcePath});
 }, {async: true});
 
-hexo.extend.tag.register('includewith', function(args) {
+hexo.extend.tag.register('snippetwith', function(args, content) {
 	let yamlRenderer = hexo.extend.renderer.get('yml', false);
     return yamlRenderer({text: content}).then(contentObject => {
         let sourcePath = args[0];
@@ -120,8 +152,63 @@ hexo.extend.tag.register('includewith', function(args) {
         } else {
             // get sourcePath from content
             contentObject.source ??= this.source;
-            sourcePath = {path: path.join(hexo.source_dir, contentObject.source)};
+            sourcePath = path.join(hexo.source_dir, contentObject.source);
         }
-        return hexo.render.render(renderInput, contentObject);
+        contentObject._parent ??= this; // make parent variables available to layout
+        sourcePath = sourcePath.replace(/.([^./\\]*)$/, '.snippet.$1');
+        return hexo.render.render({path: sourcePath}, contentObject);
     });
 }, {ends: true, async: true});
+
+// makes renderable files with '.page' under post asset folder to be pages
+
+// find the processor responsible for pages (for later use)
+const originalExclude = hexo.config.exclude;
+hexo.config.exclude = []; // temporarily remove exclude rules
+const pageProcessor = hexo.extend.processor.list().find(processor => processor.pattern.test('dummy'));
+hexo.config.exclude = originalExclude;
+
+// Disable rendering for page asset
+hexo.config.exclude ??= new Array();
+hexo.config.skip_render ??= new Array();
+hexo.config.exclude.push('(**).page.*([^./\\\\])');
+hexo.config.skip_render.push('(**).page.*([^./\\\\])');
+
+let pendingFiles = [];
+let basePost = new Map();
+
+hexo.extend.processor.register(/.page.[^./\\]+?/, function(file){
+    pendingFiles.push(file);
+});
+
+// as all posts required are loaded, generate pages
+hexo.extend.filter.register('before_generate', function(){
+    const Post = hexo.model('Post');
+    const Page = hexo.model('Page');
+    return Promise.all(pendingFiles.map(file => {
+        // TODO: Better post searching
+        const post = Post.toArray().find(post => file.source.startsWith(post.asset_dir));
+        if (!post){
+            hexo.log.warn(`No post found for ${file.source}. It may not be in a post asset folder.`);
+            return;
+        }
+        let relativeToAssetDir = path.posix.normalize(path.relative(post.asset_dir, file.source));
+        let fullpath = path.posix.join(post.path, relativeToAssetDir).replace(/.page.([^./\\]*)$/, '.$1');
+        file.params.renderable = hexo.render.isRenderable(fullpath);
+        file.path = fullpath;
+        if (file.type == 'delete'){ // for binding variables to pages
+            basePost.delete(fullpath);
+        } else {
+            basePost.set(fullpath, post.path);
+        }
+        return pageProcessor.process(file);
+    })).then(() => {
+        pendingFiles = [];
+        return Promise.all(Array.from(basePost.entries()).map(([fullpath, basepath]) => {
+            return Page.update({source: fullpath}, {
+                base_post_path: basepath,
+                base_post_link: hexo.extend.helper.get('url_for').bind(hexo)(basepath)
+            }); // set variable to use in the page
+        }));
+    });
+}, 9);
