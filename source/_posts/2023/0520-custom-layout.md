@@ -9,7 +9,7 @@ tags:
   - web
 lang: zh-cmn-hans-cn
 date:    2023-05-20 16:59:40
-updated: 2023-05-20 16:59:40
+updated: 2023-05-23 00:48:22
 ---
 
 这篇文章可以插入自定义布局，或插入嵌入片段。
@@ -46,3 +46,21 @@ mytime: {{date}}
 ## 在 post asset folder 中建立子页面
 
 [子页面](render.html)
+
+## Definition list
+
+This is a term
+: this is an explanation
+: and
+{lang=en}
+
+## Container
+
+::: {.wang}
+
+loal {.miao}
+:::
+
+lololo aaa [bbb] ccc
+
+content::span::content

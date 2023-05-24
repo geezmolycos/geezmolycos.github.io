@@ -15,6 +15,21 @@
                 "server",
                 "--debug"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "mditc",
+            "outputCapture": "std",
+            "sourceMaps": true,
+            "program": "${workspaceFolder}/mditc-fix.js",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js",
+                "${workspaceRoot}/node_modules/**/*.js"
+            ],
+            "cwd": "${workspaceFolder}",
+            "args": [
+            ]
         }
     ]
 }
