@@ -63,4 +63,8 @@ loal {.miao}
 
 lololo aaa [bbb] ccc
 
-content::span::content
+content::span::{.note}content
+
+:::spoiler test {.note .warning}
+content
+:::

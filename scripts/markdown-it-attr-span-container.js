@@ -76,9 +76,14 @@ hexo.extend.filter.register('markdown-it:renderer', function (md) {
     md
     .use(bracketed_spans)
     .use(markdown_it_span)
-    .use(markdown_it_attributes.default, markdown_it_attributes_opts)
-    .use(require('markdown-it-container'), 'dynamic', {
-        validate: function () { return true; },
+    .use(markdown_it_attributes.default, markdown_it_attributes_opts);
+
+    md.use(require('markdown-it-container'), 'dynamic', {
+
+        validate: function(params) {
+            return params.trim().match(/^\s+{/);
+        },
+        
         render: function (tokens, idx, options, env, slf) {
             var token = tokens[idx];
             var renderedAttrs = containerRenderAttrs(token, slf);
@@ -86,6 +91,29 @@ hexo.extend.filter.register('markdown-it:renderer', function (md) {
                 return '<div' + renderedAttrs + '>';
             } else {
                 return '</div>';
+            }
+        }
+    });
+    // simple spoiler
+    md.use(require('markdown-it-container'), 'spoiler', {
+
+        validate: function(params) {
+            return params.trim().match(/^spoiler\s+(.*)$/);
+        },
+        
+        render: function (tokens, idx, options, env, slf) {
+            var token = tokens[idx];
+            var renderedAttrs = containerRenderAttrs(token, slf);
+
+            var m = token.info.trim().match(/^spoiler\s+(.*)$/);
+        
+            if (tokens[idx].nesting === 1) {
+                // opening tag
+                return '<details' + renderedAttrs + '><summary>' + md.renderInline(m[1]) + '</summary>\n';
+        
+            } else {
+                // closing tag
+                return '</details>\n';
             }
         }
     });
