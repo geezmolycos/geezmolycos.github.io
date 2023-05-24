@@ -169,3 +169,24 @@ img {
 .post-body img {
     margin-bottom: unset;
 }
+
+// center figure
+
+figure img {
+    display: block;
+}
+
+.post-body .image-caption, .post-body img + figcaption, .post-body .fancybox + figcaption {
+    margin: 5px auto 15px;
+}
+
+// shrink table
+
+table {
+    width: max-content;
+    max-width: 100%;
+}
+
+table th, table td {
+    padding: 6px 13px;
+}
