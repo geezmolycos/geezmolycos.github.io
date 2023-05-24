@@ -21,7 +21,7 @@ lang: zh-cn
 - 本站 <https://geezmolycos.github.io/> 入口
 - 本站 <https://geezmolycos.top/> 入口
 
-:::spoiler ==捐助金毛==
+<details><summary><mark>捐助金毛</mark></summary>
 
 你对金毛的捐助，可以让金毛产出更优质的作品，还可以提高金毛的生活质量（比如一天吃十个蛋糕）。金毛会细致地花钱。
 
@@ -32,7 +32,7 @@ lang: zh-cn
 {% endgrouppicture %}
 </div>
 
-:::
+</details>
 
 ---
 

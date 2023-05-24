@@ -78,14 +78,12 @@ markdown:
   disable_rules:
   plugins:
     - markdown-it-abbr
-    - markdown-it-attrs
-    - markdown-it-bracketed-spans
     - markdown-it-cjk-breaks
     - markdown-it-deflist
-    - name: markdown-it-emoji
-      options:
-        shortcuts: {}
     - markdown-it-footnote
+    - name: markdown-it-implicit-figures
+      options:
+        figcaption: true
     - markdown-it-ins
     - markdown-it-mark
     - markdown-it-sub
