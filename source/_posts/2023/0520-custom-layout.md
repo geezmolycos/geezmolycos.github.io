@@ -68,3 +68,30 @@ content::span::{.note}content
 :::spoiler test {.note .warning}
 content
 :::
+
+## Indentation
+
+- lolol
+  - lolol2
+- lolol3
+  
+  llol
+
+- lol4
+
+This is an example paragraph with\
+a hard break
+
+This is a paragraph
+    with uneven
+      indentation
+
+    This is a paragraph
+    with uneven
+  indentation
+
+<style>
+.indent{
+
+}
+</style>

@@ -190,3 +190,10 @@ table {
 table th, table td {
     padding: 6px 13px;
 }
+
+// custom indentation
+
+p {
+    padding-left: var(--following-indent);
+    text-indent: calc(var(--initial-indent) - var(--following-indent));
+}

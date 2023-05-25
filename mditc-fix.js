@@ -76,16 +76,29 @@ md.use(bracketed_spans)
             }
         });
 
+md.use(require('./script_modules/markdown-it-indent'));
+
+// var src = `
+// ::: {.outer}
+// content {.inner}
+// :::
+
+// kkk{}
+
+// ls[ls]{.c}
+// la[la]{ }lol
+// `;
+
 var src = `
-::: {.outer}
-content {.inner}
-:::
+This is a paragraph
+    with uneven
+      indentation
 
-kkk{}
-
-ls[ls]{.c}
-la[la]{ }lol
+    This is a paragraph
+    with uneven
+  indentation
 `;
+
 var res = md.render(src);
 
 console.log(res);

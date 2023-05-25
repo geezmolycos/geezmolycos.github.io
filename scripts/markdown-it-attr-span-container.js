@@ -5,6 +5,7 @@
 
 const markdown_it_attributes = require('markdown-it-attributes');
 const markdown_it_span = require('../script_modules/markdown-it-span');
+const markdown_it_indent = require('../script_modules/markdown-it-indent');
 
 let markdown_it_attributes_opts = {
     // optional, these are default options
@@ -74,6 +75,7 @@ function containerRenderAttrs(token, slf){
 
 hexo.extend.filter.register('markdown-it:renderer', function (md) {
     md
+    .use(markdown_it_indent)
     .use(bracketed_spans)
     .use(markdown_it_span)
     .use(markdown_it_attributes.default, markdown_it_attributes_opts);
