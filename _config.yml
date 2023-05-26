@@ -81,9 +81,6 @@ markdown:
     - markdown-it-cjk-breaks
     - markdown-it-deflist
     - markdown-it-footnote
-    - name: markdown-it-implicit-figures
-      options:
-        figcaption: true
     - markdown-it-ins
     - markdown-it-mark
     - markdown-it-sub

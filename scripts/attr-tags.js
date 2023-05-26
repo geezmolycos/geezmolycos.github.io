@@ -1,5 +1,7 @@
 // Add attrributes to html piece with Nunjucks
-var utils = require('markdown-it-attrs/utils');
+const getAttrs = require('markdown-it-attributes').getAttrs;
+
+const escapeHtml = hexo.extend.helper.get('escape_html').bind(hexo);
 
 hexo.extend.tag.register('attr', function(args, content){
     var tagStartMatch = content.match(/^\s*<[^\s>]+/);
@@ -7,18 +9,18 @@ hexo.extend.tag.register('attr', function(args, content){
         throw new Error('html tag match failed (' + content.substring(0, 10) + ')');
     }
     var joinedArgs = args.join(' ');
-    var attrList = utils.getAttrs('\ufdd0' + joinedArgs + '\ufdd1', 0, {leftDelimiter: '\ufdd0', rightDelimiter: '\ufdd1'});
+    var attrList = getAttrs(joinedArgs);
     var attrMap = new Map();
-    for (let [k, v] of attrList){
-        if (k === 'class' || k === 'css-module'){
-            attrMap.set(k, (attrMap.get(k) ?? '') + ' ' + v);
+    for (let {key, value} of attrList){
+        if (key === 'class' || key === 'css-module'){
+            attrMap.set(key, (attrMap.get(key) ?? '') + ' ' + value.join(' '));
         } else {
-            attrMap.set(k, v);
+            attrMap.set(key, value.join(' '));
         }
     }
     var attrStr = '';
     for (let [k, v] of attrMap){
-        attrStr += ' ' + utils.escapeHtml(k) + '="' + utils.escapeHtml(v) + '"';
+        attrStr += ' ' + escapeHtml(k) + '="' + escapeHtml(v) + '"';
     }
     return content.substring(0, tagStartMatch[0].length) + attrStr + content.substring(tagStartMatch[0].length);
     

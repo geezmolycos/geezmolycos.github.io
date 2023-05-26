@@ -117,3 +117,16 @@ This is a normal paragraph in an indented div
 
 ^ This is a indented paragraph in an indented div
 :::
+
+i. foo
+ii. bar
+iii. baz
+
+^
+
+c. charlie
+#. delta
+   iv) subfour
+   #) subfive
+   #) subsix
+#. echo

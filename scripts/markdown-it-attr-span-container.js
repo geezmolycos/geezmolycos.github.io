@@ -6,6 +6,7 @@
 const markdown_it_attributes = require('markdown-it-attributes');
 const markdown_it_span = require('../script_modules/markdown-it-span');
 const markdown_it_indent = require('../script_modules/markdown-it-indent');
+const markdownItFancyListPlugin = require("markdown-it-fancy-lists").markdownItFancyListPlugin;
 
 let markdown_it_attributes_opts = {
     // optional, these are default options
@@ -73,12 +74,19 @@ function containerRenderAttrs(token, slf){
     return slf.renderAttrs(token);
 }
 
+let pluginsLoaded = false;
 hexo.extend.filter.register('markdown-it:renderer', function (md) {
+    if (pluginsLoaded){
+        return;
+    }
+    pluginsLoaded = true;
     md
     .use(markdown_it_indent)
     .use(bracketed_spans)
     .use(markdown_it_span)
-    .use(markdown_it_attributes.default, markdown_it_attributes_opts);
+    .use(markdown_it_attributes.default, markdown_it_attributes_opts)
+    .use(require('markdown-it-implicit-figures'), { figcaption: true }) // need to load after attributes to let attributes parse first
+    .use(markdownItFancyListPlugin);
 
     md.use(require('markdown-it-container'), 'dynamic', {
 
