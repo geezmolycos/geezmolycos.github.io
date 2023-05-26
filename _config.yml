@@ -97,6 +97,7 @@ markdown:
         multibody:  true
         autolabel:  true
     - '@vscode/markdown-it-katex'
+    - markdown-it-underline
   anchors:
     level: 2
     collisionSuffix: ''

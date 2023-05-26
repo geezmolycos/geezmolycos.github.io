@@ -109,3 +109,11 @@ This is a paragraph
 
 | 200 Main St.
 | Berkeley, CA 94718
+
+_test_
+
+:::indent 2
+This is a normal paragraph in an indented div
+
+^ This is a indented paragraph in an indented div
+:::

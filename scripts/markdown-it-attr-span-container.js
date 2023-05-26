@@ -119,5 +119,39 @@ hexo.extend.filter.register('markdown-it:renderer', function (md) {
             }
         }
     });
+    // indentation
+    md.use(require('markdown-it-container'), 'indent', {
+
+        validate: function(params) {
+            return params.trim().match(/^indent/);
+        },
+        
+        render: function (tokens, idx, options, env, slf) {
+            var token = tokens[idx];
+            var renderedAttrs = containerRenderAttrs(token, slf);
+
+            var m = token.info.trim().match(/^indent\s*(\S*)\s*(\S*)/) || ['', '0', '0'];
+
+            var initialIndent = parseFloat(m[1])
+            var followingIndent = parseFloat(m[2]) || initialIndent;
+            // make style list for token
+            var styleList = new Array();
+            if (initialIndent) styleList.push('--initial-indent: ' + initialIndent / 2 + 'em;');
+            if (followingIndent) styleList.push('--following-indent: ' + followingIndent / 2 + 'em;');
+            token.attrJoin('style', styleList.join(''));
+            token.attrJoin('class', 'indented');
+
+            renderedAttrs = slf.renderAttrs(token);
+        
+            if (tokens[idx].nesting === 1) {
+                // opening tag
+                return '<div' + renderedAttrs + '>\n';
+        
+            } else {
+                // closing tag
+                return '</div>\n';
+            }
+        }
+    });
 });
 

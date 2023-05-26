@@ -26,7 +26,7 @@ module.exports = function indent_plugin(md) {
         }
         let initialIndent = (token.content.match(/^(\^[\^ ]*)/) || ['', ''])[1].length;
         // use indentation indicator count on the second line as on all following lines
-        let followingIndent = (token.content.match(/\n(\^[\^ ]*)/) || ['', ''])[1].length;
+        let followingIndent = (token.content.match(/\n(\^[\^ ]*)/) || ['', ''])[1].length || initialIndent;
         // clean up used indicators
         token.content = token.content.replace(/^\^[\^ ]*/, '').replace((/\n\^[\^ ]*/), '');
 
@@ -35,6 +35,7 @@ module.exports = function indent_plugin(md) {
         if (initialIndent) styleList.push('--initial-indent: ' + initialIndent / 2 + 'em;');
         if (followingIndent) styleList.push('--following-indent: ' + followingIndent / 2 + 'em;');
         tokens[idx-1].attrJoin('style', styleList.join(' '));
+        tokens[idx-1].attrJoin('class', 'indented');
     }
 
     // Borrowed from <https://pandoc.org/MANUAL.html#line-blocks>
