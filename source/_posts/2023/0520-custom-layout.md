@@ -69,6 +69,10 @@ content::span::{.note}content
 content
 :::
 
+:::spoiler
+content
+:::
+
 ## Indentation
 
 - lolol
@@ -86,12 +90,22 @@ This is a paragraph
     with uneven
       indentation
 
-    This is a paragraph
+    This is a code block
     with uneven
   indentation
 
-<style>
-.indent{
+^ This is a indented paragraph
 
-}
-</style>
+^
+
+^^
+^^^^before is an empty paragraph, and this is another indented paragraph. Because the indentation is set for different lines, this is an example of hanging indentation.
+
+| The limerick packs laughs anatomical
+| In space that is quite economical.
+|    	But the good ones I've seen
+|    So seldom are clean
+| And the clean ones so seldom are comical
+
+| 200 Main St.
+| Berkeley, CA 94718

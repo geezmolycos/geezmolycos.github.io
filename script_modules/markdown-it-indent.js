@@ -2,66 +2,72 @@
 
 module.exports = function indent_plugin(md) {
 
-    function paragraph(state, startLine, endLine) {
-        var content, terminate, i, l, token, oldParentType,
-                nextLine = startLine + 1,
-                terminatorRules = state.md.block.ruler.getRules('paragraph');
-
-        oldParentType = state.parentType;
-        state.parentType = 'paragraph';
-
-        // jump line-by-line until empty one or EOF
-        for (; nextLine < endLine && !state.isEmpty(nextLine); nextLine++) {
-            // this would be a code block normally, but after paragraph
-            // it's considered a lazy continuation regardless of what's there
-            if (state.sCount[nextLine] - state.blkIndent > 3) { continue; }
-
-            // quirk for blockquotes, this line should already be checked by that rule
-            if (state.sCount[nextLine] < 0) { continue; }
-
-            // Some tags can terminate paragraph without empty line.
-            terminate = false;
-            for (i = 0, l = terminatorRules.length; i < l; i++) {
-                if (terminatorRules[i](state, nextLine, endLine, true)) {
-                    terminate = true;
-                    break;
-                }
+    function processIndent(tokens, idx) {
+        const token = tokens[idx];
+        // no indentation indicator
+        if (token.content[0] !== '^'){
+            return;
+        }
+        // treat as hidden paragraph
+        if (token.content.match(/^\^\s*$/)){
+            token.content = '';
+            tokens[idx-1].hidden = true;
+            let i;
+            for (i = idx; tokens[i].level !== tokens[idx-1].level; ++i){
+                tokens[i].hidden = true;
             }
-            if (terminate) { break; }
+            tokens[i].hidden = true;
+            return;
         }
+        // treat as no content
+        if (token.content.match(/^\^[\^\s]*$/)){
+            token.content = token.content.replace(/^\^[\^\s]*/, '');
+            return;
+        }
+        let initialIndent = (token.content.match(/^(\^[\^ ]*)/) || ['', ''])[1].length;
+        // use indentation indicator count on the second line as on all following lines
+        let followingIndent = (token.content.match(/\n(\^[\^ ]*)/) || ['', ''])[1].length;
+        // clean up used indicators
+        token.content = token.content.replace(/^\^[\^ ]*/, '').replace((/\n\^[\^ ]*/), '');
 
-        content = state.getLines(startLine, nextLine, state.blkIndent, false);
-
-        // custom style variables for indentation
+        // make style list for opening token
         var styleList = new Array();
-        var initialIndent = state.sCount[startLine] - state.blkIndent;
-        styleList.push('--initial-indent: ' + initialIndent / 2 + 'em;');
-        if (nextLine > startLine + 1){ // has more than 1 lines
-            var followingIndent = state.sCount[startLine + 1] - state.blkIndent;
-            styleList.push('--following-indent: ' + followingIndent / 2 + 'em;');
-        }
-
-        content = content.trim();
-
-        state.line = nextLine;
-
-        token          = state.push('paragraph_open', 'p', 1);
-        token.map      = [ startLine, state.line ];
-        token.attrSet('style', styleList.join(' '));
-
-        token          = state.push('inline', '', 0);
-        token.content  = content;
-        token.map      = [ startLine, state.line ];
-        token.children = [];
-
-        token          = state.push('paragraph_close', 'p', -1);
-
-        state.parentType = oldParentType;
-
-        return true;
+        if (initialIndent) styleList.push('--initial-indent: ' + initialIndent / 2 + 'em;');
+        if (followingIndent) styleList.push('--following-indent: ' + followingIndent / 2 + 'em;');
+        tokens[idx-1].attrJoin('style', styleList.join(' '));
     }
 
-    md.disable('code');
-    md.block.ruler.at('paragraph', paragraph);
+    // Borrowed from <https://pandoc.org/MANUAL.html#line-blocks>
+    function processLineBlock(tokens, idx){
+        const token = tokens[idx];
+        let contentLines = token.content.split(/(?<=\n)/g);
+        contentLines = contentLines.map(line => {
+            if (line[0] == '|' && line[1] == ' '){
+                return line.substring(2).replace(/\n$/, '<br>\n').replace(/\t/g, function(match, offset) {
+                    // calculate number of spaces to replace tab with
+                    // since we start at index 2, we need to add 2
+                    let spaces = 4 - ((offset + 2) % 4);
+                    return ' '.repeat(spaces); // return replacement string
+                  }).replaceAll(' ', '&nbsp;');
+            } else {
+                return line;
+            }
+        });
+        token.content = contentLines.join('');
+    }
+
+    function indent(state) {
+        const tokens = state.tokens;
+
+        for (let i = 0; i < tokens.length; i++) {
+            // the first inline tag under an opening tag
+            if (tokens[i].type === 'inline' && i > 0 && tokens[i-1].nesting === 1){
+                processIndent(tokens, i);
+                processLineBlock(tokens, i);
+            }
+        }
+    }
+    
+    md.core.ruler.after('block', 'indent', indent);
 
 }

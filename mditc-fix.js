@@ -1,5 +1,7 @@
 var md = require('markdown-it')();
 var attributes = require('markdown-it-attributes');
+var span = require('./script_modules/markdown-it-span');
+var indent = require('./script_modules/markdown-it-indent');
 
 let attributes_opts = {
   // optional, these are default options
@@ -55,6 +57,8 @@ function bracketed_spans(md) {
   md.inline.ruler.push('bracketed-spans', span);
 }
 
+md.use(span)
+md.use(indent)
 md.use(bracketed_spans)
 .use(attributes.default, attributes_opts)
         .use(require('markdown-it-container'), 'dynamic', {
@@ -76,29 +80,15 @@ md.use(bracketed_spans)
             }
         });
 
-md.use(require('./script_modules/markdown-it-indent'));
-
-// var src = `
-// ::: {.outer}
-// content {.inner}
-// :::
-
-// kkk{}
-
-// ls[ls]{.c}
-// la[la]{ }lol
-// `;
-
 var src = `
-This is a paragraph
-    with uneven
-      indentation
+^ This is a paragraph.
+  This is another line
+- list content
 
-    This is a paragraph
-    with uneven
-  indentation
+| table |
+| -- |
+| content |
 `;
-
 var res = md.render(src);
 
 console.log(res);

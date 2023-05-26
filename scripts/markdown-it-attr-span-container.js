@@ -83,7 +83,7 @@ hexo.extend.filter.register('markdown-it:renderer', function (md) {
     md.use(require('markdown-it-container'), 'dynamic', {
 
         validate: function(params) {
-            return params.trim().match(/^\s+{/);
+            return params.trim().match(/^{/);
         },
         
         render: function (tokens, idx, options, env, slf) {
@@ -100,14 +100,14 @@ hexo.extend.filter.register('markdown-it:renderer', function (md) {
     md.use(require('markdown-it-container'), 'spoiler', {
 
         validate: function(params) {
-            return params.trim().match(/^spoiler\s+(.*)$/);
+            return params.trim().match(/^spoiler/);
         },
         
         render: function (tokens, idx, options, env, slf) {
             var token = tokens[idx];
             var renderedAttrs = containerRenderAttrs(token, slf);
 
-            var m = token.info.trim().match(/^spoiler\s+(.*)$/);
+            var m = token.info.trim().match(/^spoiler\s*(.*)/);
         
             if (tokens[idx].nesting === 1) {
                 // opening tag
