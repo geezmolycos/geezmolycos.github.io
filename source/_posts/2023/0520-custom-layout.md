@@ -86,7 +86,7 @@ content
 This is an example paragraph with\
 a hard break
 
-This is a piece ~[Actually, *this* is side note instead of the paragraph] of side note
+This is an example paragraph, a piece ~[* Actually, *this* is side note instead of the paragraph] of side note
 
 This is a paragraph^[paragraph]
     with uneven

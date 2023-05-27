@@ -74,29 +74,6 @@ function containerRenderAttrs(token, slf){
     return slf.renderAttrs(token);
 }
 
-// transform '~[...]' to '^[...]' to be matched by sidenote
-function sidenoteInlinePreprocessor(state, silent){
-    var labelStart,
-        labelEnd,
-        max = state.posMax,
-        start = state.pos,
-        parseLinkLabel = state.md.helpers.parseLinkLabel;
-
-    if (start + 2 >= max) { return false; }
-    if (state.src.charCodeAt(start) !== 0x7E/* ~ */) { return false; }
-    if (state.src.charCodeAt(start + 1) !== 0x5B/* [ */) { return false; }
-
-    labelStart = start + 2;
-    labelEnd = parseLinkLabel(state, start + 1);
-
-    // parser failed to find ']', so it's not a valid note
-    if (labelEnd < 0) { return false; }
-
-    // should transform
-    state.src = state.src.substring(0, start) + '^' + state.src.substring(start + 1);
-    return false; // allow following sidenote_inline to process
-}
-
 let pluginsLoaded = false;
 hexo.extend.filter.register('markdown-it:renderer', function (md) {
     if (pluginsLoaded){
@@ -110,10 +87,7 @@ hexo.extend.filter.register('markdown-it:renderer', function (md) {
     .use(markdown_it_attributes.default, markdown_it_attributes_opts)
     .use(require('markdown-it-implicit-figures'), { figcaption: true }) // need to load after attributes to let attributes parse first
     .use(markdownItFancyListPlugin)
-    .use(require('markdown-it-sidenote'))
-    .use(require('markdown-it-footnote'));
-
-    md.inline.ruler.before('sidenote_inline', 'sidenote_inline_preprocessor', sidenoteInlinePreprocessor);
+    .use(require('../script_modules/markdown-it-sidenote'));
 
     md.use(require('markdown-it-container'), 'dynamic', {
 
