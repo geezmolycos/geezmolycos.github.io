@@ -86,6 +86,63 @@ content
 This is an example paragraph with\
 a hard break
 
+::: {.sidenote}
+This is a piece of side note
+:::
+
+<style>
+.sidenote__content-parenthesis{
+  /* // Hide from view, but not from screen readers. */
+  text-indent: -99999px;
+}
+
+@media (max-width: 1000px){
+  .sidenote__content{
+    /* // Hide from view, but not from screen readers. */
+    /* // The vertical position doesn't change, which is better for handling keyboard focus than 'text-indent: -99999px;' */
+    position: absolute;
+    left: -99999px;
+    top: auto;
+  }
+  .sidenote.active .sidenote__content{
+    position: relative;
+    left: auto;
+  }
+}
+
+@media (min-width: 1000px){
+  .sidenote__content{
+    display: block;
+    float: right;
+    margin-right: -250px;
+    /* margin-right: -300px; */
+    width: 200px;
+  }
+}
+</style>
+
+<!-- line breaks added for readability.
+Remove them to avoid rendering of superfluous spaces. -->
+<p> A paragraph with a
+  <span class="sidenote">
+    <label
+      tabindex="0"
+      title="The content of the sidenote."
+      aria-describedby="sidenote-1"
+      class="sidenote__button" onclick="this.parentElement.classList.toggle('active');"
+      onKeypress="if(event.key === 'Enter' || event.key === ' '){event.preventDefault(); this.parentNode.classList.toggle('active');"
+    >
+      clickable element
+    </label>
+    <small class="sidenote__content sidebar-inner" >
+      <span class="sidenote__content-parenthesis"> (sidenote: </span>
+      The content of the sidenote.
+      <span class="sidenote__content-parenthesis">)</span>
+    </small>
+  </span>
+that can be clicked to show more details.
+</p>
+
 This is a paragraph
     with uneven
       indentation
