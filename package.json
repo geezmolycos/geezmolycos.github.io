@@ -30,6 +30,7 @@
     "markdown-it-fancy-lists": "^1.2.2",
     "markdown-it-implicit-figures": "^0.11.0",
     "markdown-it-multimd-table": "^4.2.2",
+    "markdown-it-sidenote": "^4.1.0",
     "markdown-it-task-lists": "^2.1.1",
     "markdown-it-underline": "^1.0.1"
   }

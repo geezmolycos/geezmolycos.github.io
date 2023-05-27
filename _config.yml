@@ -80,7 +80,6 @@ markdown:
     - markdown-it-abbr
     - markdown-it-cjk-breaks
     - markdown-it-deflist
-    - markdown-it-footnote
     - markdown-it-ins
     - markdown-it-mark
     - markdown-it-sub
