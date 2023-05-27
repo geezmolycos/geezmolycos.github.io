@@ -19,7 +19,7 @@ function render_sidenote_open(tokens, idx, options, env, slf) {
 }
 
 function render_sidenote_close(tokens, idx, options, env, slf) {
-  return '</small>\n</span>';
+  return '\n</small></span>';
 }
 
 module.exports = function sidenote_plugin(md) {

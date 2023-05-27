@@ -13,6 +13,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const micromatch = require('micromatch');
 const { parse: yfm } = require('hexo-front-matter');
+const { escapeHTML } = require('hexo-util');
 
 const source_prefix = 'source/';
 
@@ -88,12 +89,32 @@ hexo.extend.filter.register('before_post_render', function(data){
     return data;
 });
 
+function wrapCommentsSync(name, string, args){
+    let argLine = '';
+    args.forEach(arg => {
+        argLine += ' ' + escapeHTML(arg);
+    });
+    return (
+        '<!-- ' + name + argLine + ' -->\n'
+        + string
+        + '\n<!-- end' + name + argLine + ' -->'
+        );
+}
+
+function wrapComments(name, string, args){
+    if (string instanceof Promise){
+        return string.then(s => wrapCommentsSync(name, s, args));
+    } else {
+        return wrapCommentsSync(name, string, args);
+    }
+}
+
 // render layout
 hexo.extend.tag.register('layout', function(args){
     let layoutPath = args[0];
     let pathType = args[1];
     layoutPath = getActualLayoutPathFromArgs(layoutPath, pathType, this.source);
-    return hexo.theme.getView(layoutPath).render(this);
+    return wrapComments('layout', hexo.theme.getView(layoutPath).render({page: this}), args);
 }, {async: true});
 
 hexo.extend.tag.register('layoutwith', function(args, content){
@@ -108,8 +129,8 @@ hexo.extend.tag.register('layoutwith', function(args, content){
             contentObject.source ??= this.source;
             layoutPath = getActualLayoutPath(contentObject);
         }
-        contentObject._parent ??= this; // make parent variables available to layout
-        return hexo.theme.getView(layoutPath).render(contentObject);
+        contentObject.page ??= this; // make parent variables available to layout
+        return wrapComments('layout', hexo.theme.getView(layoutPath).render(contentObject), args);
     });
 }, {ends: true, async: true});
 
@@ -122,7 +143,7 @@ hexo.config.skip_render.push('(**).snippet.*([^./\\\\])');
 // render text with engine
 hexo.extend.tag.register('render', function(args, content) {
     let engine = args[0];
-    return hexo.render.render({text: content, engine: engine});
+    return wrapComments('render', hexo.render.render({text: content, engine: engine}), args);
 }, {ends: true, async: true});
 
 // render text with front matter
@@ -130,7 +151,7 @@ hexo.extend.tag.register('renderwith', function(args, content) {
     let engine = args[0];
     let data = yfm(content);
     data._parent ??= this; // make parent variables available to layout
-    return hexo.render.render({text: data._content, engine: engine}, data);
+    return wrapComments('render', hexo.render.render({text: data._content, engine: engine}, data), args);
 }, {ends: true, async: true});
 
 // render snippet file
@@ -139,7 +160,7 @@ hexo.extend.tag.register('snippet', function(args) {
     let pathType = args[1];
     sourcePath = getActualLayoutPathFromArgs(sourcePath, pathType, this.source, hexo.source_dir);
     sourcePath = sourcePath.replace(/.([^./\\]*)$/, '.snippet.$1');
-    return hexo.render.render({path: sourcePath});
+    return wrapComments('snippet', hexo.render.render({path: sourcePath}), args);
 }, {async: true});
 
 hexo.extend.tag.register('snippetwith', function(args, content) {
@@ -156,7 +177,7 @@ hexo.extend.tag.register('snippetwith', function(args, content) {
         }
         contentObject._parent ??= this; // make parent variables available to layout
         sourcePath = sourcePath.replace(/.([^./\\]*)$/, '.snippet.$1');
-        return hexo.render.render({path: sourcePath}, contentObject);
+        return wrapComments('snippet', hexo.render.render({path: sourcePath}, contentObject), args);
     });
 }, {ends: true, async: true});
 
