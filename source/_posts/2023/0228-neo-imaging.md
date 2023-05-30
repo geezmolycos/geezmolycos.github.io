@@ -1,7 +1,12 @@
 ---
-layout: post
 title: "我装的第一个软件"
 author: geezmolycos
+categories:
+  - real
+tags:
+  - tech
+  - lit
+  - story
 date: 2023-02-28 23:48:21 +0800
 updated: 2023-02-28 23:48:21 +0800
 ---

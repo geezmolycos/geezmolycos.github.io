@@ -1,7 +1,13 @@
 ---
-layout: post
 title: "好玩的迷宫"
 author: geezmolycos
+categories:
+  - virt
+tags:
+  - tech
+  - web
+  - game
+  - jekyll-post
 date: 2023-03-14 21:41:47 +0800
 updated: 2023-03-14 21:41:47 +0800
 ---

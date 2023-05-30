@@ -1,7 +1,11 @@
 ---
-layout: post
 title: "[2023-03-03更新] 从原始魔法到魔法扭结技术"
 author: geezmolycos
+categories:
+  - fict
+tags:
+  - lit
+  - jekyll-post
 date: 2023-02-02 00:40:00 +0800
 updated: 2023-03-03 00:00:00 +0800
 ---

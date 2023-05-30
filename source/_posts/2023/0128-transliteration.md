@@ -1,6 +1,11 @@
 ---
-layout: post
 title: "音译词语意译"
+author: geezmolycos
+categories:
+  - real
+tags:
+  - lit
+  - jekyll-post
 date: 2023-01-28 15:54:33 +0800
 updated: 2023-01-28 15:54:33 +0800
 ---

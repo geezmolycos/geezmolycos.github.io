@@ -1,6 +1,14 @@
 ---
-layout: post
 title: "网站现使用jekyll"
+author: geezmolycos
+categories:
+  - virt
+tags:
+  - lit
+  - tech
+  - jekyll
+  - jekyll-post
+lang: zh-cmn-hans-cn
 date: 2023-01-16 21:36:00 +0800
 updated: 2023-01-16 21:36:00 +0800
 ---

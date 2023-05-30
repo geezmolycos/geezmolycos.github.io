@@ -3,10 +3,10 @@ title: 关于 og:locale 我想多了
 author: geezmolycos
 categories:
   - virt
-  - site
 tags:
   - tech
   - web
+  - site
 lang: zh-cn
 date: 2023-05-07 23:43:07
 updated: 2023-05-07 23:43:07

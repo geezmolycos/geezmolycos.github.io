@@ -1,6 +1,11 @@
 ---
-layout: post
 title: "「今天真冷呀！」是命题吗？"
+author: geezmolycos
+categories:
+  - real
+tags:
+  - lit
+  - jekyll-post
 date: 2023-02-06 15:24:11 +0800
 updated: 2023-02-06 15:24:11 +0800
 description: '判断下列语句是否为命题'

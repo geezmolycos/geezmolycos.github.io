@@ -1,7 +1,11 @@
 ---
-layout: post
 title: Mintty 用 Everforest 配色方案
 author: geezmolycos
+categories:
+  - virt
+tags:
+  - art
+  - jekyll-post
 date: 2023-03-31 23:23:49 +0800
 updated: 2023-03-31 23:23:49 +0800
 ---

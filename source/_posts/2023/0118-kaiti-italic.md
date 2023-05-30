@@ -1,6 +1,14 @@
 ---
-layout: post
 title: "楷体和斜体"
+author: geezmolycos
+categories:
+  - virt
+  - site
+tags:
+  - tech
+  - web
+  - 中文
+  - jekyll-post
 date: 2023-01-18 00:48:33 +0800
 updated: 2023-01-18 00:48:33 +0800
 ---

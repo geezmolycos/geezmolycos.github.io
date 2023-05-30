@@ -1,6 +1,12 @@
 ---
-layout: post
 title: "中文大写汉字"
+author: geezmolycos
+categories:
+  - real
+tags:
+  - lit
+  - 中文
+  - jekyll-post
 date: 2023-02-15 13:10:08 +0800
 updated: 2023-02-15 13:10:08 +0800
 description: '我想到，繁体可以是汉字的大写'

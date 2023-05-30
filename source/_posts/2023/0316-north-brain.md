@@ -1,7 +1,11 @@
 ---
-layout: post
 title: "North-7 脑炎疫情访谈"
 author: geezmolycos
+categories:
+  - fict
+tags:
+  - lit
+  - jekyll-post
 date: 2023-03-16 17:29:00 +0800
 updated: 2023-03-16 17:29:00 +0800
 ---

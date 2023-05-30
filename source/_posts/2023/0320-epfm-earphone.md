@@ -1,7 +1,12 @@
 ---
-layout: post
 title: "EPFM™(电子物理阵列调制™)耳机"
 author: geezmolycos
+categories:
+  - fict
+tags:
+  - lit
+  - tech
+  - jekyll-post
 date: 2023-03-20 08:00:00 +0800
 updated: 2023-03-20 08:00:00 +0800
 ---

@@ -1,6 +1,12 @@
 ---
-layout: post
 title: "自然睡觉计时法"
+author: geezmolycos
+categories:
+  - real
+tags:
+  - tech
+  - altereal
+  - jekyll-post
 date: 2023-01-21 21:43:41 +0800
 updated: 2023-01-21 21:43:41 +0800
 ---

@@ -3,9 +3,9 @@ title: 玩耍 Hexo 各种特性
 author: geezmolycos
 categories:
   - virt
-  - site
 tags:
   - tech
+  - site
 lang: zh-cn
 date: 2023-05-02 21:39:38
 updated: 2023-05-04 23:32:21

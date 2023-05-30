@@ -1,6 +1,11 @@
 ---
-layout: post
 title: "九日显示器"
+author: geezmolycos
+categories:
+  - fict
+tags:
+  - lit
+  - jekyll-post
 date: 2023-01-16 01:40:00 +0800
 updated: 2023-01-16 01:40:00 +0800
 ---
