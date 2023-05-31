@@ -102,8 +102,30 @@ This is a paragraph^[paragraph]
 
 ^
 
-^^
-^^^^before is an empty paragraph, and this is another indented paragraph. Because the indentation is set for different lines, this is an example of hanging indentation.
+^ \
+^ ^ before is an empty paragraph, and this is another indented paragraph. Because the indentation is set for different lines, this is an example of hanging indentation.
+
+### Indentation testing
+
+Head indent:
+
+^ ^
+This is 2em head indentation. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+First line indent:
+
+^ ^ This is 2em first line indentation. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Hanging indent:
+
+\
+^ ^ This is 2em following line indentation without first line. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+All three indent:
+
+^
+^ ^ ^ \
+^ ^ All three types of indentation. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
 | The limerick packs laughs anatomical
 | In space that is quite economical.

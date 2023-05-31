@@ -139,14 +139,16 @@ hexo.extend.filter.register('markdown-it:renderer', function (md) {
             var token = tokens[idx];
             var renderedAttrs = containerRenderAttrs(token, slf);
 
-            var m = token.info.trim().match(/^indent\s*(\S*)\s*(\S*)/) || ['', '0', '0'];
+            var m = token.info.trim().match(/^indent\s*(\S*)\s*(\S*)\s*(\S*)/) || ['', '0', '0', '0'];
 
-            var initialIndent = parseFloat(m[1])
-            var followingIndent = parseFloat(m[2]) || initialIndent;
+            var headIndent = parseFloat(m[1]);
+            var initialIndent = parseFloat(m[2]);
+            var followingIndent = parseFloat(m[3]);
             // make style list for token
             var styleList = new Array();
-            if (initialIndent) styleList.push('--initial-indent: ' + initialIndent / 2 + 'em;');
-            if (followingIndent) styleList.push('--following-indent: ' + followingIndent / 2 + 'em;');
+            if (headIndent) styleList.push('--head-indent: ' + headIndent + 'em;');
+            if (initialIndent) styleList.push('--initial-indent: ' + initialIndent + 'em;');
+            if (followingIndent) styleList.push('--following-indent: ' + followingIndent + 'em;');
             token.attrJoin('style', styleList.join(''));
             token.attrJoin('class', 'indented');
 

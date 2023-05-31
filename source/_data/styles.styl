@@ -194,7 +194,7 @@ table th, table td {
 // custom indentation
 
 .indented {
-    padding-left: var(--following-indent, 0em);
+    padding-left: calc(var(--head-indent, 0em) + var(--following-indent, 0em));
     text-indent: calc(var(--initial-indent, 0em) - var(--following-indent, 0em));
 }
 

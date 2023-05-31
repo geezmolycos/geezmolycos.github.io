@@ -5,7 +5,7 @@ module.exports = function indent_plugin(md) {
     function processIndent(tokens, idx) {
         const token = tokens[idx];
         // no indentation indicator
-        if (token.content[0] !== '^'){
+        if (!token.content.match(/(?:^|\n)\^/)){
             return;
         }
         // treat as hidden paragraph
@@ -20,20 +20,44 @@ module.exports = function indent_plugin(md) {
             return;
         }
         // treat as no content
-        if (token.content.match(/^\^[\^\s]*$/)){
-            token.content = token.content.replace(/^\^[\^\s]*/, '');
+        if (token.content.match(/^(?:\^ )*\^ *$/)){
+            token.content = '';
             return;
         }
-        let initialIndent = (token.content.match(/^(\^[\^ ]*)/) || ['', ''])[1].length;
-        // use indentation indicator count on the second line as on all following lines
-        let followingIndent = (token.content.match(/\n(\^[\^ ]*)/) || ['', ''])[1].length || initialIndent;
-        // clean up used indicators
-        token.content = token.content.replace(/^\^[\^ ]*/, '').replace((/\n\^[\^ ]*/), '');
+        // initialize variables first
+        let headIndent;
+        let bodyIndent = [];
 
+        let pendingContent = token.content;
+        let newContent = '';
+        // match headIndent (^ ^ ..., otherwise empty for the first line)
+        let headLineMatch = pendingContent.match(/^((?:\^ )*\^) *\n/);
+        if (headLineMatch){
+            headIndent = Math.floor((headLineMatch[1].length + 1) / 2);
+            pendingContent = pendingContent.substring(headLineMatch[0].length);
+        }
+        for (let i of [0, 1]){
+            let lineMatch = pendingContent.match(/^((?:\^ )+)/);
+            if (lineMatch){
+                bodyIndent[i] = Math.floor((lineMatch[1].length + 1) / 2);
+                pendingContent = pendingContent.substring(lineMatch[0].length);
+            }
+            // skip line content
+            let lineContentMatch = pendingContent.match(/^.*?(?:\n|$)/);
+            if (lineContentMatch[0] !== '\\' && lineContentMatch[0] !== '\\\n'){
+                newContent += lineContentMatch[0];
+            }
+            pendingContent = pendingContent.substring(lineContentMatch[0].length);
+        }
+        newContent += pendingContent;
+
+        token.content = newContent;
+        
         // make style list for opening token
         var styleList = new Array();
-        if (initialIndent) styleList.push('--initial-indent: ' + initialIndent / 2 + 'em;');
-        if (followingIndent) styleList.push('--following-indent: ' + followingIndent / 2 + 'em;');
+        if (headIndent) styleList.push('--head-indent: ' + headIndent + 'em;');
+        if (bodyIndent[0]) styleList.push('--initial-indent: ' + bodyIndent[0] + 'em;');
+        if (bodyIndent[1]) styleList.push('--following-indent: ' + bodyIndent[1] + 'em;');
         tokens[idx-1].attrJoin('style', styleList.join(' '));
         tokens[idx-1].attrJoin('class', 'indented');
     }
