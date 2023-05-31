@@ -7,6 +7,7 @@ tags:
   - tech
   - web
   - site
+  - hexo0
 lang: zh-cmn-hans-cn
 date:    2023-05-14 00:16:07
 updated: 2023-05-30 23:05:44

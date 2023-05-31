@@ -7,6 +7,7 @@ tags:
   - tech
   - web
   - site
+  - hexo
 lang: zh-cmn-hans-cn
 date:    2023-05-20 16:59:40
 updated: 2023-05-23 00:48:22
@@ -45,7 +46,8 @@ mytime: {{date}}
 
 ## 在 post asset folder 中建立子页面
 
-[子页面](render.html)
+- [子页面](render.html)
+- [目录下的子页面](subsub/sub.html)
 
 ## Definition list
 

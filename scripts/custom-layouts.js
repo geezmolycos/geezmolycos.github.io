@@ -198,7 +198,7 @@ hexo.config.skip_render.push('(**).page.*([^./\\\\])');
 let pendingFiles = [];
 let basePost = new Map();
 
-hexo.extend.processor.register(/.page.[^./\\]+?/, function(file){
+hexo.extend.processor.register(/.page.[^./\\]*?/, function(file){
     pendingFiles.push(file);
 });
 
