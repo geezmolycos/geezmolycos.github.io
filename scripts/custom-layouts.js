@@ -213,7 +213,7 @@ hexo.extend.filter.register('before_generate', function(){
             hexo.log.warn(`No post found for ${file.source}. It may not be in a post asset folder.`);
             return;
         }
-        let relativeToAssetDir = path.posix.normalize(path.relative(post.asset_dir, file.source));
+        let relativeToAssetDir = path.posix.normalize(path.relative(post.asset_dir, file.source).replace(/\\/g, '/'));
         let fullpath = path.posix.join(post.path, relativeToAssetDir).replace(/.page.([^./\\]*)$/, '.$1');
         file.params.renderable = hexo.render.isRenderable(fullpath);
         file.path = fullpath;

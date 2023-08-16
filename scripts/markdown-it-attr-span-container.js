@@ -5,7 +5,7 @@
 
 const markdown_it_attributes = require('markdown-it-attributes');
 const markdown_it_span = require('../script_modules/markdown-it-span');
-const markdown_it_indent = require('../script_modules/markdown-it-indent');
+const markdown_it_indent = require('markdown-it-indent');
 const markdownItFancyListPlugin = require("markdown-it-fancy-lists").markdownItFancyListPlugin;
 
 let markdown_it_attributes_opts = {
