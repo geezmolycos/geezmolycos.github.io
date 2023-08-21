@@ -15,6 +15,7 @@
     "@vscode/markdown-it-katex": "^1.0.0",
     "css": "^3.0.0",
     "hexo": "^7.0.0-rc1",
+    "hexo-custom-layout": "^1.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
     "hexo-generator-index": "^3.0.0",

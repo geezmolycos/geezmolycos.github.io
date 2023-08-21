@@ -10,7 +10,7 @@ tags:
   - hexo
 lang: zh-cmn-hans-cn
 date:    2023-05-14 00:16:07
-updated: 2023-05-30 23:05:44
+updated: 2023-08-22 00:22:43
 ---
 
 Hexo渲染一个（或多个）页面的流程，可以分为以下几个步骤
@@ -28,7 +28,7 @@ Hexo渲染一个（或多个）页面的流程，可以分为以下几个步骤
 
 其中，渲染 layout 文件时所使用的变量，和渲染页面内容时所用的变量是不同的，才会使 [Templates] 不能放到 source 文件夹中使用，而且文章中也不能使用 [Helpers] 或 [Variables]。这些官方文档中所述的内容，只适用于编写主题时。主题里面可以使用这些，但是平时的文章中不能使用，也不能自己自定义文章中的 layout。要自己添加 layout，必须要修改主题的文件。
 
-为了解决上述问题，我编写了可以自己加载和嵌入主题文件的插件，会在将来发布。如果现在想使用，也可以到该[网站的 github repo] 中查看脚本。结果请见 {% post_link 2023/0520-custom-layout %}。里面也包括我自己写的 markdown-it 的插件，未来也会发布。
+为了解决上述问题，我编写了可以自己加载和嵌入主题文件的插件，会在将来发布。如果现在想使用，也可以到该[网站的 github repo] 中查看脚本。结果请见 {% post_link 2023/0520-custom-layout %}。里面也包括我自己写的 markdown-it 的插件，未来也会发布（2023-08-22：[现在已经发布了](https://www.npmjs.com/package/hexo-custom-layout)）。
 
 另外，在渲染页面内容的 tag 标签时，其 include 标签也是可以正常工作的，不过因为没有设置目录，它使用了[默认的目录，是 `views`](https://github.com/mozilla/nunjucks/blob/ea0d6d5396d39d9eed1b864febb36fbeca908f23/nunjucks/src/environment.js#LL68C56-L68C56)。所以如果不想使用插件，而且只是想插入纯文本或固定 HTML 内容的话，还是可以正常用。只需要在项目根目录创建一个 `views` 文件夹，把要 include 的文件都放到里面，就可以了。
 
