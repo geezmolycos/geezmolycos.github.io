@@ -1,0 +1,12 @@
+<% const recentUpdates = site.posts.sort('-updated').slice(0, count); %>
+<table>
+<tbody>
+<% for (let doc of recentUpdates.data){ %>
+    <tr>
+        <td><%= date(doc.updated) %></td>
+        <td><a href="<%= url_for(doc.path) %>"><%= doc.title %></a></td>
+        <td><div style="width: 20em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= strip_html(doc.excerpt || doc.content).slice(0, 120) %></div></td>
+    </tr>
+<% } %>
+</tbody>
+</table>
