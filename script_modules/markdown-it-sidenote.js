@@ -13,13 +13,13 @@ function render_sidenote_open(tokens, idx, options, env, slf) {
     markerString = '<span class="sidenote-marker">' + tokens[idx].meta.symbol + '</span>';
   }
   return (
-    '<span class="sidenote">' + referenceString + '\n' +
-    '<small class="sidenote-content">' + markerString + '\n'
+    '<span class="sidenote">' + referenceString +
+    '<small class="sidenote-content">' + markerString
     );
 }
 
 function render_sidenote_close(tokens, idx, options, env, slf) {
-  return '\n</small></span>';
+  return '</small></span>';
 }
 
 module.exports = function sidenote_plugin(md) {
