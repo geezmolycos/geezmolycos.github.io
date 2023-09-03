@@ -15,7 +15,7 @@ Welcome to the awesome website of geezmolycos. Wish you good luck, and hopes to 
 {% button /qq-zone/, QQ 空间归档, fa-fw fa-brands fa-qq %}
 {% button /25k/, 旧版主页, fa-fw fa-solid fa-house-chimney-window %}
 
-## 最近更新文章(不准确，待修复)
+## 最近更新文章
 
 {% layoutwith recent-updates.ejs %}
 count: 6
