@@ -384,7 +384,9 @@ code cave 中的代码，还有跳转代码应该要可重定位(relocatable)，
 修改结束以后，可以将问题或建议反馈给开发者。
 
 - 在开源软件平台（如 github/gitlab）上，自己 fork 原项目，修改代码以后[提交 pull request]
-- 在开源软件平台（如 github/gitlab）的该软件项目主页上提交工单（issue），或给开发者发送邮件。
+- 在开源软件平台（如 github/gitlab）的该软件项目主页上提交工单（issue）
+- 给开发者发送邮件
+- 添加开发者的社交账号，通过社交账号联系开发者
 - 如果开发者是你的朋友，那直接给他当面说，甚至可以扇他巴掌（你为什么还要逆向工程？直接让他修嘛）
 
 [提交 pull request]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
