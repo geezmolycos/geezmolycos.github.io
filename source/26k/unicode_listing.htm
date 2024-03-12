@@ -1,0 +1,82 @@
+title: 列出字符Unicode名称
+---
+<script src="https://unpkg.com/browser-cjs/require.min.js"></script>
+<div><textarea id="input" placeholder="输入或粘贴文本..." cols="80" rows="6"></textarea></div>
+<table id="output">
+    <thead><tr><td>字符</td><td>码位</td><td>类型</td><td>名称</td><td>别名</td></tr></thead>
+    <tbody>
+    </tbody>
+</table>
+<div id="debug-info" style="color: orangered;"></div>
+<script>
+
+    const unicode_data = {};
+
+    function escapeHtml(unsafe)
+    {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    const output_tbody = document.querySelector("#output tbody");
+    function update_table(s){
+        output_tbody.innerHTML = "";
+        console.groupCollapsed("update", s);
+        for (const ch of s){
+            const tr = document.createElement("tr");
+            const cp = ch.codePointAt();
+            tr.innerHTML += `<td>${escapeHtml(ch)}</td>`;
+            tr.innerHTML += `<td>U+${escapeHtml(cp.toString(16).padStart(4, '0'))}</td>`;
+            const unicode_info = unicode_data[cp];
+            if (unicode_info !== undefined){
+                console.log(`U+${escapeHtml(cp.toString(16).padStart(4, '0'))}`, unicode_info);
+                tr.innerHTML += `<td>${escapeHtml(unicode_info.category)}</td>`;
+                tr.innerHTML += `<td>${escapeHtml(unicode_info.name)}</td>`;
+                tr.innerHTML += `<td>${escapeHtml(unicode_info.unicode_name)}</td>`;
+            } else {
+                console.log(`U+${escapeHtml(cp.toString(16).padStart(4, '0'))}`);
+            }
+            output_tbody.appendChild(tr);
+        }
+        console.groupEnd();
+    }
+
+    document.querySelector("#input").addEventListener("input", (e) => {
+        update_table(e.target.value);
+    });
+
+    window.addEventListener("load", () => {
+        const script_prefix = "https://cdn.jsdelivr.net/npm/unicode@14.0.0/category/";
+        const script_names = "Cc,Zs,Po,Sc,Ps,Pe,Sm,Pd,Nd,Lu,Sk,Pc,Ll,So,Lo,Pi,Cf,No,Pf,Lt,Lm,Mn,Me,Mc,Nl,Zl,Zp,Cs,Co".split(",");
+        window.module = {};
+        
+        const promises = [];
+        for (const n of script_names){
+            const promise = new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.onload = function () {
+                    Object.assign(unicode_data, window.module.exports);
+                    resolve(this.src);
+                };
+                script.onerror = function () {
+                    reject(this.src);
+                }
+                script.src = script_prefix + n + '.js';
+                document.head.appendChild(script);
+            });
+            promises.push(promise);
+        }
+        const p_all = Promise.all(promises);
+        p_all.then(() => {
+            console.log("success", unicode_data[1024]);
+            update_table("🐐")
+        }).catch((err) => {
+            document.querySelector("#debug-info").innerText = "加载失败： " + err;
+            console.error("加载失败： " + err);
+        });
+    });
+</script>

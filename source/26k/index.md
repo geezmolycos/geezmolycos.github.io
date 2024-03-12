@@ -11,5 +11,6 @@ title: 金毛妙妙工具
 - [文件格式可视化](file_format_visualization.html)
 - [金毛身高计算器](../25k/height_calculator/)
 - [SVGZ图像查看器](../25k/svgz_viewer/)
+- [列出字符Unicode名称](unicode_listing.html)
 
 [查看旧版主页](../25k/)
