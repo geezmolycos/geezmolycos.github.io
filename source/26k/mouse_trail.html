@@ -23,7 +23,7 @@
         .event-counter {
             position: absolute;
             left: 100px;
-            top: 100px;
+            top: 60px;
             font-size: 24px;
         }
     </style>
@@ -35,7 +35,14 @@
     <div class="canvas-container">
         <canvas id="magnifiedCanvas" width="800" height="600"></canvas>
     </div>
-    <div class="event-counter" id="eventCounter">Events/Second: 0</div>
+    <div class="event-counter">
+        <div id="eventCounter">
+            Events/Second: 0
+        </div>
+        <div id="scale">
+            Scale: --
+        </div>
+    </div>
     <script>
         let eventCount = 0;
         const canvas = document.getElementById('canvas');
@@ -46,6 +53,7 @@
         const scale = window.devicePixelRatio; // Change to 1 on retina screens to see blurry canvas.
         canvas.width = Math.floor(width * scale);
         canvas.height = Math.floor(height * scale);
+        document.getElementById('scale').innerText = 'Scale: ' + scale;
 
         const ctx = canvas.getContext('2d');
         const magnifiedCanvas = document.getElementById('magnifiedCanvas');
@@ -122,7 +130,7 @@
         canvas.addEventListener('pointerdown', (event) => {
             if (event.button === 0) {
                 isDrawing = true;
-                createDot(event.offsetX, event.offsetY);
+                createDot(Math.floor(event.offsetX * scale), Math.floor(event.offsetY * scale));
             }
         });
 
