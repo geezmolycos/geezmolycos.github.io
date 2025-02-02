@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse trail tester</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .canvas-container {
+            position: relative;
+            margin-right: 20px;
+        }
+        canvas {
+            border: 1px solid #000;
+        }
+        .event-counter {
+            position: absolute;
+            left: 100px;
+            top: 100px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-container">
+        <canvas id="canvas" width="800" height="600"></canvas>
+    </div>
+    <div class="canvas-container">
+        <canvas id="magnifiedCanvas" width="800" height="600"></canvas>
+    </div>
+    <div class="event-counter" id="eventCounter">Events/Second: 0</div>
+    <script>
+        let eventCount = 0;
+        const canvas = document.getElementById('canvas');
+        const width = 800;
+        const height = 600;
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        const scale = window.devicePixelRatio; // Change to 1 on retina screens to see blurry canvas.
+        canvas.width = Math.floor(width * scale);
+        canvas.height = Math.floor(height * scale);
+
+        const ctx = canvas.getContext('2d');
+        const magnifiedCanvas = document.getElementById('magnifiedCanvas');
+        const magnifiedCtx = magnifiedCanvas.getContext('2d');
+        const dots = new Map();
+        let isDrawing = false;
+
+        function createDot(x, y) {
+            const key = `${x},${y}`;
+            dots.set(key, { alpha: 1, x, y });
+        }
+        
+        const fadeInterval = setInterval(() => {
+            for (let [key, dot] of dots.entries()) {
+                if (dot.alpha > 0) {
+                    dot.alpha -= 0.04;
+                } else {
+                    dots.delete(key);
+                }
+            }
+        }, 50);
+
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            magnifiedCtx.clearRect(0, 0, magnifiedCanvas.width, magnifiedCanvas.height);
+
+            // Draw the dots on the original canvas
+            for (const [key, dot] of dots) {
+                ctx.fillStyle = `rgba(255, 0, 0, ${dot.alpha})`;
+                ctx.beginPath();
+                ctx.arc((dot.x + 0.5), (dot.y + 0.5), 0.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Draw the same dot on the magnified canvas
+                magnifiedCtx.fillStyle = `rgba(255, 0, 0, ${dot.alpha})`;
+                magnifiedCtx.beginPath();
+                magnifiedCtx.arc(((dot.x + 0.5) * 8) % 800, ((dot.y + 0.5) * 8) % 600, 0.5 * 8, 0, Math.PI * 2);
+                magnifiedCtx.fill();
+            }
+
+            // Draw the pixel grid on the magnified canvas
+            drawGrid();
+        }
+
+        function drawGrid() {
+            const gridSize = 8; // Each pixel represents 4x4 in the magnified canvas
+            magnifiedCtx.strokeStyle = '#cccccc'; // Light gray for grid lines
+            magnifiedCtx.lineWidth = 1;
+
+            // Vertical lines
+            for (let x = 0; x < magnifiedCanvas.width; x += gridSize) {
+                magnifiedCtx.beginPath();
+                magnifiedCtx.moveTo(x + 0.5, 0);
+                magnifiedCtx.lineTo(x + 0.5, magnifiedCanvas.height);
+                magnifiedCtx.stroke();
+            }
+
+            // Horizontal lines
+            for (let y = 0; y < magnifiedCanvas.height; y += gridSize) {
+                magnifiedCtx.beginPath();
+                magnifiedCtx.moveTo(0, y + 0.5);
+                magnifiedCtx.lineTo(magnifiedCanvas.width, y + 0.5);
+                magnifiedCtx.stroke();
+            }
+        }
+        
+        function animate() {
+            draw();
+            requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+
+        canvas.addEventListener('pointerdown', (event) => {
+            if (event.button === 0) {
+                isDrawing = true;
+                createDot(event.offsetX, event.offsetY);
+            }
+        });
+
+        canvas.addEventListener('pointermove', (event) => {
+            if (isDrawing) {
+                eventCount++;
+                createDot(Math.floor(event.offsetX * scale), Math.floor(event.offsetY * scale));
+                const events = event.getCoalescedEvents();
+                eventCount+= events.length;
+                for (let i = 0; i < events.length; i++)
+                    createDot(Math.floor(events[i].offsetX * scale), Math.floor(events[i].offsetY * scale));
+            }
+        });
+
+        canvas.addEventListener('pointerup', () => {
+            isDrawing = false;
+        });
+
+        canvas.addEventListener('pointerleave', () => {
+            isDrawing = false;
+        });
+        
+        function updateEventCounter() {
+            eventCounter.innerText = `Events/Second: ${eventCount}`;
+            eventCount = 0;
+        }
+        setInterval(updateEventCounter, 1000);
+    </script>
+</body>
+</html>
